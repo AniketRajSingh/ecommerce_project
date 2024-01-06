@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% block title %}
+Shopping Cart
+{% endblock title %}
+{% block styles %}
+<style>
+    /* Your custom styles go here */
+    .cart-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+
+    .checkout-button-container {
+        text-align: right;
+        margin-top: 20px;
+    }
+
+    .checkout-button,
+    .update-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .quantityValue {
+        border-radius: 8px;
+    }
+
+    .quantityValue:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 34, 0.25);
+        color: #38a509;
+    }
+
+    .quantity {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .remove-btn {
+        text-align: center;
+    }
+
+    .remove-btn i {
+        color: #eb676d;
+        margin: auto;
+        font-size: x-large;
+    }
+
+    .remove-btn button {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+    }
+</style>
+{% endblock styles %}
+{% block body %}
+<div class="container cart-container">
+    <h1>Your Cart</h1>
+
+    {% if products_in_cart %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">S. No.</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+                <th style="text-align: center;" scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products_in_cart %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ product.name }}</td>
+
+                {% for key, value in cart.items %}
+                {% if key == product.id|stringformat:"s" %}
+                <td class="quantity" data-product-id="{{ key }}">
+                    <button class="btn btn-sm btn-sr decrease-quantity" data-product-id="{{ key }}">-</button>
+                    <span contenteditable="false" class="quantityValue" data-product-id="{{ key }}">{{ value }}</span>
+                    <button class="btn btn-sm btn-ss increase-quantity" data-product-id="{{ key }}">+</button>
+                </td>
+                <td class='product_price'>₹{{ product.price }}</td>
+                <td class='total'>₹</td>
+                <td class="remove-btn">
+                    <button class="remove-button" data-product-id="{{ key }}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" class="text-right"><strong>Total Price:</strong></td>
+                <td class="text-center"><strong id="grand-total">₹ {{ total_price }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="checkout-button-container">
+        <a href="{% url 'order_confirmation' %}" class="btn btn-ss checkout-button">Buy Now</a>
+    </div>
+    {% else %}
+    <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock body %}
+{% block javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var quantityCells = document.querySelectorAll('.quantityValue');
+        var decreaseButtons = document.querySelectorAll('.decrease-quantity');
+        var increaseButtons = document.querySelectorAll('.increase-quantity');
+        var removeButtons = document.querySelectorAll('.remove-button');
+        var productPrices = document.querySelectorAll('.product_price');
+        var totals = document.querySelectorAll('.total');
+        var grandTotal = document.getElementById('grand-total');
+
+
+        function updateTotals() {
+            var grandTotalValue = 0;
+
+            quantityCells.forEach(function (quantityCell, index) {
+                var quantityValue = parseInt(quantityCell.textContent.trim()) || 0;
+                var price = parseFloat(productPrices[index].textContent.slice(1).trim()) || 0; // Remove the ₹ sign
+                var total = quantityValue * price;
+                totals[index].textContent = '₹' + total;
+
+                grandTotalValue += total;
+            });
+
+            grandTotal.textContent = '₹' + grandTotalValue;
+        }
+
+        function createButtonClickHandler(quantityCell, index, action) {
+            return function () {
+                var currentQuantity = parseInt(quantityCell.textContent.trim()) || 0;
+                var productId = quantityCell.dataset.productId;
+
+                if (action === 'increase') {
+                    quantityCell.textContent = currentQuantity + 1;
+
+                    // Send an asynchronous request to the server to update the cart
+                    fetch(`/store/add_to_cart/${productId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                        },
+                        body: JSON.stringify({}),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Handle success
+                                console.log('Item added to the cart successfully');
+                            } else {
+                                // Handle failure
+                                console.log('Failed to add item to the cart');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error adding item to the cart:', error);
+                        });
+                } else if (action === 'decrease' && currentQuantity > 1) {
+                    quantityCell.textContent = currentQuantity - 1;
+                    // Send an asynchronous request to the server to update the cart
+                    fetch(`/store/substract_from_cart/${productId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                        },
+                        body: JSON.stringify({}),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Handle success
+                                console.log('Item substracted from the cart successfully');
+                            } else {
+                                // Handle failure
+                                console.log('Failed to substract item from the cart');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error substracting item from the cart:', error);
+                        });
+                }
+                updateTotals();
+            };
+        }
+
+        function removeFromCart(productId) {
+            // Send an asynchronous request to the server to remove the item from the cart
+            fetch(`/store/remove_cart_item/${productId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                },
+                body: JSON.stringify({}),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Handle success
+                        console.log('Item removed from the cart successfully');
+                        var rowToRemove = document.querySelector(`[data-product-id="${productId}"]`).closest('tr');
+                        if (rowToRemove) {
+                            var price = parseFloat(rowToRemove.querySelector('.product_price').textContent.slice(1).trim()) || 0;
+                            var quantity = parseFloat(rowToRemove.querySelector('.quantityValue').textContent) || 1; // Corrected to get quantity
+                            rowToRemove.remove();
+
+                            var grandTotalValue = parseFloat(grandTotal.textContent.slice(1).trim()) || 0;
+                            var removedTotal = price * quantity; // Calculate the removed total
+                            grandTotalValue -= removedTotal;
+                            grandTotal.textContent = '₹' + grandTotalValue;
+                        }
+                    } else {
+                        // Handle failure
+                        console.log('Failed to remove item from the cart');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error removing item from the cart:', error);
+                });
+        }
+
+        quantityCells.forEach(function (quantityCell, index) {
+            decreaseButtons[index].addEventListener('click', createButtonClickHandler(quantityCell, index, 'decrease'));
+            increaseButtons[index].addEventListener('click', createButtonClickHandler(quantityCell, index, 'increase'));
+        });
+
+        removeButtons.forEach(function (removeButton) {
+            // Get the product ID from the data attribute
+            var productId = removeButton.dataset.productId;
+
+            if (!productId) {
+                console.error('Product ID not found');
+                return;
+            }
+
+            removeButton.addEventListener('click', function () {
+                removeFromCart(productId);
+            });
+        });
+
+        updateTotals();
+    });
+</script>
+{% endblock javascript %}

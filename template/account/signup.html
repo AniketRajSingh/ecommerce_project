@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %}Signup{% endblock title %}
+
+{% block styles %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .signup-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+    }
+
+    h2 {
+        color: #007bff;
+        margin-bottom: 20px;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    div.form-group {
+        margin-bottom: 20px;
+    }
+
+    input.form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        background-color: #f7f8f9;
+        margin-top: 8px;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+    }
+
+    input.form-control:focus {
+        border-color: #007bff;
+        background-color: #f3f4f5;
+    }
+
+
+    .google-signup {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .google-icon {
+        width: 30px;
+        margin-right: 10px;
+    }
+
+    .google-signup:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive Styles */
+
+    @media (max-width: 576px) {
+        .signup-container {
+            max-width: 100%;
+            box-shadow: none;
+            border: none;
+            padding: 20px;
+        }
+
+        h2,
+        label {
+            font-size: 16px;
+        }
+    }
+
+    @media (min-width: 577px) and (max-width: 768px) {
+        .signup-container {
+            max-width: 80%;
+        }
+    }
+
+    /* Password Instructions */
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .password-instructions {
+        font-size: 14px;
+        margin-top: 8px;
+        color: #8c96a0;
+    }
+
+    .errorlist {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+    .error-message{
+        color: #ffaa0c;
+        font-size: 14px;
+        margin-top: 8px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            
+            <!-- Username -->
+            <div class="form-group">
+                <label for="id_username">Username:</label>
+                <input type="text" name="username" maxlength="150" required id="id_username" class="form-control">
+                {{ form.username.errors }}
+            </div>
+            
+            <!-- Password1 -->
+            <div class="form-group">
+                <label for="id_password1">Password:</label>
+                <input type="password" name="password1" required id="id_password1" class="form-control">
+                {{ form.password1.errors }}
+            </div>
+        
+            <!-- Password2 -->
+            <div class="form-group">
+                <label for="id_password2">Password confirmation:</label>
+                <input type="password" name="password2" required id="id_password2" class="form-control">
+                {{ form.password2.errors }}
+            </div>
+            {{ form.non_field_errors }}
+        
+            <button class="btn btn-ss" type="submit">Sign Up</button>
+        </form>
+        
+        <a href="{% provider_login_url 'google' method='oauth2' %}" class="google-signup">
+            <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Icon" class="google-icon">
+            Sign Up with Google
+        </a>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            // Function to show error messages dynamically
+            function showError(input, message) {
+                var errorDiv = input.next(".error-message");
+                if (!errorDiv.length) {
+                    errorDiv = $('<div class="error-message"></div>');
+                    input.after(errorDiv);
+                }
+                errorDiv.text(message);
+            }
+
+            // Function to hide error messages
+            function hideError(input) {
+                input.next(".error-message").remove();
+            }
+
+            // Show/hide error messages based on input
+            $("input[name='username']").on("input", function () {
+                if ($(this).val().length > 150) {
+                    showError($(this), "Username must be 150 characters or fewer.");
+                } else {
+                    hideError($(this));
+                }
+            });
+
+            $("input[name='password1']").on("input", function () {
+                var password = $(this).val();
+                var username = $("input[name='username']").val();
+                
+                // Your existing password validation logic here
+                
+                // Example: Checking if password is too similar to the username
+                if (password.includes(username)) {
+                    showError($(this), "Password can't be too similar to your username.");
+                } else {
+                    hideError($(this));
+                }
+            });
+
+            // Repeat similar logic for other password validations
+
+            $("input[name='password2']").on("input", function () {
+                var password1 = $("input[name='password1']").val();
+                var password2 = $(this).val();
+
+                if (password1 !== password2) {
+                    showError($(this), "Passwords do not match.");
+                } else {
+                    hideError($(this));
+                }
+            });
+        });
+    </script>
+{% endblock %}

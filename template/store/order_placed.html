@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Thank You for Your Order
+{% endblock title %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4 mb-4">Thank You for Your Order!</h1>
+
+    <p>Your order has been successfully placed. Below are the details:</p>
+
+    <div class="mb-4">
+        <h2>Your Order Details:</h2>
+        {% if order %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S. No.</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.order_items.all %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.product.name }}</td>
+                    <td>₹{{ item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2" class="text-center"><strong>Total Price:</strong></td>
+                    <td colspan="1" class="text-left"><strong>₹{{ order.total_price }}</strong></td>
+                    <td colspan="1" class="text-left"></td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    {% if razorpay_order_id %}
+    <div class="mb-4">
+        <h2>Razorpay Order Details:</h2>
+        <p><strong>Order ID:</strong> {{ razorpay_order_id.id }}</p>
+
+    </div>
+    {% endif %}
+
+    <p>We've received your payment. Your order is confirmed, and we'll process it shortly.</p>
+
+    <p>Thank you for shopping with us!</p>
+</div>
+{% endblock body %}

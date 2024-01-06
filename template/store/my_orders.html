@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Orders
+{% endblock title %}
+
+{% block styles %}
+<style>
+    .order-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-details {
+        margin-top: 15px;
+    }
+
+    .product-table {
+        margin-top: 15px;
+    }
+
+    .product-img {
+        max-width: 80px; 
+        max-height: 80px; 
+        margin-bottom: 10px;
+        display: block;
+        margin-right: auto;
+    }
+
+    .product-details {
+        text-align: left;
+    }
+
+    .action-buttons {
+        margin-top: 15px;
+    }
+
+    .action-button {
+        margin-right: 10px;
+    }
+</style>
+{% endblock styles %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4 mb-4">My Orders</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="card order-card">
+                <div class="card-body">
+                    <h5 class="card-title">Order ID: {{ order.order_id }}</h5>
+                    <p class="card-text">Total Price: ₹{{ order.total_price }}</p>
+                    <p class="card-text">Order Date: {{ order.created_at }}</p>
+                    <p class="card-text">Payment Status: {{ order.payment_status }}</p>
+                </div>
+                <div class="order-details">
+                    <h6 class="card-subtitle mb-2 text-muted">Order Details:</h6>
+                    <table class="table product-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.order_items.all %}
+                                <tr>
+                                    <td>
+                                        <div class="product-details">
+                                            <img src="{{ item.product.img }}" alt="{{ item.product.name }}" class="product-img">
+                                            <p>{{ item.product.name }}</p>
+                                        </div>
+                                    </td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>₹{{ item.price }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="action-buttons">
+                    {% if order.delivery_status == 'Pending' %}
+                        <a href="{% url 'cancel_order' order_id=order.id %}" class="btn btn-danger action-button">Cancel Order</a>
+                    {% elif order.delivery_status == 'Delivered' %}
+                        <a href="{% url 'return_order' order_id=order.id %}" class="btn btn-warning text-light action-button">Return Order</a>
+                        <a href="{% url 'replace_order' order_id=order.id %}" class="btn btn-info text-light action-button">Replace Order</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No orders available.</p>
+    {% endif %}
+</div>
+{% endblock body %}

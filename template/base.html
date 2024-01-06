@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store - {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-...." crossorigin="anonymous" />
+    {% block styles %} {% endblock styles %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+        @import url('https://fonts.cdnfonts.com/css/noteworthy');
+        html,body{
+            font-family: 'Poppins'!important;
+        }
+        .body-container{
+            min-height: 80vh;
+        }
+        h1,h2,h3,h4{
+            font-family: 'Noteworthy'!important;
+            color: #38a509;
+        }
+        .navbar-expand-lg .navbar-collapse {
+            justify-content: right;
+        }
+
+        .nav-link {
+            color: white!important;
+        }
+
+        .nav-link:hover {
+            color: rgb(231, 240, 231);
+            font-weight: 600;
+        }
+
+        .dropdown-menu {
+            min-width: auto;
+            right: 0;
+        }
+
+        .navbar-brand,
+        .navbar-search,
+        .navbar-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-search {
+            justify-content: center;
+            width: 33%;
+        }
+
+        .navbar {
+            background-color: #1A6F67 !important;
+            color: #fff;
+        }
+
+        .navbar-brand {
+            color: #fff;
+            /* Text color for the brand/logo */
+        }
+
+        .navbar-collapse {
+            flex-grow: 0;
+            width: 33%;
+        }
+
+        .navbar-header {
+            width: 33%;
+        }
+
+        .btn-navbar {
+            border: white solid 1px;
+            color: #fff;
+        }
+
+        .btn-navbar:hover {
+            color: #1A6F67;
+            background-color: white;
+        }
+
+        .cart {
+            height: 30px;
+            background-color: #38a509 ;
+        }
+
+        .cart i {
+            color: white;
+            background-color: #1A6F67;
+            padding: 10px;
+            border: white 5px solid;
+            border-radius: 50%;
+            height: 80px;
+            width: 80px;
+            padding: 18px;
+            padding-inline: 10.5px;
+            position: absolute;
+            right: 0;
+            margin: 10px;
+            margin-inline-end: 40px;
+            z-index: 999;
+            font-size: 40px;
+        }
+
+        .cart i:hover {
+            scale: 1.1;
+        }
+
+        .fa-shopping-cart:before {
+            margin: auto;
+        }
+
+        .main-footer {
+            background-color: #f49820;
+            margin-inline: 0;
+        }
+        .navbar-brand img{
+            position: absolute;top: 10px;border-radius: 50%;z-index: 999; width: 100px;height: 100px;
+            border: #38a509 solid 5px;
+            border-top: #1A6F67 solid 5px;
+            border-left: #1A6F67 solid 5px;
+        }
+        .btn-ss{
+            border: #38a509 solid 1px !important;
+            color: #38a509 !important;
+        }
+        .btn-ss:hover{
+            color: white !important;;
+            background-color: #38a509 !important;
+        }
+        .btn-sr{
+            border: #eb676d solid 1px !important;
+            color: #eb676d !important;
+        }
+        .btn-sr:hover{
+            color: white !important;;
+            background-color: #eb676d !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"><img src="/static/products/22222.jpg" alt="Logo"></a>
+            </div>
+            <form action="{% url 'product_search' %}" method="get" class="navbar-search d-flex">
+                <input class="form-control me-2" type="search" placeholder="Search Here..." aria-label="Search" name="q">
+                <button class="btn btn-navbar" type="submit">Search</button>
+            </form>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/store/products/">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact/">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about/">About Us</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-circle fa-lg"></i>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="userDropdown">
+                            <a class="dropdown-item" href="{% url 'edit_profile' %}">My Profile</a>
+                            <a class="dropdown-item" href="{% url 'my_orders' %}">My Orders</a>
+                            <a class="dropdown-item" href="/store/CustomerSupport/">Customer Support</a>
+                            <div class="dropdown-divider"></div>
+                            <!-- If the user is authenticated, show the "Logout" option -->
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <!-- If the user is not authenticated, show the "Login" option -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart">
+        <a href="/store/cart/"><i class="fas fa-shopping-cart"></i></a>
+    </div>
+
+    <section class="body-container">
+        {% block body %}{% endblock body %}
+    </section>
+
+
+    <footer class="text-white">
+        <!-- <div class="top-footer px-5"></div> -->
+        <div class="row main-footer p-5 mt-5 mb-1">
+            <div class="col-6 col-md-2 mb-3">
+                <h5>CONTACT INFO</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><h6 style="font-weight: bolder;">ADDRESS</h6><span>
+                        A-123, ABC, XYZ,
+                        Maqbara Road, Ayodhya.</span></li>
+                    <li class="nav-item mb-2"><h6 style="font-weight: bolder;">PHONE</h6><span>+91 7248432377</span></li>
+                    <li class="nav-item mb-2"><h6 style="font-weight: bolder;">EMAIL</h6><span>aniket@tradalab.tech</span></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-2 mb-3">
+                <h5>SNEH-SATTVA</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Contact</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Customer Support</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-2 mb-3">
+                <h5>LEGAL</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Privacy Policy</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Shipping & Delivery</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Disclamer</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Return & Exchange</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">About</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-5 offset-md-1 mb-3">
+                <form>
+                    <h5>BULK ORDERS</h5>
+                    <p>For bulk order enquiry provide us your email.</p>
+                    <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                        <label for="newsletter1" class="visually-hidden">Email address</label>
+                        <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+                        <button class="btn btn-light" type="button">Enquire</button>
+                    </div>
+                </form>
+                <ul class="list-unstyled d-flex my-5">
+                    <li class="mx-3"><a class="link-light" href="#"><i style="font-size:xx-large;" class="fab fa-linkedin"></i></a></li>
+                    <li class="mx-3"><a class="link-light" href="#"><i style="font-size:xx-large;" class="fab fa-instagram"></i></a></li>
+                    <li class="mx-3"><a class="link-light" href="#"><i style="font-size:xx-large;" class="fab fa-facebook"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-2 main-footer px-5">
+            <p style="text-align: center !important;width: 100%;">© 2023 SNEH-SATTVA, Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the dropdown element
+            var dropdown = document.getElementById("userDropdown");
+
+            // Toggle the dropdown when the user icon is clicked
+            document.getElementById("navbarDropdown").addEventListener("click", function () {
+                dropdown.classList.toggle("show");
+            });
+
+            // Close the dropdown when clicking outside of it
+            window.addEventListener("click", function (event) {
+                if (!event.target.matches("#navbarDropdown")) {
+                    if (dropdown.classList.contains("show")) {
+                        dropdown.classList.remove("show");
+                    }
+                }
+            });
+        });
+
+    </script>
+
+    {% block javascript %}{% endblock javascript %}
+</body>
+
+</html>

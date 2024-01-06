@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {{ product.name }} - Product Details
+{% endblock title %}
+{% block styles %}
+    <style>
+        .product-details-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        .product-image {
+            flex: 1;
+            margin-right: 30px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .availability {
+            margin-top: 10px;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn{
+            margin-right: 10px;
+        }
+        .error-message {
+            color: #dc3545; /* Red color for error messages */
+            font-size: 14px;
+            margin-top: 8px;
+        }
+    </style>
+{% endblock styles %}
+
+{% block body %}
+    <!-- Product Detail -->
+    <div class="container mt-5 product-details-container">
+        <div class="product-image">
+            <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p class="lead">{{ product.description }}</p>
+            <p>Category: {{ product.category.name }}</p>
+            <p class="product-price">Price: ₹{{ product.price }}</p>
+            <p class="availability">Availability: {% if product.available %} In Stock {% else %} Out of Stock {% endif %}</p>
+            
+            <!-- Add more details as needed -->
+
+            <div class="action-buttons">
+                <!-- Add to Cart button -->
+                <div style="display: flex;">
+                <form method="post" action="{% url 'remove_cart_item' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Remove from Cart</button>
+                </form>
+                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                </form>
+                </div>
+
+                <!-- Go to Cart button -->
+                <a href="{% url 'cart' %}" class="btn btn-primary">Go to Cart</a>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block javascript %}
+{% endblock javascript %}

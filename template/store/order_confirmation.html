@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order Confirmation
+{% endblock title %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .order-details {
+        margin-bottom: 30px;
+    }
+
+    .order-details h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    textarea {
+        height: 100px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+</style>
+{% endblock styles %}
+
+{% block body %}
+<div class="container">
+    <h1 class="mt-4 mb-4">Order Confirmation</h1>
+
+    <!-- Display order details (You can fetch this from the session or database) -->
+
+    <div class="mb-4">
+        <h2>Your Order Details:</h2>
+        {% if products_in_cart %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S. No.</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products_in_cart %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>₹{{ product.price }}</td>
+                    <td>{{ product.description }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="2" class="text-center"><strong>Total Price:</strong></td>
+                    <td colspan="1" class="text-left"><strong id="grand-total">₹ {{ total_price }}</strong></td>
+                    <td colspan="1" class="text-left"></td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <form method="post" action="{% url 'place_order' %}" class="mb-4" id="order-form">
+        {% csrf_token %}
+
+        <!-- Add form fields for user details -->
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" name="name" id="name" class="form-control"
+                value="{{ request.user.first_name }} {{ request.user.last_name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Your Email:</label>
+            <input type="email" name="email" id="email" class="form-control" value="{{ request.user.email }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Your Phone Number:</label>
+            <input type="tel" name="phone" id="phone" class="form-control"
+                value="{{ request.user.userprofile.phone_number }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Your Address:</label>
+            <textarea name="address" id="address" class="form-control"
+                required>{{ request.user.userprofile.address }}</textarea>
+        </div>
+        <input type="hidden" name="razorpay_amount" id="razorpay_amount" value="{{ total_price }}">
+        <input type="hidden" name="razorpay_order_id" id="razorpay_order_id" value="{{ razorpay_order_id }}">
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id" value="">
+        <input type="hidden" name="razorpay_key" id="razorpay_key" value="{{ razorpay_key }}">
+
+        <button type="button" class="btn btn-ss" id="payment-button">Place Order and Pay</button>
+    </form>
+</div>
+{% endblock body %}
+
+{% block javascript %}
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    document.getElementById('payment-button').onclick = function () {
+        // Extract values from hidden input fields
+        var orderAmount = document.getElementById('razorpay_amount').value;
+        var orderId = document.getElementById('razorpay_order_id').value;
+        var orderName = document.getElementById('name').value;
+        var orderEmail = document.getElementById('email').value;
+        var orderPhone = document.getElementById('phone').value;
+        var razorpayKey = document.getElementById('razorpay_key').value;
+
+        console.log("Razorpay Key:", razorpayKey);
+
+        var options = {
+            "key": razorpayKey,
+            "amount": orderAmount*100,
+            "currency": "INR",
+            "name": "Sneh Sattava",
+            "description": "Order Payment",
+            "payment_capture": 1, 
+            "order_id": orderId,
+            "handler": function (response) {
+                // Handle the successful payment response
+                console.log(response);
+                // You can redirect to a success page or perform additional actions here
+                document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                // Submit the order form after successful payment
+                document.getElementById('order-form').submit();
+            },
+            "prefill": {
+                "name": orderName,
+                "email": orderEmail,
+                "contact": orderPhone
+            },
+            "theme": {
+                "color": "#528FF0"
+            }
+        };
+
+        var rzp1 = new Razorpay(options);
+
+        // Open Razorpay checkout form on button click
+        rzp1.open();
+    }
+</script>
+{% endblock javascript %}
