@@ -1,138 +1,162 @@
 {% extends "base.html" %}
 
 {% block title %}
-About Snehsattva Oils
+About Us - SNEH-SATTVA COLD PRESSED OIL
 {% endblock title %}
 
 {% block styles %}
-
 <style>
-    
-    #map {
-        height: 300px; /* Height of the map */
+    .hero-section {
+        background-image: url('path/to/about_hero_background.jpg');
+        background-size: cover;
+        color: #ffffff;
+        text-align: center;
+        padding: 100px 20px;
     }
 
-    .card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
-        height: 100%;
-        align-items: center;
-        padding: auto;
+    .hero-section h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
     }
 
-    .card:hover {
-        transform: scale(1.05);
+    .hero-section p {
+        font-size: 1.2em;
+        margin-bottom: 40px;
     }
 
-    .animated {
-        animation-duration: 1s;
-        animation-fill-mode: both;
+    .about-content {
+        margin: 40px 0;
     }
 
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0);
+    .about-content h2 {
+        color: #38a509;
+    }
+
+    .about-content p {
+        font-size: 1.1em;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    .about-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 767px) {
+        .hero-section {
+            padding: 40px 20px;
         }
-        40% {
-            transform: translateY(-20px);
-        }
-        60% {
-            transform: translateY(-10px);
-        }
-    }
 
-    .infinite {
-        animation-iteration-count: infinite;
+        .hero-section h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero-section p {
+            font-size: 1em;
+            margin-bottom: 30px;
+        }
+
+        .about-content h2 {
+            font-size: 1.8em;
+        }
+
+        .about-content p {
+            font-size: 1em;
+        }
+
+        .about-image {
+            margin-top: 15px;
+        }
     }
 </style>
 {% endblock styles %}
 
-{% block javascript %}
-<!-- Include Google Maps API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
-
-<!-- Add your additional scripts or include other JS libraries -->
-<script>
-    // Add your custom JavaScript for animations or other interactive features
-    function initMap() {
-        // Initialize the map
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: YOUR_LATITUDE, lng: YOUR_LONGITUDE }, // Replace with actual coordinates
-            zoom: 15 // Adjust the zoom level
-        });
-
-        // Add a marker to the map
-        var marker = new google.maps.Marker({
-            position: { lat: YOUR_LATITUDE, lng: YOUR_LONGITUDE }, // Replace with actual coordinates
-            map: map,
-            title: 'Snehsattva Oils'
-        });
-    }
-</script>
-{% endblock javascript %}
-
 {% block body %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-lg-6">
-            <h1 class="display-4">About Snehsattva Oils</h1>
-            <p class="lead">Bringing back the goodness of traditional, natural, and chemical-free edible oils.</p>
-            <p>At Snehsattva Oils, we are on a mission to make healthy living affordable for everyone. Our journey began with a focus on providing food choices that our ancestors consumed for thousands of years. We believe in preserving the true nutrition, flavor, and aroma of edible oils.</p>
-            <p>Our oils are made from the finest quality food-grade seeds sourced from farms across India. With a 24x7 processing capacity in a pollution-free environment, we ensure that our products reach you fresh and pure.</p>
-        </div>
-        <div class="col-lg-6">
-            <!-- Bootstrap Card -->
-            <div class="card">
-                <!-- Add an image of the Snehsattva Oils facility -->
-                <img src="https://content.jdmagicbox.com/comp/def_content/oil-refining-plants/1f940ba896-oil-refining-plants-1-dgo2q.jpg" class="card-img-top rounded" alt="Snehsattva Oils Facility">
-                <div class="card-body">
-                    <h5 class="card-title">Our Facility</h5>
-                    <p class="card-text">State-of-the-art processing unit in a pollution-free environment.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Google Map Integration -->
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h3>Visit Us</h3>
-            <div id="map"></div>
-        </div>
-    </div>
+<div class="hero-section">
+    <h1>SNEH-SATTVA COLD PRESSED OIL</h1>
+    <p class="text-black">Your Gateway to Health and Tradition</p>
+</div>
 
-    <!-- Additional Information -->
-    <div class="row mt-5">
-        <div class="col-lg-6">
-            <h3>Our Mission</h3>
-            <p>The team at Snehsattva Oils is immensely focused on bringing food which our ancestors consumed for thousands of years and from nature available to everyone at affordable prices.</p>
-            <p>Our journey has humble beginnings. Our mission is to “help customers to live a healthy life with affordable prices, by innovative manufacturing processes and quality management”. We want to push people towards healthy food choices.</p>
-        </div>
-        <div class="col-lg-6">
-            <!-- Bootstrap Card with List -->
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Certifications</h5>
-                    <ul>
-                        <li>24 X 7 Processing Capacity - MIDC Location</li>
-                        <li>ISO 9001 Certified</li>
-                        <li>Government Compliances - FSAII and GST Licencee</li>
-                        <li>Natural and Chemical Free</li>
-                    </ul>
-                </div>
+<!-- About Us Section -->
+<section class="about-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>About Us</h2>
+                <p>The team at Snehsattva Oils is immensely focused on bringing food that our ancestors consumed for thousands
+                    of years and making it available to everyone at affordable prices.</p>
+                <p>Our journey has humble beginnings. Our mission is to help customers live a healthy life with affordable
+                    prices, innovative manufacturing processes, and quality management. We want to push people towards
+                    healthy food choices.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.indianexpress.com/2023/07/olive-oil-health-benefits.jpg" alt="Team Image" class="about-image">
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Add a simple animation to catch the user's attention -->
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            <div class="animated bounce infinite slower">
-                <p class="lead">🌱 Making a difference through natural and authentic products 🌱</p>
+<!-- Our Mission Section -->
+<section class="about-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Our Mission</h2>
+                <p>That’s the way of life our ancestors suggested us and we are here to help you follow a healthy and happy
+                    life with all-natural, chemical-free, and affordable prices.</p>
+                <p>This is our effort to make, promote & deliver amazing things discovered by our ancestors to ensure the
+                    well-being of people.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.indianexpress.com/2023/07/olive-oil-health-benefits.jpg" alt="Mission Image" class="about-image">
             </div>
         </div>
     </div>
+</section>
+
+<!-- Legacy Section -->
+<section class="about-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Legacy</h2>
+                <p>This land has a great legacy of thousands of years of culture, traditions, research, and science. Our
+                    ancestors shared their wisdom with us through various scriptures, be it Yoga, Ayurved, Rasayanshastra, and
+                    many other ancient scriptures. Be it food we eat, Exercise we do, clothes we wear or fragrances we
+                    smell, this land had discovered ways of enjoying life and staying healthy and happy by staying in
+                    harmony with nature.</p>
+                <p>We firmly believe that all we have to do to be happy and healthy is to connect with our own roots. Just
+                    eliminate harmful toxic chemicals from our life, eat better quality of food and adopt a lifestyle in
+                    harmony with nature.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.everydayhealth.com/images/diet-nutrition/olive-oil-nutrition-facts-benefits-for-skin-and-health-side-effects-more-722x406.jpg?sfvrsn=d588ad6_1" alt="Legacy Image" class="about-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Ecosystem Section -->
+<section class="about-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Ecosystem</h2>
+                <p>This thought encouraged us to build an ecosystem that provides a platform for manufacture, sell or look
+                    for authentic traditionally made Indian things.</p>
+                <p>With the blend of Online sales, Stores, delivery fleet, exhibitions, and many other channels we intend to
+                    make pure and authentic things available to customers.</p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://images.everydayhealth.com/images/diet-nutrition/olive-oil-nutrition-facts-benefits-for-skin-and-health-side-effects-more-722x406.jpg?sfvrsn=d588ad6_16" alt="Ecosystem Image" class="about-image">
+            </div>
+        </div>
+    </div>
+</section>
 </div>
 {% endblock body %}

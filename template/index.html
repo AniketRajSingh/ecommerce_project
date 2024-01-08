@@ -1,6 +1,6 @@
 <!-- home.html -->
 {% extends "base.html" %}
-{% load static %}
+
 {% block title %}Home{% endblock title %}
 {% block styles %}
     <style>
@@ -43,7 +43,7 @@
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="{% static '/products/hero.jpg' %}" class="d-block w-100" alt="Hero Image 1">
+                <img src="/static/products/hero.jpg" class="d-block w-100" alt="Hero Image 1">
             </div>
             <div class="carousel-item">
                 <img src="https://picsum.photos/1920/800" class="d-block w-100" alt="Hero Image 2">
