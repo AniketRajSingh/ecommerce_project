@@ -1,6 +1,9 @@
+buildCommand: pip install -r requirements.txt
+startCommand: gunicorn ecommerce_project.wsgi:application
+healthCheckPath: /health-check
 services:
 - name: web
   env: python
-  buildCommand: pip install -r requirements.txt
+  buildCommand: python manage.py collectstatic --noinput  
   startCommand: gunicorn ecommerce_project.wsgi:application
   healthCheckPath: /health-check
