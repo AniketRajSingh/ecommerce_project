@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from store.models import Product
 from django import forms
+from django.http import HttpResponse
 
 def home(request):
     products = Product.objects.all().order_by('?')[:3]
@@ -39,3 +40,6 @@ def contact_view(request):
             return render(request, 'contact.html', {'form': form})
 
     return render(request, 'contact.html', {'form': form})
+
+def health_check(request):
+    return HttpResponse("OK")

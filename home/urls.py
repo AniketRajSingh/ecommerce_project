@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, product_search,contact,about
+from .views import home, product_search,contact,about, health_check
 from store.views import my_orders,cancel_order, return_order, replace_order
 
 urlpatterns = [
@@ -11,4 +11,5 @@ urlpatterns = [
     path('order/<int:order_id>/cancel/', cancel_order, name='cancel_order'),
     path('order/<int:order_id>/return/', return_order, name='return_order'),
     path('order/<int:order_id>/replace/', replace_order, name='replace_order'),
+    path('health-check/', health_check, name='health_check'),
 ]
