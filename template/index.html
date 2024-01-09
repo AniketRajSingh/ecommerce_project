@@ -96,6 +96,8 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
                             <p class="card-text mobile-hidden">{{ product.description }}</p>
+                            <p>Quantity : {{ product.category.name }}</p>
+                            <span class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
                             <p class="card-text">Price: ₹{{ product.price }}</p>
                             <div style="display: flex;justify-content: space-between;align-items: center;">
                                 <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Check Out</a>

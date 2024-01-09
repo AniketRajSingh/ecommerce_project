@@ -74,6 +74,22 @@ Contact
     .svg-container{
         width: 40%;
     }
+    @media (max-width: 767px){
+        .svg-container{
+            position: absolute;
+            z-index: -1;
+            width: 40%;
+            right: 10%;
+            margin-top: 10vh;
+        }
+        .form-container{
+            width: 80%;
+            margin: 10%;
+        }
+        .form-body h1{
+            text-align: left;
+        }
+    }
 </style>
 {% endblock styles %}
 

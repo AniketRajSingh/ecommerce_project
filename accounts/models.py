@@ -6,8 +6,8 @@ class UserProfile(models.Model):
     email = models.EmailField()
     address = models.TextField(blank=True, null=True)
     phone_number = models.CharField(max_length=15)
-    first_name = models.CharField(max_length=100)  # First Name
-    last_name = models.CharField(max_length=100)   # Last Name
+    first_name = models.CharField(max_length=30)  
+    last_name = models.CharField(max_length=30)  
 
     def __str__(self):
         return self.user.username

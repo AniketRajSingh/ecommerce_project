@@ -4,47 +4,91 @@
     {{ product.name }} - Product Details
 {% endblock title %}
 {% block styles %}
-    <style>
-        .product-details-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 50px;
-        }
+<style>
+    .product-details-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 50px;
+    }
 
-        .product-image {
-            flex: 1;
-            margin-right: 30px;
+    .product-image {
+        flex: 1;
+    }
+
+    .product-info {
+        flex: 2;
+        margin-left: 20px; /* Add some spacing between image and info on larger screens */
+    }
+
+    .product-price {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .availability {
+        margin-top: 10px;
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn {
+        margin-right: 10px;
+    }
+
+    .error-message {
+        color: #dc3545; /* Red color for error messages */
+        font-size: 14px;
+        margin-top: 8px;
+    }
+
+    .img-fluid {
+        max-width: 100%; /* Ensure images don't overflow their container */
+        height: auto;
+    }
+    .text-btn{
+        font-size: large;
+        margin-left: 10px;
+    }
+
+    @media (max-width: 767px) {
+        .product-details-container {
+            flex-direction: column;
+            align-items: center; 
+            padding: 40px;
         }
 
         .product-info {
-            flex: 1;
+            margin-left: 0; 
+            margin-top: 20px; 
+        }
+        .lead{
+            font-size: small;
         }
 
-        .product-price {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        .availability {
-            margin-top: 10px;
+        .img-fluid {
+            max-height: 300px; /* Adjust height for better display on smaller screens */
         }
 
         .action-buttons {
-            margin-top: 20px;
-            display: flex;
+            align-items:center; 
             justify-content: space-between;
+            margin-top: 20px;
         }
-        .btn{
-            margin-right: 10px;
+        .p-name{
+            font-size: larger
         }
-        .error-message {
-            color: #dc3545; /* Red color for error messages */
-            font-size: 14px;
-            margin-top: 8px;
+        .text-btn{
+            font-size: medium;
+            margin-left: 0;
         }
-    </style>
+    }
+</style>
 {% endblock styles %}
 
 {% block body %}
@@ -54,29 +98,32 @@
             <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
         </div>
         <div class="product-info">
-            <h1>{{ product.name }}</h1>
+            <h1 class="p-name">{{ product.name }}</h1>
             <p class="lead">{{ product.description }}</p>
-            <p>Category: {{ product.category.name }}</p>
+            <p>Quantity : {{ product.category.name }}</p>
+            <p class="availability">Availability: {% if product.available %} <span class="text-success">In Stock</span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
+            <span class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
             <p class="product-price">Price: ₹{{ product.price }}</p>
-            <p class="availability">Availability: {% if product.available %} In Stock {% else %} Out of Stock {% endif %}</p>
             
             <!-- Add more details as needed -->
 
             <div class="action-buttons">
                 <!-- Add to Cart button -->
+                {% if product.available %}
                 <div style="display: flex;">
                 <form method="post" action="{% url 'remove_cart_item' product.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Remove from Cart</button>
+                    <button type="submit" class="btn btn-danger"><i style="font-size: 1rem;" class="fa-solid fa-cart-arrow-down"></i><span class="text-btn">Remove</span></button>
                 </form>
                 <form method="post" action="{% url 'add_to_cart' product.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                    <button type="submit" class="btn btn-success"><i style="font-size: 1rem;" class="fa-solid fa-cart-plus"></i><span class="text-btn">Add</span></button>
                 </form>
                 </div>
+                {% endif %}
 
                 <!-- Go to Cart button -->
-                <a href="{% url 'cart' %}" class="btn btn-primary">Go to Cart</a>
+                <a href="{% url 'cart' %}" class="btn btn-primary"><i style="font-size: 1rem;" class="fa-solid fa-cart-shopping"></i> <span class="text-btn">Cart</span></a>
             </div>
         </div>
     </div>

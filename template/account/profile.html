@@ -56,18 +56,22 @@ User Profile
         display: flex;
         justify-content: space-between;
     }
+    @media (max-width: 767px){
+        #profile-form-main{
+            padding-inline: 20px;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
+<div id="profile-form-main" class="container mt-5">
     <h2>Edit Profile</h2>
     <div class="row">
         <div class="col-md-8">
             <form id="profile-form" method="post" action="{% url 'edit_profile' %}">
                 {% csrf_token %}
                 <div class="name-container">
-
                     <!-- First Name -->
                     <div class="custom-input-group name-input">
                         <label for="{{ form.first_name.id_for_label }}">First Name</label>
@@ -108,7 +112,7 @@ User Profile
                 <button class="btn btn-ss" type="submit">Save Changes</button>
             </form>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 mobile-hidden">
             <svg class="animated" id="freepik_stories-profile-interface" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"
     version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs">
     <style>
