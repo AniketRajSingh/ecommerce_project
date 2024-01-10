@@ -42,8 +42,8 @@ Products
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text mobile-hidden">{{ product.description }}</p>
                         <p>Quantity : {{ product.category.name }}</p>
-                        <span class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
-                        <p class="card-text text-primary">Price: ₹{{ product.price }}</p>
+                        <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
+                        <p id="final_price" class="card-text text-primary">Price: ₹{{ product.final_price }}</p>
                         <div style="display: flex;justify-content: space-between;align-items: center;">
                             <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
                             <form method="post" action="{% url 'add_to_cart' product.id %}">
@@ -60,4 +60,41 @@ Products
 
 {% endblock body %}
 
-{% block javascript %}{% endblock javascript %}
+{% block javascript %}
+<script>
+    // Function to calculate and display the discount percentage
+    function displayDiscountPercentage(price, finalPrice, discountContainer) {
+        // Ensure the elements exist before performing calculations
+        if (price && finalPrice && discountContainer) {
+            // Parse the price values
+            const originalPrice = parseFloat(price.replace('MRP: ₹', '').trim());
+            const discountedPrice = parseFloat(finalPrice.replace('Price: ₹', '').trim());
+
+            // Calculate the discount percentage
+            const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
+
+            // Display the discount percentage in the specified container
+            discountContainer.textContent = discountPercentage.toFixed(0) + '% OFF';
+        }
+    }
+
+    // Call the function for each product card on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const productCards = document.querySelectorAll('.card');
+
+        productCards.forEach(function (card) {
+            const priceElement = card.querySelector('#price');
+            const finalPriceElement = card.querySelector('#final_price');
+            const discountContainer = card.querySelector('.text-success');
+
+            if (priceElement && finalPriceElement && discountContainer) {
+                const price = priceElement.textContent;
+                const finalPrice = finalPriceElement.textContent;
+
+                // Call the function to display the discount percentage
+                displayDiscountPercentage(price, finalPrice, discountContainer);
+            }
+        });
+    });
+</script>
+{% endblock javascript %}

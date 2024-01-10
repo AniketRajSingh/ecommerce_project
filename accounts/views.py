@@ -15,7 +15,7 @@ def signup(request):
             return redirect('home')  # Adjust the redirect URL as needed
     else:
         form = UserCreationForm()
-    return render(request, 'account/signup.html', {'form': form})
+    return render(request, 'account/login_signup_template.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
@@ -26,14 +26,12 @@ def user_login(request):
             return redirect('home')  # Adjust the redirect URL as needed
     else:
         form = AuthenticationForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'account/login_signup_template.html', {'form': form})
 
 def user_logout(request):
     logout(request)
     return redirect('home')
 
-from django import forms
-from .models import UserProfile
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -75,3 +73,7 @@ def edit_profile(request):
     else:
         form = UserProfileForm(instance=user_profile)
     return render(request, 'account/profile.html', {'form': form})
+
+
+def login_signup_view(request):
+    return render(request, 'login_signup_template.html')

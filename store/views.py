@@ -68,7 +68,7 @@ def cart(request):
     product_ids_in_cart = cart.keys()
     products_in_cart = Product.objects.filter(id__in=product_ids_in_cart)
     product_id_str_list = [str(product.id) for product in products_in_cart]
-    total_price = sum(product.price * cart[product_id] for product_id, product in zip(product_id_str_list, products_in_cart))
+    total_price = sum(product.final_price * cart[product_id] for product_id, product in zip(product_id_str_list, products_in_cart))
 
     return render(request, 'store/cart.html', {'products_in_cart': products_in_cart, 'total_price': total_price, 'cart': cart})
 
@@ -113,7 +113,7 @@ def place_order(request):
             order.order_items.create(
                 product=product,
                 quantity=quantity,
-                price=product.price,
+                price=product.final_price,
             )
 
         order.total_price = total_price
@@ -139,7 +139,7 @@ def place_order(request):
     return redirect('order_confirmation')
 
 def calculate_total_price(products, cart):
-    total_price = sum(product.price * cart[str(product.id)] for product in products)
+    total_price = sum(product.final_price * cart[str(product.id)] for product in products)
     return total_price
 
 @login_required

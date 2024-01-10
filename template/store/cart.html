@@ -11,57 +11,74 @@ Shopping Cart
         padding: 20px;
     }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    th,
-    td {
+    .card {
         border: 1px solid #ddd;
-        justify-content: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        display: flex;
         align-items: center;
-
+        flex-direction: row;
     }
 
-    th {
-        background-color: #f2f2f2;
-    }
-
-    .text-right {
-        text-align: right;
-    }
-
-    .checkout-button-container {
-        text-align: right;
-        margin-top: 20px;
-    }
-
-    .checkout-button,
-    .update-button {
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    .quantityValue {
+    .card img {
+        max-width: 100px;
+        margin-inline: 50px;
         border-radius: 8px;
     }
+    
+    .card-details {
+        border-left: #ced4da solid 1px;
+        flex-grow: 1;
+        padding-left: 50px;
+    }
 
-    .quantityValue:focus-visible {
-        outline: none;
-        box-shadow: 0 0 0 0.2rem rgba(0, 255, 34, 0.25);
-        color: #38a509;
+    .product-details {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .product-info {
+        flex-grow: 1;
     }
 
     .quantity {
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+    }
+
+    .quantity button {
+        padding: 5px;
+        margin: 0 5px;
+        font-size: 12px;
+        cursor: pointer;
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+    }
+
+    .quantityValue {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 5px;
+        margin: 0 5px;
+        font-size: 12px;
+        text-align: center;
+        min-width: 30px;
+    }
+
+    .product-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .total {
+        font-weight: bold;
     }
 
     .remove-btn {
         text-align: center;
+        width: max-content;
     }
 
     .remove-btn i {
@@ -74,55 +91,74 @@ Shopping Cart
         background-color: transparent;
         border: none;
         box-shadow: none;
+        cursor: pointer;
+    }
+
+    .img-fluid {
+        height: 100%;
+        object-fit: contain;
+        width: 100%;
+        border-radius: 8px;
+    }
+    #grand-total{
+        font-size: larger;
+        margin-left: 10px;
+    }
+    @media (max-width: 767px) {
+        .card-details{
+            border-left:none;
+            padding-left: 0;
+            width: 100%;
+        }
+        .card img {
+            margin-inline: 20px;
+        }
+        .cart-container {
+        margin-top: 30px;
+    }
     }
 </style>
+
 {% endblock styles %}
 {% block body %}
 <div class="container cart-container">
     <h1>Your Cart</h1>
 
     {% if products_in_cart %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">S. No.</th>
-                <th scope="col">Product</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Price</th>
-                <th scope="col">Total</th>
-                <th style="text-align: center;" scope="col">Remove</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for product in products_in_cart %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ product.name }}</td>
+    {% for product in products_in_cart %}
+    <div class="card">
+        <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
+        <div class="card-details">
+            <p class="small text-success">{{ product.name }}</p>
+            
 
-                {% for key, value in cart.items %}
-                {% if key == product.id|stringformat:"s" %}
-                <td class="quantity" data-product-id="{{ key }}">
+            {% for key, value in cart.items %}
+            {% if key == product.id|stringformat:"s" %}
+            <div style="display: flex;justify-content: space-between;">
+                <div class="quantity" data-product-id="{{ key }}">
                     <button class="btn btn-sm btn-sr decrease-quantity" data-product-id="{{ key }}">-</button>
                     <span contenteditable="false" class="quantityValue" data-product-id="{{ key }}">{{ value }}</span>
                     <button class="btn btn-sm btn-ss increase-quantity" data-product-id="{{ key }}">+</button>
-                </td>
-                <td class='product_price'>₹{{ product.price }}</td>
-                <td class='total'>₹</td>
-                <td class="remove-btn">
+                </div>
+                <div class="remove-btn">
                     <button class="remove-button" data-product-id="{{ key }}">
                         <i class="fas fa-trash"></i>
                     </button>
-                </td>
-                {% endif %}
-                {% endfor %}
-            </tr>
+                </div>
+            </div>
+            <span class="small">Price: </span><span class='product_price text-primary small'>₹{{ product.final_price }}</span><br>
+            
+            <span>Total: </span><span class='total text-success'>₹</span>
+            
+            {% endif %}
             {% endfor %}
-            <tr>
-                <td colspan="5" class="text-right"><strong>Total Price:</strong></td>
-                <td class="text-center"><strong id="grand-total">₹ {{ total_price }}</strong></td>
-            </tr>
-        </tbody>
-    </table>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="card" style="display:flex;align-items: center;justify-content: right;">
+        <p class="my-1"><strong>Total Price: </strong></p>
+        <p class="text-success my-1"><strong id="grand-total">₹ {{ total_price }}</strong></p>
+    </div>
 
     <div class="checkout-button-container">
         <a href="{% url 'order_confirmation' %}" class="btn btn-ss checkout-button">Buy Now</a>
@@ -142,7 +178,6 @@ Shopping Cart
         var productPrices = document.querySelectorAll('.product_price');
         var totals = document.querySelectorAll('.total');
         var grandTotal = document.getElementById('grand-total');
-
 
         function updateTotals() {
             var grandTotalValue = 0;
@@ -204,14 +239,14 @@ Shopping Cart
                         .then(data => {
                             if (data.success) {
                                 // Handle success
-                                console.log('Item substracted from the cart successfully');
+                                console.log('Item subtracted from the cart successfully');
                             } else {
                                 // Handle failure
-                                console.log('Failed to substract item from the cart');
+                                console.log('Failed to subtract item from the cart');
                             }
                         })
                         .catch(error => {
-                            console.error('Error substracting item from the cart:', error);
+                            console.error('Error subtracting item from the cart:', error);
                         });
                 }
                 updateTotals();
@@ -233,11 +268,11 @@ Shopping Cart
                     if (data.success) {
                         // Handle success
                         console.log('Item removed from the cart successfully');
-                        var rowToRemove = document.querySelector(`[data-product-id="${productId}"]`).closest('tr');
-                        if (rowToRemove) {
-                            var price = parseFloat(rowToRemove.querySelector('.product_price').textContent.slice(1).trim()) || 0;
-                            var quantity = parseFloat(rowToRemove.querySelector('.quantityValue').textContent) || 1; // Corrected to get quantity
-                            rowToRemove.remove();
+                        var cardToRemove = document.querySelector(`[data-product-id="${productId}"]`).closest('.card');
+                        if (cardToRemove) {
+                            var price = parseFloat(cardToRemove.querySelector('.product_price').textContent.slice(1).trim()) || 0;
+                            var quantity = parseFloat(cardToRemove.querySelector('.quantityValue').textContent) || 1; // Corrected to get quantity
+                            cardToRemove.remove();
 
                             var grandTotalValue = parseFloat(grandTotal.textContent.slice(1).trim()) || 0;
                             var removedTotal = price * quantity; // Calculate the removed total

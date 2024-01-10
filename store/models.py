@@ -11,6 +11,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    final_price = models.DecimalField(max_digits=10, decimal_places=2)
     img = models.URLField(max_length=200)
     description = models.TextField()
     available = models.BooleanField(default=False)

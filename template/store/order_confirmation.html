@@ -61,6 +61,17 @@ Order Confirmation
         padding: 10px 20px;
         font-size: 16px;
     }
+    .img-fluid {
+        height: 100px;
+        object-fit: contain;
+        width: 100%;
+        border-radius: 8px;
+    }
+    @media (max-width: 767px) {
+        table{
+            font-size: small;
+        }
+    }
 </style>
 {% endblock styles %}
 
@@ -76,25 +87,26 @@ Order Confirmation
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">S. No.</th>
+                    <th scope="col">S.No.</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Product</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Description</th>
+                    
                 </tr>
             </thead>
             <tbody>
                 {% for product in products_in_cart %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
+                    <td><img class="img-fluid" src="{{ product.img }}" alt="{{ product.name }}"></td>
                     <td>{{ product.name }}</td>
-                    <td>₹{{ product.price }}</td>
-                    <td>{{ product.description }}</td>
+                    <td>₹{{ product.final_price }}</td>
+                    
                 </tr>
                 {% endfor %}
                 <tr>
                     <td colspan="2" class="text-center"><strong>Total Price:</strong></td>
-                    <td colspan="1" class="text-left"><strong id="grand-total">₹ {{ total_price }}</strong></td>
-                    <td colspan="1" class="text-left"></td>
+                    <td colspan="2" class="text-left"><strong id="grand-total">₹ {{ total_price }}</strong></td>
                 </tr>
             </tbody>
         </table>

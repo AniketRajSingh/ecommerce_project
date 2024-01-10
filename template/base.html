@@ -73,11 +73,11 @@
 
         .navbar-collapse {
             flex-grow: 0;
-            width: 33%;
+            width: 36%;
         }
 
         .navbar-header {
-            width: 33%;
+            width: 30%;
         }
 
         .btn-navbar {
@@ -210,6 +210,18 @@
             .footer-mobile{
                 display: block;
             }
+            .dropdown-menu{
+                background-color: transparent;
+                border: none;
+                border-top: white solid 1px;
+                border-radius: 0;
+            }
+            .dropdown-item{
+                color: white;
+            }
+            .dropdown-divider{
+                border-top: #fff solid 1px;
+            }
         }
     </style>
 </head>
@@ -250,6 +262,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user-circle fa-lg"></i>
+                            {{ request.user.first_name }}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown" id="userDropdown">
                             <a class="dropdown-item" href="{% url 'edit_profile' %}">My Profile</a>
