@@ -4,15 +4,36 @@
 Products
 {% endblock title %}
 {% block styles %}
-<link rel="stylesheet" href="{% static 'store/css/product_detail.css' %}">
+<style>
+    .card-img-top{
+        height: 200px;
+        object-fit: contain;
+        width: 100%;
+        border-bottom: 1px solid #ddd;
+    }
+    @media (max-width: 767px){
+        .card{
+            display: flex;
+            flex-direction: row;
+        }
+        .card-img-top{
+            height: 200px;
+            width: 200px;
+            border-bottom: none;
+        }
+        .card-title{
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    }
+</style>
 {% endblock styles %}
 
 
 {% block body %}
 <!-- Product List -->
 <div class="container mt-5">
-    <h2>Search Results</h2>
-    <p>Results for '{{ query }}' :</p>
+    <h1>Product List</h1>
     <div class="row">
         {% for product in products %}
             <div class="col-md-4 mb-4">
@@ -20,9 +41,19 @@ Products
                     <img src="{{product.img}}" class="card-img-top" alt="Product Image">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text">{{ product.description }}</p>
-                        <p class="card-text">Price: ₹{{ product.price }}</p>
-                        <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-primary">Check Out</a>
+                        <p class="card-text mobile-hidden">{{ product.description }}</p>
+                        <p>Quantity : {{ product.category.name }}</p>
+                        <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
+                        <p id="final_price" class="card-text text-primary">Price: ₹{{ product.final_price }}</p>
+                        <div style="display: flex;justify-content: space-between;align-items: center;">
+                            <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
+                            {% if product.available %}
+                            <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn"><i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i></button>
+                            </form>
+                            {% else %} <span class="text-danger small ms-5">Out of Stock</span> {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
