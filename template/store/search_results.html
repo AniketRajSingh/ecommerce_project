@@ -33,8 +33,9 @@ Products
 {% block body %}
 <!-- Product List -->
 <div class="container mt-5">
-    <h1>Product List</h1>
+    <h1>Search Results</h1>
     <div class="row">
+        {% if products %}
         {% for product in products %}
             <div class="col-md-4 mb-4">
                 <div class="card">
@@ -57,7 +58,10 @@ Products
                     </div>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+            {% else %}
+            <h5 class="text-danger mt-3">No Such Products</h5>
+            {% endif%}
     </div>
 </div>
 

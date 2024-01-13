@@ -103,7 +103,7 @@
             <p>Quantity : {{ product.category.name }}</p>
             <p class="availability">Availability: {% if product.available %} <span class="text-success">In Stock</span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
             <span class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
-            <p class="product-price">Price: ₹{{ product.price }}</p>
+            <p class="product-price">Price: ₹{{ product.final_price }}</p>
             
             <!-- Add more details as needed -->
 
