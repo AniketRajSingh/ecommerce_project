@@ -11,6 +11,10 @@ Products
         width: 100%;
         border-bottom: 1px solid #ddd;
     }
+    button:disabled {
+        color: #999!important;
+        border: none!important;
+    }
     @media (max-width: 767px){
         .card{
             display: flex;
@@ -37,27 +41,30 @@ Products
     <div class="row">
         {% if products %}
         {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="{{product.img}}" class="card-img-top" alt="Product Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text mobile-hidden">{{ product.description }}</p>
-                        <p>Quantity : {{ product.category.name }}</p>
-                        <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
-                        <p id="final_price" class="card-text text-primary">Price: ₹{{ product.final_price }}</p>
-                        <div style="display: flex;justify-content: space-between;align-items: center;">
-                            <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
-                            {% if product.available %}
-                            <form method="post" action="{% url 'add_to_cart' product.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="btn"><i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i></button>
-                            </form>
-                            {% else %} <span class="text-danger small ms-5">Out of Stock</span> {% endif %}
-                        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{product.img}}" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text mobile-hidden">{{ product.description }}</p>
+                    <p>Quantity : {{ product.category.name }}</p>
+                    <p>Availability: {% if product.available %} <span class="text-success" >In Stock </span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
+                    <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success discount mx-1 extra small">20% OFF</span>
+                    <p id="final_price" class="card-text text-primary">Price: ₹{{ product.final_price }}</p>
+                    <div style="display: flex;justify-content: space-between;align-items: center;">
+                        <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            {% if product.available %} 
+                            <button type="submit" class="btn"><i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i></button>
+                            {% else %} 
+                            <button type="submit" disabled class="btn disabled-btn"><i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i></button>
+                            {% endif %}
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
             {% endfor %}
             {% else %}
             <h5 class="text-danger mt-3">No Such Products</h5>
