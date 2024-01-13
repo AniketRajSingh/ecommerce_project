@@ -23,7 +23,6 @@ admin.site.index_title = "Welcome to the SNEH-SATTVA's Admin Page"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('dashboard/', include('dashboard.urls')),
     path('store/', include('store.urls')),
     path('accounts/', include('accounts.urls')),
 ]
