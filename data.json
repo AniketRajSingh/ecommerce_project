@@ -1,0 +1,2094 @@
+[
+    {
+        "model": "socialaccount.socialapp",
+        "pk": 1,
+        "fields": {
+            "provider": "google",
+            "provider_id": "",
+            "name": "Login with Google",
+            "client_id": "420942905857-ocegi0f9uoiqkn5ec20lj146i2gmn2gk.apps.googleusercontent.com",
+            "secret": "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",
+            "key": "",
+            "settings": {}
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2024-01-08T06:49:22.923Z",
+            "user": 2,
+            "content_type": 4,
+            "object_id": "1",
+            "object_repr": "Login with Google",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 2,
+        "fields": {
+            "action_time": "2024-01-08T14:10:07.804Z",
+            "user": 2,
+            "content_type": 12,
+            "object_id": "1",
+            "object_repr": "Oil",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 3,
+        "fields": {
+            "action_time": "2024-01-08T14:10:32.364Z",
+            "user": 2,
+            "content_type": 12,
+            "object_id": "2",
+            "object_repr": "1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 4,
+        "fields": {
+            "action_time": "2024-01-08T14:12:17.058Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500g",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 5,
+        "fields": {
+            "action_time": "2024-01-08T14:17:22.818Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500g",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Img\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 6,
+        "fields": {
+            "action_time": "2024-01-08T14:18:24.328Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500g",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Img\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 7,
+        "fields": {
+            "action_time": "2024-01-08T14:20:38.154Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500g",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Img\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 8,
+        "fields": {
+            "action_time": "2024-01-08T14:21:45.809Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500g",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Img\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 9,
+        "fields": {
+            "action_time": "2024-01-08T14:24:34.844Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 10,
+        "fields": {
+            "action_time": "2024-01-08T14:25:58.560Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "3",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 5L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 11,
+        "fields": {
+            "action_time": "2024-01-08T15:08:17.779Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "4",
+            "object_repr": "COLD PRESSED TIL OIL-500 ml",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 12,
+        "fields": {
+            "action_time": "2024-01-08T15:14:19.354Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "5",
+            "object_repr": "COLD PRESSED TIL OIL- 1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 13,
+        "fields": {
+            "action_time": "2024-01-08T15:14:39.675Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "5",
+            "object_repr": "COLD PRESSED TIL OIL- 1L",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 14,
+        "fields": {
+            "action_time": "2024-01-08T15:15:20.141Z",
+            "user": 2,
+            "content_type": 12,
+            "object_id": "3",
+            "object_repr": "500 ml",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 15,
+        "fields": {
+            "action_time": "2024-01-08T15:15:27.299Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500 ml",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Category\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 16,
+        "fields": {
+            "action_time": "2024-01-08T15:15:56.209Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 1L",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 17,
+        "fields": {
+            "action_time": "2024-01-08T15:16:24.474Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "4",
+            "object_repr": "COLD PRESSED TIL OIL-500 ml",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Category\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 18,
+        "fields": {
+            "action_time": "2024-01-08T15:16:54.025Z",
+            "user": 2,
+            "content_type": 12,
+            "object_id": "1",
+            "object_repr": "5L",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 19,
+        "fields": {
+            "action_time": "2024-01-08T15:16:57.848Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "3",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 5L",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 20,
+        "fields": {
+            "action_time": "2024-01-08T15:17:10.752Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 1L",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 21,
+        "fields": {
+            "action_time": "2024-01-08T15:17:19.337Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 1L",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 22,
+        "fields": {
+            "action_time": "2024-01-08T15:17:30.580Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 500 ml",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 23,
+        "fields": {
+            "action_time": "2024-01-08T15:39:19.681Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "6",
+            "object_repr": "COLD PRESSED SUNFLOWER OIL- 5OOml",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 24,
+        "fields": {
+            "action_time": "2024-01-08T15:44:58.667Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "7",
+            "object_repr": "COLD PRESSED SUNFLOWER OIL- 1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 25,
+        "fields": {
+            "action_time": "2024-01-08T16:03:52.173Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "8",
+            "object_repr": "COLD PRESSED SAFFLOWER OIL - 500ml",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 26,
+        "fields": {
+            "action_time": "2024-01-08T16:06:30.390Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "9",
+            "object_repr": "COLD PRESSED SAFFLOWER OIL - 1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 27,
+        "fields": {
+            "action_time": "2024-01-08T16:40:30.059Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "10",
+            "object_repr": "COLD PRESSED MUSTARD OIL - 500 ml",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 28,
+        "fields": {
+            "action_time": "2024-01-08T16:42:17.823Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "11",
+            "object_repr": "COLD PRESSED MUSTARD OIL - 1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 29,
+        "fields": {
+            "action_time": "2024-01-08T16:49:28.878Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "12",
+            "object_repr": "COLD PRESSED COCONUT OIL - 500ml",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 30,
+        "fields": {
+            "action_time": "2024-01-08T16:51:43.030Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "13",
+            "object_repr": "COLD PRESSED COCONUT OIL - 1L",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 31,
+        "fields": {
+            "action_time": "2024-01-08T16:53:19.755Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "3",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 5L",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 32,
+        "fields": {
+            "action_time": "2024-01-08T16:53:47.711Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 1L",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 33,
+        "fields": {
+            "action_time": "2024-01-08T16:54:12.363Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL - 1L",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 34,
+        "fields": {
+            "action_time": "2024-01-09T20:53:01.622Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "6",
+            "object_repr": "COLD PRESSED SUNFLOWER OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 35,
+        "fields": {
+            "action_time": "2024-01-09T20:53:55.756Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "8",
+            "object_repr": "COLD PRESSED SAFFLOWER OIL - 500ml",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 36,
+        "fields": {
+            "action_time": "2024-01-09T20:54:13.978Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "6",
+            "object_repr": "COLD PRESSED SUNFLOWER OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 37,
+        "fields": {
+            "action_time": "2024-01-09T20:56:03.721Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "13",
+            "object_repr": "COLD PRESSED COCONUT OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 38,
+        "fields": {
+            "action_time": "2024-01-09T20:57:31.170Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "12",
+            "object_repr": "COLD PRESSED COCONUT OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 39,
+        "fields": {
+            "action_time": "2024-01-09T20:58:25.863Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "1",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 40,
+        "fields": {
+            "action_time": "2024-01-09T20:59:07.801Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "8",
+            "object_repr": "COLD PRESSED SAFFLOWER OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 41,
+        "fields": {
+            "action_time": "2024-01-09T20:59:52.149Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "11",
+            "object_repr": "COLD PRESSED MUSTARD OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 42,
+        "fields": {
+            "action_time": "2024-01-09T21:00:18.603Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "10",
+            "object_repr": "COLD PRESSED MUSTARD OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 43,
+        "fields": {
+            "action_time": "2024-01-09T21:00:58.827Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "9",
+            "object_repr": "COLD PRESSED SAFFLOWER OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Available\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 44,
+        "fields": {
+            "action_time": "2024-01-09T21:01:43.726Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "7",
+            "object_repr": "COLD PRESSED SUNFLOWER OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 45,
+        "fields": {
+            "action_time": "2024-01-09T21:01:47.422Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "7",
+            "object_repr": "COLD PRESSED SUNFLOWER OIL",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 46,
+        "fields": {
+            "action_time": "2024-01-09T21:02:11.055Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "5",
+            "object_repr": "COLD PRESSED TIL OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 47,
+        "fields": {
+            "action_time": "2024-01-09T21:02:31.304Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "3",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 48,
+        "fields": {
+            "action_time": "2024-01-09T21:03:03.030Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "2",
+            "object_repr": "COLD PRESSED GROUNDNUT OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 49,
+        "fields": {
+            "action_time": "2024-01-09T21:03:36.081Z",
+            "user": 2,
+            "content_type": 17,
+            "object_id": "4",
+            "object_repr": "COLD PRESSED TIL OIL",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 50,
+        "fields": {
+            "action_time": "2024-01-09T22:38:19.967Z",
+            "user": 2,
+            "content_type": 9,
+            "object_id": "1",
+            "object_repr": "anianiket",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 51,
+        "fields": {
+            "action_time": "2024-01-09T22:38:20.113Z",
+            "user": 2,
+            "content_type": 9,
+            "object_id": "3",
+            "object_repr": "yhljuiyiugjh",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 52,
+        "fields": {
+            "action_time": "2024-01-12T09:18:41.024Z",
+            "user": 2,
+            "content_type": 13,
+            "object_id": "2",
+            "object_repr": "Order 2 - aryan",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Delivery status\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 53,
+        "fields": {
+            "action_time": "2024-01-12T09:19:16.099Z",
+            "user": 2,
+            "content_type": 13,
+            "object_id": "2",
+            "object_repr": "Order 2 - aryan",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Delivery status\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 54,
+        "fields": {
+            "action_time": "2024-01-12T09:19:50.369Z",
+            "user": 2,
+            "content_type": 13,
+            "object_id": "2",
+            "object_repr": "Order 2 - aryan",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Delivery status\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 55,
+        "fields": {
+            "action_time": "2024-01-14T06:13:26.120Z",
+            "user": 2,
+            "content_type": 13,
+            "object_id": "5",
+            "object_repr": "Order 5 - aniket",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 56,
+        "fields": {
+            "action_time": "2024-01-14T06:13:26.246Z",
+            "user": 2,
+            "content_type": 13,
+            "object_id": "4",
+            "object_repr": "Order 4 - aniket",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 57,
+        "fields": {
+            "action_time": "2024-01-14T12:43:02.401Z",
+            "user": 2,
+            "content_type": 21,
+            "object_id": "1",
+            "object_repr": "dummy desc",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 58,
+        "fields": {
+            "action_time": "2024-01-14T13:49:35.412Z",
+            "user": 2,
+            "content_type": 21,
+            "object_id": "1",
+            "object_repr": "Coconut oil, derived from coconuts, is a versatile, nourishing oil, beneficial for cooking, skincare, and haircare.",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Image url\", \"Description\", \"Button name\", \"Redirection link\"]}}]"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add email address",
+            "content_type": 1,
+            "codename": "add_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change email address",
+            "content_type": 1,
+            "codename": "change_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete email address",
+            "content_type": 1,
+            "codename": "delete_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view email address",
+            "content_type": 1,
+            "codename": "view_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add email confirmation",
+            "content_type": 2,
+            "codename": "add_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change email confirmation",
+            "content_type": 2,
+            "codename": "change_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete email confirmation",
+            "content_type": 2,
+            "codename": "delete_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view email confirmation",
+            "content_type": 2,
+            "codename": "view_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add social account",
+            "content_type": 3,
+            "codename": "add_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change social account",
+            "content_type": 3,
+            "codename": "change_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete social account",
+            "content_type": 3,
+            "codename": "delete_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view social account",
+            "content_type": 3,
+            "codename": "view_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add social application",
+            "content_type": 4,
+            "codename": "add_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change social application",
+            "content_type": 4,
+            "codename": "change_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete social application",
+            "content_type": 4,
+            "codename": "delete_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view social application",
+            "content_type": 4,
+            "codename": "view_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add social application token",
+            "content_type": 5,
+            "codename": "add_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change social application token",
+            "content_type": 5,
+            "codename": "change_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete social application token",
+            "content_type": 5,
+            "codename": "delete_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view social application token",
+            "content_type": 5,
+            "codename": "view_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 6,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 6,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 6,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 6,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 7,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 7,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 7,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 7,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 8,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 8,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 8,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 8,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 9,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 9,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 9,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 9,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 10,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 10,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 10,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 10,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 11,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 11,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 11,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 11,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add category",
+            "content_type": 12,
+            "codename": "add_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change category",
+            "content_type": 12,
+            "codename": "change_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete category",
+            "content_type": 12,
+            "codename": "delete_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view category",
+            "content_type": 12,
+            "codename": "view_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add order",
+            "content_type": 13,
+            "codename": "add_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change order",
+            "content_type": 13,
+            "codename": "change_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete order",
+            "content_type": 13,
+            "codename": "delete_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view order",
+            "content_type": 13,
+            "codename": "view_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add order status",
+            "content_type": 14,
+            "codename": "add_orderstatus"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change order status",
+            "content_type": 14,
+            "codename": "change_orderstatus"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete order status",
+            "content_type": 14,
+            "codename": "delete_orderstatus"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view order status",
+            "content_type": 14,
+            "codename": "view_orderstatus"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+            "name": "Can add return",
+            "content_type": 15,
+            "codename": "add_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+            "name": "Can change return",
+            "content_type": 15,
+            "codename": "change_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+            "name": "Can delete return",
+            "content_type": 15,
+            "codename": "delete_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+            "name": "Can view return",
+            "content_type": 15,
+            "codename": "view_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 61,
+        "fields": {
+            "name": "Can add replacement",
+            "content_type": 16,
+            "codename": "add_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 62,
+        "fields": {
+            "name": "Can change replacement",
+            "content_type": 16,
+            "codename": "change_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 63,
+        "fields": {
+            "name": "Can delete replacement",
+            "content_type": 16,
+            "codename": "delete_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 64,
+        "fields": {
+            "name": "Can view replacement",
+            "content_type": 16,
+            "codename": "view_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 65,
+        "fields": {
+            "name": "Can add product",
+            "content_type": 17,
+            "codename": "add_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 66,
+        "fields": {
+            "name": "Can change product",
+            "content_type": 17,
+            "codename": "change_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 67,
+        "fields": {
+            "name": "Can delete product",
+            "content_type": 17,
+            "codename": "delete_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 68,
+        "fields": {
+            "name": "Can view product",
+            "content_type": 17,
+            "codename": "view_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 69,
+        "fields": {
+            "name": "Can add order item",
+            "content_type": 18,
+            "codename": "add_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 70,
+        "fields": {
+            "name": "Can change order item",
+            "content_type": 18,
+            "codename": "change_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 71,
+        "fields": {
+            "name": "Can delete order item",
+            "content_type": 18,
+            "codename": "delete_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+            "name": "Can view order item",
+            "content_type": 18,
+            "codename": "view_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+            "name": "Can add cancellation",
+            "content_type": 19,
+            "codename": "add_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+            "name": "Can change cancellation",
+            "content_type": 19,
+            "codename": "change_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+            "name": "Can delete cancellation",
+            "content_type": 19,
+            "codename": "delete_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+            "name": "Can view cancellation",
+            "content_type": 19,
+            "codename": "view_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 77,
+        "fields": {
+            "name": "Can add user profile",
+            "content_type": 20,
+            "codename": "add_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 78,
+        "fields": {
+            "name": "Can change user profile",
+            "content_type": 20,
+            "codename": "change_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 79,
+        "fields": {
+            "name": "Can delete user profile",
+            "content_type": 20,
+            "codename": "delete_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 80,
+        "fields": {
+            "name": "Can view user profile",
+            "content_type": 20,
+            "codename": "view_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 81,
+        "fields": {
+            "name": "Can add home page popup",
+            "content_type": 21,
+            "codename": "add_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 82,
+        "fields": {
+            "name": "Can change home page popup",
+            "content_type": 21,
+            "codename": "change_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 83,
+        "fields": {
+            "name": "Can delete home page popup",
+            "content_type": 21,
+            "codename": "delete_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 84,
+        "fields": {
+            "name": "Can view home page popup",
+            "content_type": 21,
+            "codename": "view_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 85,
+        "fields": {
+            "name": "Can add quantity",
+            "content_type": 12,
+            "codename": "add_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 86,
+        "fields": {
+            "name": "Can change quantity",
+            "content_type": 12,
+            "codename": "change_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 87,
+        "fields": {
+            "name": "Can delete quantity",
+            "content_type": 12,
+            "codename": "delete_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 88,
+        "fields": {
+            "name": "Can view quantity",
+            "content_type": 12,
+            "codename": "view_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 89,
+        "fields": {
+            "name": "Can add category",
+            "content_type": 22,
+            "codename": "add_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 90,
+        "fields": {
+            "name": "Can change category",
+            "content_type": 22,
+            "codename": "change_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 91,
+        "fields": {
+            "name": "Can delete category",
+            "content_type": 22,
+            "codename": "delete_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 92,
+        "fields": {
+            "name": "Can view category",
+            "content_type": 22,
+            "codename": "view_category"
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$sUB4d7nUaiuFAJIQIwBt6z$f+XUoW0xBdI4Jc7h+Ji7Z3K5CYpzA7qMCqFlSezxz4I=",
+            "last_login": "2024-01-13T21:35:21.304Z",
+            "is_superuser": true,
+            "username": "aniket",
+            "first_name": "Aniket",
+            "last_name": "Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-08T06:48:25.802Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 4,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$mNtA58JubtNndkRfqHrOwc$n41cfwSGe7OILytQ4uXnjyKOElJYF/cpPqs0hDbTMI4=",
+            "last_login": "2024-01-09T22:41:52.525Z",
+            "is_superuser": false,
+            "username": "msbharti",
+            "first_name": "Mukesh",
+            "last_name": "Bharti",
+            "email": "msbharti9874@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-09T22:41:50.581Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$rtCVDRWejhhcsZJO1A4JXv$c8oIHMmEiyFbWg1vQx+RjWG51RYpfiETdkqP6X/G8C4=",
+            "last_login": "2024-01-12T09:13:43.743Z",
+            "is_superuser": false,
+            "username": "aryan",
+            "first_name": "Adarsh",
+            "last_name": "Mishra",
+            "email": "aryanmishra7081@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-12T09:13:42.913Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "account",
+            "model": "emailaddress"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "account",
+            "model": "emailconfirmation"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "socialaccount",
+            "model": "socialaccount"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "socialaccount",
+            "model": "socialapp"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "socialaccount",
+            "model": "socialtoken"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "auth",
+            "model": "user"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "store",
+            "model": "quantity"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "store",
+            "model": "order"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "store",
+            "model": "orderstatus"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 15,
+        "fields": {
+            "app_label": "store",
+            "model": "return"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 16,
+        "fields": {
+            "app_label": "store",
+            "model": "replacement"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 17,
+        "fields": {
+            "app_label": "store",
+            "model": "product"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 18,
+        "fields": {
+            "app_label": "store",
+            "model": "orderitem"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 19,
+        "fields": {
+            "app_label": "store",
+            "model": "cancellation"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 20,
+        "fields": {
+            "app_label": "accounts",
+            "model": "userprofile"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 21,
+        "fields": {
+            "app_label": "home",
+            "model": "homepagepopup"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 22,
+        "fields": {
+            "app_label": "store",
+            "model": "category"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0af3indxux1dfnvzvz0yr8ahd7iuy87r",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjQiOjF9fQ:1rNIdw:bN2YfEsEPE-j7kYlAyGpM5Y7l_LFeRkS07kjDAipQfA",
+            "expire_date": "2024-01-23T20:24:12.877Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0cdwc19v9a7im52vmw6i3al64smkyrmi",
+        "fields": {
+            "session_data": ".eJxVjM0KhDAQg99lziLq9G97230Rmc50UVYqaHsS331VvHgJJF-SDZiWDH6DFsF3FahLHXjcK-ip5KEva1z6UcBDB48sEP9iOgFN0xnXxDyXlOurc-O1fh8upjwy5XFOn3v1uBpoHY4fp7kxQWnlYhBjnWudhICESnXNy6GgxfgVErZiD6aVsUqsjjaQNhxh_wO48ELl:1rOBwp:AqCbmUg2_o6zbOJRovnq1u5_sl7ksQFP5-EWo3UsWjs",
+            "expire_date": "2024-01-26T07:27:23.720Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "0w9z96jcbspiybjcc7e6ofhuoeqqoe0v",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMBe_iNUJAPk7ZtRdBjp0KVBQkSFaIuzcgFu3GT35jzw4D5TQOeQvrMAn00EH123niT4gnoHk-65qYlxxTfd3ceKufZQsxTUxpWuLr_vpTjbSNxeMMN9Zro13wYtG51on3ipTWXfNwShSq8BYSRsHCjLaoBU1AT8ZyKFKmNUG_g4a-raBVV7gyj-MLp29C4Q:1rOkyA:tF3an4Qw2mogFB2Lzn_xLOhSN5LNmaDSm1L0ZCPbNYA",
+            "expire_date": "2024-01-27T20:51:06.048Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "1qudq6z6xkvm9qvgjicvo91ifpcpy00t",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7fX0:1rNFEQ:a4JLFQ33vOWK7pA1Vsofe8pNDH4_4ATfn1Xsifp8log",
+            "expire_date": "2024-01-23T16:45:38.244Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "2lky4bibc1evtqr46gyqxfexitfid5cm",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjEzIjoxfX0:1rNYI7:SNoYiW0oiBVaEcywMz-E_XPteDaFg6DQgKKAwJbMPEI",
+            "expire_date": "2024-01-24T13:06:43.422Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "2qzrobivev7jwuvo3r3u2s1t8msf0xvc",
+        "fields": {
+            "session_data": ".eJxVjDsOgzAQBe-ydWQB_qzjMn3OgHa9m5gkAolPhbh7QKJI2jfzZoWWlrm0y6Rj2wkkaODyuzHlt_YHkBf1z8HkoZ_Hjs2hmJNO5j6Ifm6n-xcoNJX9HX2uAjvvorIEjLGOwmzJOtdU12jFotWHkGQU3Jl3AZ2gV2TyIesezTTOkFawkOpt-wI9Ujwa:1rMqbL:Pl4N-ygahHlhrZLwaCna3MLSo6-fc9M7fNFPn_MFsyI",
+            "expire_date": "2024-01-22T14:27:39.360Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "390inrah0rsw6u3zdduer2vy7mp94kc1",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO_idYWAfJyyay-CHNsVqChIEFaIuzdULNrlzJt5O_S05aHfVl36UaCDFm6_XSR-azoBTdNZV8Q8bylX382F1-pRkqY8MuVxTs_r9acaaB2KJziufbTOBo3iMYQmSIyGjLVtfQ9GDBp9CQmjYGHOerSCTjGS86xFyrRk6Hbw0DXH8QFYNkCR:1rOf72:fuTZg4pm_-teXyApLs-AxEUZIpfy-4BVF_srA5_dsSo",
+            "expire_date": "2024-01-27T14:35:52.221Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "3nuyqcpoy2z5grckhuf7ahqgm7tqfda2",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjYiOjF9fQ:1rNxf2:Et2s9Aztg84md35AkF0dF3RHWD8jp7KtaB664TYJ4jU",
+            "expire_date": "2024-01-25T16:12:04.609Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "b4pmpfrvnuc2p0a91lvs0pt9g583j8yg",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO_iNUJAnE-zKxdBjp0KVBQkCCvE3RsqFu1y5s28Awba8zjsW1yHScBDB9VvF4jfMV2A5vmqa2Je9pTr7-bGW_0sKaY8MeVpSf39-lONtI3F4zQ3JqBGF4MY61zrJARFCrFrHk6Jsiq-hISt2MI0GotidbSBtOFYpExrBn8Agm8rMOC78_wA23FBoQ:1rNLMo:R3OoaWGRXsU2asNVMUmoIbfASvL5dwZ9Ppnv2PYFlS8",
+            "expire_date": "2024-01-23T23:18:42.592Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "bq6ck56caasa4suml3sw2s0pv4q494hf",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO_iNUJAvmTXXgQ5titQUZAgrBB3b6hYtMuZN_MOGHDP47Bvsg4TQ4AOqt8uIr0lXQDn-aprJFr2lOvv5sZb_ShJUp4I87Sk5_36U424jcXjDTU2aqO9RLbO-9ZzjAqV1l3Te8XKKXkxMjl2hRltnWZnxEU0lqRICdcM4QAPQVfQQ2jP8wPby0Gq:1rNLDU:ddxEqQXfqpMtkpWwIcAS2lI1Ek8Lqwbkh7CDGWo8urY",
+            "expire_date": "2024-01-23T23:09:04.051Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "d59ncccva0d0eoqpa9gkcr392xf8mvtu",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO_iNUKEOJ-yay-CHDsVqChIEFaIuze0LNrVyPPGb4eetjz02xqXfhTooIXqtwvEr5hOQNN01jUxz1vK9Wdz4bW-lyumPDLlcU6P6-tPNdA6FI833NiABn0MYp33yksImjRi29y8Fu10fAoJO3GFGbQOxZnoAhnLsUiZlgzdDgidqkCpb7QljuMN6apDCg:1rOlfO:lFUGdbcGX_4AeKeWc1Te9VCUh4W1FilxIaJvtyHYqRI",
+            "expire_date": "2024-01-27T21:35:46.095Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "du27md74sm365eqe1b4ro9qblud2e793",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjEiOjF9fQ:1rNI4K:aeXTMrxmiikNH1vor1bcrHgFNH3llRYAlTsttxCp4ns",
+            "expire_date": "2024-01-23T19:47:24.363Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "dxbi2txikl7wocagv4ju5j66fsj9xctk",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO-SdYUo-dhlVy6CHNsVqChIEFaIuzdULNrlzJt5u-lpy0O_rbr0o5jWNOb220Xit6YT0DSddUXM85Zy9d1ceK2eJWnKI1Me59Rdrz_VQOtQPOi5DtF5hxolAOIdJUZL1rmmfqAVC1ZfQsIgUJh3AZyAV4jkA2uRMi3ZtLtB09rj-ABYSECV:1rNsqB:b96XX7lWYKi3JwhyI2qrPpcqPJ6-TK7u4tcqCDnaau4",
+            "expire_date": "2024-01-25T11:03:15.491Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fn2502otevqxsqh7ggmfy0kxq78ln62b",
+        "fields": {
+            "session_data": ".eJxVjksOgzAMRO-SNUJAPg7ZtRdBju0KVBQkCCvE3RsqFu1y5tlPc6gB9zwO-ybrMLEKqlPVbxeR3pIugPN81TUSLXvK9ffmxlv9KElSngjztKTn_fWnGnEbi8dbalw01niJ7MD71nOMGrUxXdN7zRq0vBiZgKEwaxwYBisQ0TqSIiVcswqH6lVoq7I4tOf5AduSQaE:1rOlJk:n8CwPVhYHvIi7DR_LwZ-3mhMdVXCE16ZFBCBy__bVFM",
+            "expire_date": "2024-01-27T21:13:24.814Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "fw9h2iyg7ejokpjmngknu603dstzrlho",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO_idYUo-ThlVy6CHNsVqChIkKwQdy9UbFjOezOzAdOSod32B_RU8tCXVZd-FGihgRuLxF9Np6BpOnFFzHNJufp3Lr1W7yNpyiNTHufUXavb1UDrcPwEx7WP1tmgUTyG8AwSoyFjbVO_ghGDRj9Cwih4OGc9WkGnGMl5Vth_GAg_rA:1rOBIe:RhKblWdFmqauOJZyf5f9wF9DPxOPxr-sDWLX5h5-Db0",
+            "expire_date": "2024-01-26T06:45:52.856Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "gyoyah1mkwyakszjvok2fdfl16wvgfsd",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMRO_iNUJAPk6zay-CHNsVqChIJawQdy9UbFjOezOzAdO3QNwgQOwqaA3Edq-gp7UM_brotx8FInRwY4n4o_kUNE0nrol5XnOp_51LL_XzSJrLyFTGOb-u1e1qoGU4foLjxifrbNAkHkNog6RkyFjbNY9gxKDRt5AwCh7OWY9W0Ckmcp4V9h_S_0HT:1rNf7Q:KSNfsXK6YmOf6hyM0IyffVITGQEn7fIYyPU4azfDzXk",
+            "expire_date": "2024-01-24T20:24:08.381Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "hfsymoqmo29ox8f82iim98pc6rb8fna0",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjEyIjoxfX0:1rNZfI:EmJJnkkenVi6INEEGH8Fu9v_q6O-G9ApHbhbP7koQ6U",
+            "expire_date": "2024-01-24T14:34:44.114Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "lbcty9fw61l6a0yhygdola54kpk6mf6q",
+        "fields": {
+            "session_data": ".eJxVjDEOwjAMRe-SGUWlceLAyM4ZKjs2pIASqWknxN1ppQ6w_vfef5uBljkPS9NpGMWcTW8OvxtTemrZgDyo3KtNtczTyHZT7E6bvVbR12V3_w4ytbzW0acuMHiIyhIwxmMUZkcOoO9O0YlDpzchSSi4Mg8BQdArMvmQ1Hy-17c37A:1rNJ6A:MZBQEPbuHzKi8pTnXI4qJcRAD9SMclKEgjNgYBuSyMI",
+            "expire_date": "2024-01-23T20:53:22.780Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "mvixmdzknsem2dflg8k5nht527e9i4p4",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjQiOjEsIjgiOjF9fQ:1rOm0O:NptJ46UXsbBcK34q_Tui9C-qCVz_OBYT9ktmGoAfj1g",
+            "expire_date": "2024-01-27T21:57:28.788Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "n0qeg83qhs4wh2d2n13yc80mzxen4n1f",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjgiOjF9fQ:1rNYI8:7u8MY58zTUSin4TG0jfvMa7BdZu7I94ybVId9I_VcLA",
+            "expire_date": "2024-01-24T13:06:44.748Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ns1i0caiy534f2anbisgdwxgclg37zfc",
+        "fields": {
+            "session_data": ".eJxVjDEOwjAMRe-SGUWlceLAyM4ZKjs2pIASqWknxN1ppQ6w_vfef5uBljkPS9NpGMWcTW8OvxtTemrZgDyo3KtNtczTyHZT7E6bvVbR12V3_w4ytbzW0acuMHiIyhIwxmMUZkcOoO9O0YlDpzchSSi4Mg8BQdArMvmQ1Hy-17c37A:1rOJYu:7Js02Lu-iYrV_odl0O8jQo1uZcFCXMia862pcQLpRtE",
+            "expire_date": "2024-01-26T15:35:12.693Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "oczvp6mrkjzw67nh0rzw0k3zghkqr4gn",
+        "fields": {
+            "session_data": ".eJxVjDEOwjAMRe-SGUWlceLAyM4ZKjs2pIASqWknxN1ppQ6w_vfef5uBljkPS9NpGMWcTW8OvxtTemrZgDyo3KtNtczTyHZT7E6bvVbR12V3_w4ytbzW0acuMHiIyhIwxmMUZkcOoO9O0YlDpzchSSi4Mg8BQdArMvmQ1Hy-17c37A:1rMjR6:Um8orklI0axGa2NUtxet9bGPZOxM4KmyR6BWBgwlJPg",
+            "expire_date": "2024-01-22T06:48:36.031Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "q1p40a9ejrquix6b5gn2hizvjops7qx6",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjExIjoxfX0:1rNIdy:efZRmIZRKKAp-hdJUWpgrb3QKqqQN-mDmdCW_n7GbCY",
+            "expire_date": "2024-01-23T20:24:14.234Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "sa0z870ip7zvvplprsc4aty9vsxihlyy",
+        "fields": {
+            "session_data": ".eJxVjEsOwjAMRO-SNapK83FgRy8SObZRIqpUoskKcXdS1AUs572ZeamArabQNnmGzOqqJnX6ZRHpIWUXuCw7HpBobaUO386ht-HWk5SaCWtey3ys_q4Sbqn_eEuji8YaL5EdeH_2HKNGbcw0XrxmDVrujEzA0J01DgyDFYhoHYl6fwCvvTxg:1rOf5D:WnN5OxOu_lqEhYh0AUfrfOrfAjBMXft7BcnasSkdQVc",
+            "expire_date": "2024-01-27T14:33:59.655Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "tv76bmudifgslocaklan4pyfgyjn2gqo",
+        "fields": {
+            "session_data": ".eJxVjDEOgzAQBP9yNUJgjMHuwkfQ-e4sUJCRwK4Qfw9EFEm5s7tzwIg5TWPeZRtnBgcail_mkd4S7wKX5cYlEq05pvK7eeq9fF1JYpoJ07zG4Xn9qSbcp9vT18ojMynWTWUa9mxQi2XfdtJ7FLIti6DXgTTXIaAyQRnbhK66eLikhFsCd0AHri7AglPn-QFbQUPN:1rNLDY:6IMNskKTjFcAR0n0Gb6JN7vmxvwZmRwcO4c8-JDqTKE",
+            "expire_date": "2024-01-23T23:09:08.415Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "uxys6cok2mavhhnztic6r6eeqdy4j2zm",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7IjgiOjN9fQ:1rOFDP:KCbIMcoXlAP5GacyrAVE5VE4bg1ZkmTswn5ag7BV2uQ",
+            "expire_date": "2024-01-26T10:56:43.814Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vi1ktctnu7wfhhackb8vwmh4pfijz493",
+        "fields": {
+            "session_data": ".eJxVjEsOwjAMRO-SNapK83FgRy8SObZRIqpUoskKcXdS1AUs572ZeamArabQNnmGzOqqJnX6ZRHpIWUXuCw7HpBobaUO386ht-HWk5SaCWtey3ys_q4Sbqn_eEuji8YaL5EdeH_2HKNGbcw0XrxmDVrujEzA0J01DgyDFYhoHYl6fwCvvTxg:1rOley:u56Z03hsMdUDBrIKo2WejJ4_P30-VMAg4tO2d1C3J1c",
+            "expire_date": "2024-01-27T21:35:20.720Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vlx8ssckapg9xcp67mmppv1l71976gsm",
+        "fields": {
+            "session_data": "eyJjYXJ0Ijp7fX0:1rNquV:TbFa4dVH3-2mdWmnCWJUvZPvKx3uCRZ6efheml-Vlik",
+            "expire_date": "2024-01-25T08:59:35.592Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "zff8lxp6tbg3ya91gqq7jaamrh62mbw4",
+        "fields": {
+            "session_data": ".eJxVjEsOgzAMBe_iNYqAOImbZfecAdlxWmgrkPisEHcvSCza7Zt5s0HL69K165yntleIUEPxuwmndx5OoC8enqNJ47BMvZhTMRedTTNq_twv9y_Q8dwdb3Kp9IIOKYv6QFSRili2iHV5I6s22PxQ1hQ0HMyhD6jB5SDsfMpHNPG0QNyAINoCEGK171-mGj0w:1rNLND:eHxAbxCYcwwBH5x1GrjFM_TRcVy8jIyRA-mcqSvr6tM",
+            "expire_date": "2024-01-23T23:19:07.689Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "zsgnxxod28hz44zd6qt88d0d0ffyxlpf",
+        "fields": {
+            "session_data": ".eJxVjEEOgzAMBP-Sc4WAOHHKrf0IcmxXoKIgQTgh_t5QcWiPu7M7u-lpy0O_rbr0o5jOtOb220Xit6YT0DSddUXM85Zy9d1ceK0eJWnKI1Me5_S8Xn-qgdaheILj2kdwEDSKxxCaIDFasgBtfQ9WLFp9CQmjYGEOPIKgU4zkPGuRMi3ZdLsB0zXH8QFYKkCP:1rNKT2:AJjcWwqYTSBDU-jzCGOlq__u0cAjVmQ5-BVefbIuA0g",
+            "expire_date": "2024-01-23T22:21:04.848Z"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 1,
+        "fields": {
+            "name": "5L"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 2,
+        "fields": {
+            "name": "1L"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 3,
+        "fields": {
+            "name": "500 ml"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 1,
+        "fields": {
+            "name": "Your Category Name"
+        }
+    }

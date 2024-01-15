@@ -41,10 +41,10 @@ Products
         {% for product in products %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    <img src="{{product.img}}" class="card-img-top" alt="Product Image">
+                    <a href="{% url 'product_detail' product_id=product.id %}"><img src="{{product.img}}" class="card-img-top" alt="Product Image"></a>
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text mobile-hidden">{{ product.description }}</p>
+                        <p class="card-text mobile-hidden">{{ product.short_description }}</p>
                         <p>Quantity : {{ product.category.name }}</p>
                         <p>Availability: {% if product.available %} <span class="text-success" >In Stock </span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
                         <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success discount mx-1 extra small">20% OFF</span>

@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    {{ product.name }} - Product Details
+{{ product.name }} - Product Details
 {% endblock title %}
 {% block styles %}
 <style>
     .product-details-container {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         margin-top: 50px;
+        flex-direction: row;
     }
 
     .product-image {
         flex: 1;
+        padding: 20px;
+
     }
 
     .product-info {
         flex: 2;
-        margin-left: 20px; /* Add some spacing between image and info on larger screens */
+        margin-left: 20px;
+        /* Add some spacing between image and info on larger screens */
     }
 
     .product-price {
@@ -42,48 +46,60 @@
     }
 
     .error-message {
-        color: #dc3545; /* Red color for error messages */
+        color: #dc3545;
+        /* Red color for error messages */
         font-size: 14px;
         margin-top: 8px;
     }
 
     .img-fluid {
-        max-width: 100%; /* Ensure images don't overflow their container */
+        width: 70%;
+        margin-inline: 15%;
         height: auto;
     }
-    .text-btn{
+
+    .text-btn {
         font-size: large;
         margin-left: 10px;
+        cursor: pointer;
+    }
+
+    .hide-content {
+        display: none;
     }
 
     @media (max-width: 767px) {
         .product-details-container {
-            flex-direction: column;
-            align-items: center; 
+            flex-direction: column-reverse;
+            align-items: center;
             padding: 40px;
         }
 
         .product-info {
-            margin-left: 0; 
-            margin-top: 20px; 
+            margin-left: 0;
+            margin-top: 20px;
         }
-        .lead{
+
+        .lead {
             font-size: small;
         }
 
         .img-fluid {
-            max-height: 300px; /* Adjust height for better display on smaller screens */
+            max-height: 300px;
+            /* Adjust height for better display on smaller screens */
         }
 
         .action-buttons {
-            align-items:center; 
+            align-items: center;
             justify-content: space-between;
             margin-top: 20px;
         }
-        .p-name{
+
+        .p-name {
             font-size: larger
         }
-        .text-btn{
+
+        .text-btn {
             font-size: medium;
             margin-left: 0;
         }
@@ -92,42 +108,115 @@
 {% endblock styles %}
 
 {% block body %}
-    <!-- Product Detail -->
-    <div class="container mt-5 product-details-container">
-        <div class="product-image">
-            <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
+<!-- Product Detail -->
+<div class="container mt-5 product-details-container">
+    <div class="product-info">
+        <h1 class="p-name">{{ product.name }}</h1>
+        <h2>Product Details:</h2>
+        <div id="product-description" class="lead">
+            <span id="less-content" class="small">
+                {{ product.description|linebreaksbr|truncatewords_html:150 }}
+            </span>
+            {% if product.description|length > 150 %}
+            <span id="more-btn" class="text-btn text-success">More</span>
+            {% endif %}
+            <span id="more-content" class="hide-content small">
+                {{ product.description|linebreaksbr|safe }}
+            </span>
+            <span id="less-btn" class="hide-content text-btn text-danger">Less</span>
         </div>
-        <div class="product-info">
-            <h1 class="p-name">{{ product.name }}</h1>
-            <p class="lead">{{ product.description }}</p>
-            <p>Quantity : {{ product.category.name }}</p>
-            <p class="availability">Availability: {% if product.available %} <span class="text-success">In Stock</span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
-            <span class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
-            <p class="product-price">Price: ₹{{ product.final_price }}</p>
-            
-            <!-- Add more details as needed -->
+    </div>
+    <div class="product-image">
+        <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
+        <p>Quantity : {{ product.quantity.name }}</p>
+        <p class="availability">Availability: {% if product.available %} <span class="text-success">In Stock</span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
+        <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span>
+        <span class="text-success discount mx-1 extra small">20% OFF</span>
+        <p id="final_price" class="product-price">Price: ₹{{ product.final_price }}</p>
+        <!-- Add more details as needed -->
 
-            <div class="action-buttons">
-                <!-- Add to Cart button -->
-                {% if product.available %}
-                <div style="display: flex;">
+        <div class="action-buttons">
+            <!-- Add to Cart button -->
+            {% if product.available %}
+            <div style="display: flex;">
                 <form method="post" action="{% url 'remove_cart_item' product.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger"><i style="font-size: 1rem;" class="fa-solid fa-cart-arrow-down"></i><span class="text-btn">Remove</span></button>
+                    <button type="submit" class="btn btn-danger"><i style="font-size: 1rem;"
+                            class="fa-solid fa-cart-arrow-down"></i><span class="text-btn">Remove</span></button>
                 </form>
                 <form method="post" action="{% url 'add_to_cart' product.id %}">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-success"><i style="font-size: 1rem;" class="fa-solid fa-cart-plus"></i><span class="text-btn">Add</span></button>
+                    <button type="submit" class="btn btn-success"><i style="font-size: 1rem;"
+                            class="fa-solid fa-cart-plus"></i><span class="text-btn">Add</span></button>
                 </form>
-                </div>
-                {% endif %}
-
-                <!-- Go to Cart button -->
-                <a href="{% url 'cart' %}" class="btn btn-primary"><i style="font-size: 1rem;" class="fa-solid fa-cart-shopping"></i> <span class="text-btn">Cart</span></a>
             </div>
+            {% endif %}
+
+            <!-- Go to Cart button -->
+            <a href="{% url 'cart' %}" class="btn btn-primary"><i style="font-size: 1rem;"
+                    class="fa-solid fa-cart-shopping"></i> <span class="text-btn">Cart</span></a>
         </div>
     </div>
+</div>
 {% endblock body %}
 
 {% block javascript %}
+<script>
+    const moreBtn = document.getElementById('more-btn');
+    const lessBtn = document.getElementById('less-btn');
+    const moreContent = document.getElementById('more-content');
+    const lessContent = document.getElementById('less-content');
+
+    if (moreBtn) {
+        moreBtn.addEventListener('click', function () {
+            moreContent.style.display = 'inline';
+            moreBtn.style.display = 'none';
+            lessBtn.style.display = 'inline';
+            lessContent.style.display = 'none'
+        });
+    }
+
+    if (lessBtn) {
+        lessBtn.addEventListener('click', function () {
+            moreContent.style.display = 'none';
+            moreBtn.style.display = 'inline';
+            lessBtn.style.display = 'none';
+            lessContent.style.display = 'inline'
+
+        });
+    }
+</script>
+<script>
+    // Function to calculate and display the discount percentage
+    function displayDiscountPercentage(price, finalPrice, discountContainer) {
+        
+        // Ensure the elements exist before performing calculations
+        if (price && finalPrice && discountContainer) {
+            // Extract numerical values from the strings using regular expressions
+            const originalPrice = parseFloat(price.match(/[\d.]+/));
+            const discountedPrice = parseFloat(finalPrice.match(/[\d.]+/));
+
+            // Calculate the discount percentage
+            const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
+            
+            // Display the discount percentage in the specified container
+            discountContainer.textContent = discountPercentage.toFixed(0) + '% OFF';
+        }
+    }
+
+    // Call the function for each product card on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        const priceElement = document.querySelector('#price');
+        const finalPriceElement = document.querySelector('#final_price');
+        const discountContainer = document.querySelector('.discount');
+
+        if (priceElement && finalPriceElement && discountContainer) {
+            const price = priceElement.textContent;
+            const finalPrice = finalPriceElement.textContent;
+
+            // Call the function to display the discount percentage
+            displayDiscountPercentage(price, finalPrice, discountContainer);
+        }
+    });
+</script>
 {% endblock javascript %}

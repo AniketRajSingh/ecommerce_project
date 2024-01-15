@@ -2,12 +2,14 @@ from django.shortcuts import render
 from store.models import Product
 from django import forms
 from django.http import HttpResponse
+from .models import HomePagePopup 
 
 def home(request):
     products = Product.objects.all().order_by('?')[:3]
     recommended_products = list(products)
+    popup_content = HomePagePopup.objects.first()
 
-    return render(request, 'index.html', {'recommended_products': recommended_products})
+    return render(request, 'index.html', {'recommended_products': recommended_products, 'popup_content': popup_content})
 
 def product_search(request):
     query = request.GET.get('q', '') 

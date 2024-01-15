@@ -3,8 +3,7 @@ from django.utils import timezone
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from .models import Product, Order, OrderStatus, Cancellation, Return, Replacement
-
+from .models import Product, Order, Cancellation, Return, Replacement
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .razorpay_utils import create_order, verify_payment

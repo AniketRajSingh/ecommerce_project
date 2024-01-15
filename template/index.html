@@ -48,10 +48,95 @@
             .card-title{
                 font-size: 1rem;
             }
+            .popup-card{
+                width: 90%!important;
+            }
+            .popup-card img{
+                width: 100%!important;
+                height: 350px!important ;
+            }
         }
     </style>
+    <style>
+        /* Popup styles */
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+    
+        .popup-card {
+            background-color: white;
+            padding-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: fit-content;
+            max-width: 500px;
+            min-width: 250px;
+            position: relative;
+        }
+    
+        .popup-card img {
+            width: 500px;
+            height: 500px;
+            object-fit: cover;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            
+        }
+    
+        .popup-card p {
+            border-top: #999 solid 1px;
+            margin-bottom: 20px;
+            padding: 10px;
+            max-height: 100px;
+            overflow-y: scroll;
+        }
+    
+        .popup-close-btn {
+            position: absolute;
+            cursor: pointer;
+            font-size: 40px;
+            color: #bf0606;
+            right: 0;
+        }
+    
+        /* Additional styles to handle animation (fade in) */
+        .popup-container.fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    
 {% endblock styles %}
 {% block body %}
+{% if popup_content %}
+    <!-- Popup container -->
+    <div id="popup-container" class="popup-container fade-in">
+        <div class="popup-card">
+            <span class="popup-close-btn me-2" onclick="closePopup()">&times;</span>
+            <img src="{{ popup_content.image_url }}" alt="Popup Image">
+            <p>{{ popup_content.description }}</p>
+            <a href="{{ popup_content.redirection_link }}" style="width: 90%;" class="btn btn-ss">{{ popup_content.button_name }}</a>
+        </div>
+    </div>
+{% endif %}
     <!-- Hero Section with Carousel -->
     <div id="carouselExample" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -76,13 +161,11 @@
     </div>
 
     <!-- Search Bar -->
-    <div class="container mt-4">
+    <!-- <div class="container mt-4">
         <div class="row">
             <div class="col-md-8 mx-auto">
-                <!-- Update the form action and method -->
                 <form action="{% url 'product_search' %}" method="get">
                     <div class="input-group mb-3">
-                        <!-- Update the input field name to 'q' -->
                         <input type="text" class="form-control" name="q" placeholder="Search for products...">
                         <div style="margin-left: 10px;" class="input-group-append">
                             <button class="btn btn-ss" type="submit">Search</button>
@@ -91,22 +174,21 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Product Recommendations -->
     <div class="container mt-4">
-        <h2>Recommended Products</h2>
+        <h2>Best Sellers</h2>
         <div class="row">
             {% for product in recommended_products %}
                 <div class="col-md-4 my-3">
                     <div class="card">
-                        <img src="{{product.img}}" class="card-img-top" alt="Product Image">
+                        <a href="{% url 'product_detail' product_id=product.id %}"><img src="{{product.img}}" class="card-img-top" alt="Product Image"></a>
                         <div class="card-body">
                             <h5 class="card-title">{{ product.name }}</h5>
-                            <p class="card-text mobile-hidden">{{ product.description }}</p>
-                            <p>Quantity : {{ product.category.name }}</p>
+                            <p class="card-text mobile-hidden">{{ product.short_description }}</p>
+                            <p>Quantity : {{ product.quantity.name }}</p>
                             <p>Availability: {% if product.available %} <span class="text-success" >In Stock </span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
-                    
                             <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success mx-1 extra small">20% OFF</span>
                             <p id="final_price" class="card-text text-primary">Price: ₹{{ product.final_price }}</p>
                             <div style="display: flex;justify-content: space-between;align-items: center;">
@@ -262,6 +344,26 @@
             }
         });
     });
+</script>
+<script>
+    // Add JavaScript to handle popup display
+    document.addEventListener('DOMContentLoaded', function () {
+        // Check if the popup container exists
+        const popupContainer = document.getElementById('popup-container');
+
+        // Display the popup if it exists
+        if (popupContainer) {
+            popupContainer.style.display = 'flex';
+        }
+    });
+
+    // Function to close the popup
+    function closePopup() {
+        const popupContainer = document.getElementById('popup-container');
+        if (popupContainer) {
+            popupContainer.style.display = 'none';
+        }
+    }
 </script>
 {% endblock javascript %}
 
