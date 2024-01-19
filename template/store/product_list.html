@@ -4,106 +4,259 @@ Products
 {% endblock title %}
 {% block styles %}
 <style>
-    .card-img-top{
+    .card-img-top {
         height: 200px;
         object-fit: contain;
         width: 100%;
         border-bottom: 1px solid #a4a4a4;
     }
+
     button:disabled {
         color: #999!important;
-        border: none!important;
+        border: transparent solid 1px!important;
     }
-    @media (max-width: 767px){
-        .card{
-            display: flex;
-            flex-direction: row;
+
+    .discount {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .drop-quantity{
+        border: #38a509 solid 1px;
+        color: #38a509;
+        border-radius: 5px;
+        padding: 3px;
+    }
+
+    .category-btn{
+        background-color: #38a509;
+        color: white;
+        margin: 10px;
+        border: #38a509 solid 1px;
+    }
+
+    .category-btn:hover{
+        border: #38a509 solid 1px;
+        color: #38a509;
+    }
+
+    .category-section{
+        position: fixed;
+    }
+
+    .selected{
+        background-color: #1A6F67;
+        border: #38a509 solid 1px;
+        color: white;
+    }
+
+    @media (max-width: 767px) {
+        .card {
+            flex-direction: column;
         }
-        .card-img-top{
+
+        .card-img-top {
             height: 200px;
-            width: 200px;
+            width: 100%;
             border-bottom: none;
         }
-        .card-title{
-            font-size: 1rem;
+
+        .card-title {
+            font-size: 1.2rem;
             font-weight: bold;
         }
     }
 </style>
 {% endblock styles %}
 
-
 {% block body %}
 <!-- Product List -->
 <div class="container mt-5">
     <h1>Product List</h1>
     <div class="row">
-        {% for product in products %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <a href="{% url 'product_detail' product_id=product.id %}"><img src="{{product.img}}" class="card-img-top" alt="Product Image"></a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.name }}</h5>
-                        <p class="card-text mobile-hidden">{{ product.short_description }}</p>
-                        <p>Quantity : {{ product.category.name }}</p>
-                        <p>Availability: {% if product.available %} <span class="text-success" >In Stock </span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
-                        <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span><span class="text-success discount mx-1 extra small">20% OFF</span>
-                        <p id="final_price" class="card-text text-primary">Price: ₹{{ product.final_price }}</p>
-                        <div style="display: flex;justify-content: space-between;align-items: center;">
-                            <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
-                            <form method="post" action="{% url 'add_to_cart' product.id %}">
-                                {% csrf_token %}
-                                {% if product.available %} 
-                                <button type="submit" class="btn"><i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i></button>
-                                {% else %} 
-                                <button type="submit" disabled class="btn disabled-btn"><i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i></button>
-                                {% endif %}
-                            </form>
+        <div class="col-12 col-md-3 pb-4">
+            <div class="card h-100 text-center">
+                <h3 class="mt-5">Categories</h3>
+                <a class="btn category-btn{% if not selected_category %} selected{% endif %}" href="{% url 'product_list' %}">All</a></li>
+                {% for category in categories %}
+                    <a class="btn category-btn{% if category.name == selected_category %} selected{% endif %}" href="?category={{ category.name }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-12 col-md-9">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-12 col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for media in product.media_set.all %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            {% if media.media_type == 'image' %}
+                                                <img src="{{ media.media_url }}" class="d-block w-100 card-img-top" alt="Product Image">
+                                            {% elif media.media_type == 'video' %}
+                                                <video class="d-block w-100" controls>
+                                                    <source src="{{ media.media_url }}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            {% endif %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-text mobile-hidden">{{ product.short_description }}</p>
+                                <span>Quantity:
+                                    <div class="btn-group mt-2 mb-2" role="group" aria-label="Quantity">
+                                        {% for quantity_instance in product.productquantity_set.all %}
+                                            {% with quantity_id=quantity_instance.quantity.id %}
+                                                <button type="button" class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
+                                                        data-product-id="{{ product.id }}"
+                                                        data-quantity="{{ quantity_instance.quantity.name }}"
+                                                        data-price="{{ quantity_instance.price }}"
+                                                        data-final-price="{{ quantity_instance.final_price }}"
+                                                        data-available="{{ quantity_instance.available|lower }}"
+                                                        onclick="updatePrice({{ product.id }}, '{{ quantity_instance.quantity.name }}', {{ quantity_instance.price }}, {{ quantity_instance.final_price }}, '{{ quantity_instance.available|lower }}')">
+                                                    {{ quantity_instance.quantity.name }}
+                                                </button>
+                                            {% endwith %}
+                                        {% endfor %}
+                                    </div>
+                                </span>
+                                
+                                <p class="availability">Availability: 
+                                    {% if product.productquantity_set.first.available %}
+                                        <span id="inStock{{ product.id }}" class="text-success">In Stock</span>
+                                        <span id="outOfStock{{ product.id }}" style="display: none;" class="text-danger">Out of Stock</span>
+                                    {% else %}
+                                        <span id="inStock{{ product.id }}" style="display: none;" class="text-success">In Stock</span>
+                                        <span id="outOfStock{{ product.id }}" class="text-danger">Out of Stock</span>
+                                    {% endif %}
+                                </p>
+                                
+                                <span id="price{{ product.id }}" class="card-text small text-decoration-line-through text-danger">
+                                    MRP: ₹{{ product.productquantity_set.first.price }}
+                                </span>
+                                <span id="discount{{ product.id }}" class="discount mx-1 extra small"></span>
+                                <p id="finalPrice{{ product.id }}" class="card-text text-primary">
+                                    Price: ₹{{ product.productquantity_set.first.final_price }}
+                                </p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
+                                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                        {% csrf_token %}
+                                        {% if product.productquantity_set.first.available %}
+                                            <button type="submit" id="addToCart{{ product.id }}" class="btn">
+                                                <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
+                                            </button>
+                                            <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn">
+                                                <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                            </button>
+                                        {% else %}
+                                        <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn">
+                                            <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
+                                        </button>
+                                        <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn">
+                                            <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                        </button>
+                                        {% endif %}
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        </div>       
     </div>
 </div>
-
 {% endblock body %}
 
-{% block javascript %}
+{% block javascript%}
 <script>
-    // Function to calculate and display the discount percentage
-    function displayDiscountPercentage(price, finalPrice, discountContainer) {
-        // Ensure the elements exist before performing calculations
-        if (price && finalPrice && discountContainer) {
-            // Parse the price values
+    // Modify the updatePrice function to pass the selected_quantity
+function updatePrice(productId, selectedQuantity, price, finalPrice, available) {
+    // Update price and final price based on selected quantity
+    var priceElement = document.getElementById("price" + productId);
+    var finalPriceElement = document.getElementById("finalPrice" + productId);
+
+    priceElement.textContent = "MRP: ₹" + price;
+    finalPriceElement.textContent = "Price: ₹" + finalPrice;
+
+    // Display the discount percentage
+    displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+
+    // Update availability buttons
+    updateAvailability(available, productId, selectedQuantity, price, finalPrice);
+
+    var allButtons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
+    var selectedButton = document.querySelector(`button[data-product-id="${productId}"][data-quantity="${selectedQuantity}"]`);
+    if (selectedButton) {
+        allButtons.forEach(function(button) {
+            button.classList.remove('active-quantity');
+        });
+        selectedButton.classList.add('active-quantity');
+    }
+
+}
+
+// Modify the updateAvailability function to accept price and finalPrice parameters
+function updateAvailability(availability, productId) {
+    var addButton = document.getElementById("addToCart" + productId);
+    var disabledButton = document.getElementById("removeFromCart" + productId);
+    var inStockElement = document.getElementById("inStock" + productId);
+    var outOfStockElement = document.getElementById("outOfStock" + productId);
+
+    if (addButton && disabledButton && inStockElement && outOfStockElement) {
+        if (availability === "true") {
+            addButton.style.display = "block";
+            disabledButton.style.display = "none";
+            inStockElement.style.display = 'inline';
+            outOfStockElement.style.display = 'none';
+        } else {
+            addButton.style.display = "none";
+            disabledButton.style.display = "block";
+            inStockElement.style.display = 'none';
+            outOfStockElement.style.display = 'inline';
+        }
+    } else {
+        console.error('Could not find button group for product ID:', productId, availability);
+    }
+}
+
+// Function to calculate and display the discount percentage
+    function displayDiscountPercentage(price, finalPrice, productId) {
+        const priceElement = document.getElementById("price" + productId);
+        const finalPriceElement = document.getElementById("finalPrice" + productId);
+        const discountContainer = document.getElementById("discount" + productId);
+
+        if (priceElement && finalPriceElement && discountContainer) {
             const originalPrice = parseFloat(price.replace('MRP: ₹', '').trim());
             const discountedPrice = parseFloat(finalPrice.replace('Price: ₹', '').trim());
 
-            // Calculate the discount percentage
             const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
 
-            // Display the discount percentage in the specified container
             discountContainer.textContent = discountPercentage.toFixed(0) + '% OFF';
         }
     }
 
-    // Call the function for each product card on page load
-    document.addEventListener('DOMContentLoaded', function () {
-        const productCards = document.querySelectorAll('.card');
-
-        productCards.forEach(function (card) {
-            const priceElement = card.querySelector('#price');
-            const finalPriceElement = card.querySelector('#final_price');
-            const discountContainer = card.querySelector('.discount');
-
-            if (priceElement && finalPriceElement && discountContainer) {
-                const price = priceElement.textContent;
-                const finalPrice = finalPriceElement.textContent;
-
-                // Call the function to display the discount percentage
-                displayDiscountPercentage(price, finalPrice, discountContainer);
-            }
-        });
+    document.addEventListener("DOMContentLoaded", function() {
+        // Iterate through each product and update the discount percentage
+        {% for product in products %}
+            var productId = {{ product.id }};
+            var priceElement = document.getElementById("price" + productId);
+            var finalPriceElement = document.getElementById("finalPrice" + productId);
+            displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+        {% endfor %}
     });
 </script>
-{% endblock javascript %}
+{% endblock javascript%}

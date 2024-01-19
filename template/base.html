@@ -10,11 +10,14 @@
         integrity="sha512-...." crossorigin="anonymous" />
     {% block styles %} {% endblock styles %}
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins&family=Josefin+Sans&display=swap');
 
         html,
         body {
             font-family: 'Poppins' !important;
+        }
+        p,span{
+            font-family: 'Josefin Sans', sans-serif;
         }
 
         .body-container {
@@ -173,6 +176,10 @@
         }
         .footer-mobile{
             display: none;
+        }
+        .active-quantity {
+        background-color: #198754;
+        color: #fff;
         }
 
         @media (max-width: 767px) {

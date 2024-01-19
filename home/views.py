@@ -1,15 +1,25 @@
 from django.shortcuts import render
-from store.models import Product
+from store.models import Product, Category
 from django import forms
 from django.http import HttpResponse
-from .models import HomePagePopup 
+from .models import HomePagePopup , Review
 
 def home(request):
-    products = Product.objects.all().order_by('?')[:3]
+    # Fetch recommended products, special offers, and reviews
+    products = Product.objects.all().order_by('?')[:4]
     recommended_products = list(products)
+    
+    special_offers_category = Category.objects.get(name='Special Offers')
+    special_offers_products = Product.objects.filter(categories=special_offers_category).order_by('?')[:3]
+
+    reviews = Review.objects.all()[:3]  # Fetch the latest 3 reviews
+
     popup_content = HomePagePopup.objects.first()
 
-    return render(request, 'index.html', {'recommended_products': recommended_products, 'popup_content': popup_content})
+    return render(request, 'index.html', {'special_offers_products': special_offers_products,
+                                           'recommended_products': recommended_products,
+                                           'reviews': reviews,
+                                           'popup_content': popup_content})
 
 def product_search(request):
     query = request.GET.get('q', '') 

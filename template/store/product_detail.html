@@ -16,13 +16,11 @@
     .product-image {
         flex: 1;
         padding: 20px;
-
     }
 
     .product-info {
         flex: 2;
         margin-left: 20px;
-        /* Add some spacing between image and info on larger screens */
     }
 
     .product-price {
@@ -47,15 +45,14 @@
 
     .error-message {
         color: #dc3545;
-        /* Red color for error messages */
         font-size: 14px;
         margin-top: 8px;
     }
 
     .img-fluid {
-        width: 70%;
-        margin-inline: 15%;
-        height: auto;
+        margin-inline: auto;
+        max-height: 300px;
+        object-fit: contain;
     }
 
     .text-btn {
@@ -72,7 +69,9 @@
         .product-details-container {
             flex-direction: column-reverse;
             align-items: center;
-            padding: 40px;
+        }
+        h2{
+            font-size: medium;
         }
 
         .product-info {
@@ -86,7 +85,6 @@
 
         .img-fluid {
             max-height: 300px;
-            /* Adjust height for better display on smaller screens */
         }
 
         .action-buttons {
@@ -96,12 +94,15 @@
         }
 
         .p-name {
-            font-size: larger
+            font-size: larger;
         }
 
         .text-btn {
             font-size: medium;
             margin-left: 0;
+        }
+        .row{
+            flex-direction: column-reverse;
         }
     }
 </style>
@@ -109,52 +110,79 @@
 
 {% block body %}
 <!-- Product Detail -->
-<div class="container mt-5 product-details-container">
-    <div class="product-info">
-        <h1 class="p-name">{{ product.name }}</h1>
-        <h2>Product Details:</h2>
-        <div id="product-description" class="lead">
-            <span id="less-content" class="small">
-                {{ product.description|linebreaksbr|truncatewords_html:150 }}
-            </span>
-            {% if product.description|length > 150 %}
-            <span id="more-btn" class="text-btn text-success">More</span>
-            {% endif %}
-            <span id="more-content" class="hide-content small">
-                {{ product.description|linebreaksbr|safe }}
-            </span>
-            <span id="less-btn" class="hide-content text-btn text-danger">Less</span>
-        </div>
-    </div>
-    <div class="product-image">
-        <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
-        <p>Quantity : {{ product.quantity.name }}</p>
-        <p class="availability">Availability: {% if product.available %} <span class="text-success">In Stock</span> {% else %} <span class="text-danger">Out of Stock</span> {% endif %}</p>
-        <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹{{ product.price }} </span>
-        <span class="text-success discount mx-1 extra small">20% OFF</span>
-        <p id="final_price" class="product-price">Price: ₹{{ product.final_price }}</p>
-        <!-- Add more details as needed -->
-
-        <div class="action-buttons">
-            <!-- Add to Cart button -->
-            {% if product.available %}
-            <div style="display: flex;">
-                <form method="post" action="{% url 'remove_cart_item' product.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger"><i style="font-size: 1rem;"
-                            class="fa-solid fa-cart-arrow-down"></i><span class="text-btn">Remove</span></button>
-                </form>
-                <form method="post" action="{% url 'add_to_cart' product.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-success"><i style="font-size: 1rem;"
-                            class="fa-solid fa-cart-plus"></i><span class="text-btn">Add</span></button>
-                </form>
+<div class="mt-5 product-details-container">  
+    <div class="row" style="width: 100%;">
+        <div class="col-12 col-md-8">
+            <div class="product-info card h-100 me-md-5 p-5">
+                <h1 class="p-name">{{ product.name }}</h1>
+                <h2>Product Details:</h2>
+                <div id="product-description" class="lead">
+                    <span id="less-content" class="small">
+                        {{ product.description|linebreaksbr|truncatewords_html:150 }}
+                    </span>
+                    {% if product.description|length > 150 %}
+                    <span id="more-btn" class="text-btn text-success">More</span>
+                    {% endif %}
+                    <span id="more-content" class="hide-content small">
+                        {{ product.description|linebreaksbr|safe }}
+                    </span>
+                    <span id="less-btn" class="hide-content text-btn text-danger">Less</span>
+                </div>
             </div>
-            {% endif %}
+        </div>
 
-            <!-- Go to Cart button -->
-            <a href="{% url 'cart' %}" class="btn btn-primary"><i style="font-size: 1rem;"
-                    class="fa-solid fa-cart-shopping"></i> <span class="text-btn">Cart</span></a>
+        <div class="col-12 col-md-4">
+            <div class="product-image card h-100">
+                <!-- Image Carousel -->
+                <div id="carousel{{ product.id }}" class="carousel slide card" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for media in product.media_set.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                {% if media.media_type == 'image' %}
+                                    <img src="{{ media.media_url }}" class="d-block w-100 img-fluid" alt="Product Image">
+                                {% elif media.media_type == 'video' %}
+                                    <video class="d-block w-100" controls>
+                                        <source src="{{ media.media_url }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            
+                <!-- Product Details -->
+                <div class="product-details card mt-4 p-3">
+                    <p>Quantity: 
+                        {% for quantity_instance in product_quantities %}
+                            <button class="btn btn-outline-success{% if quantity_instance.quantity.id == selected_quantity %} active-quantity {% endif %}" data-quantity="{{ quantity_instance.quantity.id }}" data-final-price="{{ quantity_instance.final_price }}" data-price="{{ quantity_instance.price }}" data-availablity="{{ quantity_instance.available }}">
+                                {{ quantity_instance.quantity.name }}
+                            </button>
+                        {% endfor %}
+                    </p>
+                    <p class="availability">Availability: 
+                        {% if product.productquantity_set.first.available %}
+                            <span id="inStock" class="text-success">In Stock</span>
+                            <span id="outOfStock" style="display: none;" class="text-danger">Out of Stock</span>
+                        {% else %}
+                            <span id="inStock" style="display: none;" class="text-success">In Stock</span>
+                            <span id="outOfStock" class="text-danger">Out of Stock</span>
+                        {% endif %}
+                    </p>
+                    <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹<span id="PriceValue">{{ product.productquantity_set.first.price }}</span></span>
+                    <span class="text-success discount mx-1 extra small">XX% OFF</span>
+                    <p id="final_price" class="product-price">Price: ₹<span id="finalPriceValue">{{ product.productquantity_set.first.final_price }}</span></p>
+                    <button id="addToCartBtn" class="btn btn-success mt-2"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -172,7 +200,7 @@
             moreContent.style.display = 'inline';
             moreBtn.style.display = 'none';
             lessBtn.style.display = 'inline';
-            lessContent.style.display = 'none'
+            lessContent.style.display = 'none';
         });
     }
 
@@ -181,24 +209,21 @@
             moreContent.style.display = 'none';
             moreBtn.style.display = 'inline';
             lessBtn.style.display = 'none';
-            lessContent.style.display = 'inline'
-
+            lessContent.style.display = 'inline';
         });
     }
-</script>
-<script>
+
     // Function to calculate and display the discount percentage
     function displayDiscountPercentage(price, finalPrice, discountContainer) {
-        
         // Ensure the elements exist before performing calculations
         if (price && finalPrice && discountContainer) {
             // Extract numerical values from the strings using regular expressions
-            const originalPrice = parseFloat(price.match(/[\d.]+/));
-            const discountedPrice = parseFloat(finalPrice.match(/[\d.]+/));
+            const originalPrice = price;
+            const discountedPrice = finalPrice;
 
             // Calculate the discount percentage
             const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
-            
+
             // Display the discount percentage in the specified container
             discountContainer.textContent = discountPercentage.toFixed(0) + '% OFF';
         }
@@ -206,17 +231,65 @@
 
     // Call the function for each product card on page load
     document.addEventListener('DOMContentLoaded', function () {
-        const priceElement = document.querySelector('#price');
-        const finalPriceElement = document.querySelector('#final_price');
+        const priceValueElement = document.getElementById('PriceValue');
+        const finalPriceValueElement = document.getElementById('finalPriceValue');
         const discountContainer = document.querySelector('.discount');
 
-        if (priceElement && finalPriceElement && discountContainer) {
-            const price = priceElement.textContent;
-            const finalPrice = finalPriceElement.textContent;
+        if (priceValueElement && finalPriceValueElement && discountContainer) {
+            const price = priceValueElement.textContent;
+            const finalPrice = finalPriceValueElement.textContent;
 
             // Call the function to display the discount percentage
             displayDiscountPercentage(price, finalPrice, discountContainer);
         }
+
+        const quantityButtons = document.querySelectorAll('.product-details button[data-quantity]');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        let selected_quantity = null;
+
+        quantityButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const quantityId = button.getAttribute('data-quantity');
+                const finalPrice = button.getAttribute('data-final-price');
+                const Price = button.getAttribute('data-price');
+                const availability = button.getAttribute('data-availablity');
+                const inStockElement = document.getElementById('inStock');
+                const outOfStockElement = document.getElementById('outOfStock');
+
+                finalPriceValueElement.textContent = finalPrice;
+                priceValueElement.textContent = Price;
+
+                quantityButtons.forEach(btn => {
+                    btn.classList.remove('active-quantity');
+                });
+
+                // Add active class to the clicked button
+                button.classList.add('active-quantity');
+
+                // Update selected quantity
+                selected_quantity = quantityId;
+
+                if (availability==='True') 
+                {
+                     inStockElement.style.display = 'inline';
+                     outOfStockElement.style.display = 'none';
+                     // Enable add to cart button
+                    addToCartBtn.removeAttribute('disabled');
+                } 
+                else 
+                {
+                     inStockElement.style.display = 'none';
+                      outOfStockElement.style.display = 'inline';
+                      // Enable add to cart button
+                      addToCartBtn.setAttribute('disabled', 'disabled');
+                }
+                // Update discount percentage if needed
+                displayDiscountPercentage(Price, finalPrice, discountContainer);
+
+            });
+        });
+
+        // Additional JavaScript code as needed
     });
 </script>
 {% endblock javascript %}

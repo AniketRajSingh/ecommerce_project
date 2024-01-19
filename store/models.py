@@ -28,7 +28,7 @@ class Media(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    categories = models.ManyToManyField(Category)
     quantities = models.ManyToManyField(Quantity, through='ProductQuantity')
     description = models.TextField()
     short_description = models.TextField()
