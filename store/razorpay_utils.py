@@ -22,9 +22,10 @@ def verify_payment(payment_id, amount, order_id,razorpay_order_id):
     print("Payment Details:", payment)
     print(payment['amount'],amount)
     print(order_id)
-
+    
     if payment['amount'] == amount*100:
         # Update the order with payment details
+        print("if sattement passed")
         order = Order.objects.get(id=order_id)
         order.total_price = amount
         order.payment_id = payment_id
@@ -34,7 +35,9 @@ def verify_payment(payment_id, amount, order_id,razorpay_order_id):
         order.payment_timestamp = timezone.datetime.fromtimestamp(payment['created_at'])
 
         order.save()
+        print("order saved")
 
         return True
     else:
+        print('returned false')
         return False

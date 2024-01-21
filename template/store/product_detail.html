@@ -64,6 +64,9 @@
     .hide-content {
         display: none;
     }
+    .discription{
+        font-size: .875em;
+    }
 
     @media (max-width: 767px) {
         .product-details-container {
@@ -104,6 +107,9 @@
         .row{
             flex-direction: column-reverse;
         }
+        .discription{
+            font-size: 1rem;
+        }
     }
 </style>
 {% endblock styles %}
@@ -117,13 +123,13 @@
                 <h1 class="p-name">{{ product.name }}</h1>
                 <h2>Product Details:</h2>
                 <div id="product-description" class="lead">
-                    <span id="less-content" class="small">
+                    <span id="less-content" class="discription">
                         {{ product.description|linebreaksbr|truncatewords_html:150 }}
                     </span>
                     {% if product.description|length > 150 %}
                     <span id="more-btn" class="text-btn text-success">More</span>
                     {% endif %}
-                    <span id="more-content" class="hide-content small">
+                    <span id="more-content" class="hide-content discription">
                         {{ product.description|linebreaksbr|safe }}
                     </span>
                     <span id="less-btn" class="hide-content text-btn text-danger">Less</span>
@@ -180,7 +186,10 @@
                     <span id="price" class="card-text small text-decoration-line-through text-danger">MRP: ₹<span id="PriceValue">{{ product.productquantity_set.first.price }}</span></span>
                     <span class="text-success discount mx-1 extra small">XX% OFF</span>
                     <p id="final_price" class="product-price">Price: ₹<span id="finalPriceValue">{{ product.productquantity_set.first.final_price }}</span></p>
-                    <button id="addToCartBtn" class="btn btn-success mt-2"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                    <form method="post" id="addToCartForm{{ product.id }}" action="{% url 'add_to_cart' product.id product.productquantity_set.first.quantity.id %}" onclick="addToCart('{{ product.id }}')">
+                        {% csrf_token %}
+                    <button type="submit" id="addToCartBtn" class="btn btn-success mt-2"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -228,6 +237,15 @@
             discountContainer.textContent = discountPercentage.toFixed(0) + '% OFF';
         }
     }
+    function updateFormAction(productId, selectedQuantity) {
+        console.log(productId)
+        var formElement = document.getElementById("addToCartForm" + productId);
+        if (formElement) {
+            formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';
+        } else {
+            console.error('Could not find form for product ID:', productId);
+        }
+    }   
 
     // Call the function for each product card on page load
     document.addEventListener('DOMContentLoaded', function () {
@@ -254,7 +272,8 @@
                 const Price = button.getAttribute('data-price');
                 const availability = button.getAttribute('data-availablity');
                 const inStockElement = document.getElementById('inStock');
-                const outOfStockElement = document.getElementById('outOfStock');
+                const outOfStockElement = document.getElementById('outOfStock'); 
+                updateFormAction('{{ product.id }}', quantityId);
 
                 finalPriceValueElement.textContent = finalPrice;
                 priceValueElement.textContent = Price;
@@ -288,8 +307,48 @@
 
             });
         });
-
-        // Additional JavaScript code as needed
     });
 </script>
+<script>
+    function addToCart(productId) {
+        // Get the form element
+        var formElement = document.getElementById("addToCartForm" + productId);
+
+        // Prevent the default form submission
+        formElement.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Perform AJAX POST request
+            ajaxPost(formElement.action, new FormData(formElement), function (response) {
+            });
+        });
+    }
+
+    // Function to perform an AJAX POST request
+    function ajaxPost(url, data, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("X-CSRFToken", getCSRFToken()); // Add CSRF token if using Django
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Successful response
+                    callback(JSON.parse(xhr.responseText));
+                } else {
+                    // Handle error
+                    console.error("Error:", xhr.status);
+                }
+            }
+        };
+        xhr.send(data);
+    }
+
+    // Function to get CSRF token (specific to Django)
+    function getCSRFToken() {
+        var csrfCookie = document.cookie.match(/csrftoken=([\w-]+)/);
+        return csrfCookie ? csrfCookie[1] : null;
+    }
+</script>
+
 {% endblock javascript %}
+

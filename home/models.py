@@ -19,3 +19,18 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.customer_name}'s Review from {self.location}"
+
+from django.db import models
+
+class HomePageCarousel(models.Model):
+    MEDIA_CHOICES = [
+        ('image', 'Image'),
+        ('video', 'Video'),
+    ]
+
+    media_type = models.CharField(max_length=10, choices=MEDIA_CHOICES, default='image')
+    media_url = models.URLField()
+    image_description = models.TextField()
+
+    def __str__(self):
+        return self.image_description

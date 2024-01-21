@@ -2,10 +2,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from .models import Product, Order, Category
+from .models import Product, Order, Category, Quantity
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .razorpay_utils import create_order, verify_payment
+from django.db.models import F, ExpressionWrapper, fields, Sum
 
 def product_list(request):
     categories = Category.objects.all()
@@ -47,30 +48,39 @@ def product_detail(request, product_id):
     })
 
 @require_POST
-def add_to_cart(request, product_id):
+def add_to_cart(request, product_id, quantity_id):
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
+    quantity_id_str = str(quantity_id)
+    
+    # Ensure the quantity is valid for the product
+    product = get_object_or_404(Product, id=product_id)
+    quantity = get_object_or_404(Quantity, id=quantity_id)
 
-    if product_id_str in cart:
-        cart[product_id_str] += 1
+    key = f"{product_id_str}-{quantity_id_str}"
+
+    if key in cart:
+        cart[key]['quantity'] += 1
     else:
-        cart[product_id_str] = 1
+        cart[key] = {'quantity_id': quantity_id, 'quantity': 1}
 
     request.session['cart'] = cart
     request.session.modified = True
     return JsonResponse({'success': True, 'cart': cart})
 
 @require_POST
-def substract_from_cart(request, product_id):
+def substract_from_cart(request, product_id, quantity_id):
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
+    quantity_id_str = str(quantity_id)
+    key = f"{product_id_str}-{quantity_id_str}"
 
-    if product_id_str in cart:
-        cart[product_id_str] -= 1
-        if cart[product_id_str] <= 0:
-            del cart[product_id_str]
+    if key in cart:
+        cart[key]['quantity'] -= 1
+        if cart[key]['quantity'] <= 0:
+            del cart[key]
     else:
-        cart[product_id_str] = 0
+        cart[key] = {'quantity_id': quantity_id, 'quantity': 0}
 
     request.session['cart'] = cart
     request.session.modified = True
@@ -78,55 +88,144 @@ def substract_from_cart(request, product_id):
     return JsonResponse({'success': True, 'cart': cart})
 
 @require_POST
-def remove_cart_item(request, product_id):
+def remove_cart_item(request, product_id, quantity_id):
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
+    quantity_id_str = str(quantity_id)
+    key = f"{product_id_str}-{quantity_id_str}"
 
-    if product_id_str in cart:
-        del cart[product_id_str]
+    if key in cart:
+        del cart[key]
 
     request.session['cart'] = cart
     request.session.modified = True
     return JsonResponse({'success': True, 'cart': cart})
+
 
 def cart(request):
     cart = request.session.get('cart', {})
 
     if not cart:
-        return render(request, 'store/cart.html', {'products_in_cart': [], 'total_price': 0})
+        return render(request, 'store/cart.html', {'cart_data': {}})
 
-    product_ids_in_cart = cart.keys()
-    products_in_cart = Product.objects.filter(id__in=product_ids_in_cart)
-    total_prices = calculate_total_prices(products_in_cart)
+    product_data_dict = {}
+    total_items = 0  # Add this variable to track the total number of items in the cart
 
-    return render(request, 'store/cart.html', {'products_in_cart': products_in_cart, 'total_prices': total_prices, 'cart': cart})
+    for item, quantity_data in cart.items():
+        # Check if the item follows the expected format
+        if '-' in item:
+            product_id, quantity_id = map(int, item.split('-'))
+            quantity = quantity_data.get('quantity', 0)
+            total_items += quantity  # Increment total_items by the quantity
+
+            # Fetch product details
+            product = Product.objects.get(id=product_id)
+            quantity_instance = Quantity.objects.get(id=quantity_id)
+            price = product.productquantity_set.get(quantity=quantity_instance).price
+            final_price = product.productquantity_set.get(quantity=quantity_instance).final_price
+
+            # Create or update product data in the dictionary
+            if product_id not in product_data_dict:
+                product_data_dict[product_id] = {
+                    'product_id': product_id,
+                    'name': product.name,
+                    'image_urls': [media.media_url for media in product.media_set.filter(media_type='image')],
+                    'quantities': {},
+                }
+
+            product_data_dict[product_id]['quantities'][quantity_id] = {
+                'price': price,
+                'final_price': final_price,
+                'quantity': quantity,
+                'quantity_instance': quantity_instance,
+            }
+
+    total_price = sum(
+        quantity_data['quantity'] * quantity_data['final_price']
+        for product_id, product_data in product_data_dict.items()
+        for quantity_id, quantity_data in product_data['quantities'].items()
+    )
+
+    context = {
+        'cart_data': {
+            'total_price': total_price,
+            'total_items': total_items,
+            'products': product_data_dict.values(),
+        },
+    }
+
+    return render(request, 'store/cart.html', context)
 
 def customer_support(request):
     return render(request, 'store/customer_support.html')
 
 def order_confirmation(request):
     cart = request.session.get('cart', {})
-    product_ids_in_cart = cart.keys()
-    products_in_cart = Product.objects.filter(id__in=product_ids_in_cart)
-    total_prices = calculate_total_prices(products_in_cart, cart)
 
-    return render(request, 'store/order_confirmation.html', {'products_in_cart': products_in_cart, 'total_prices': total_prices, 'cart': cart, 'razorpay_key': 'rzp_test_esc8vkRRLTMjAN'})
+    if not cart:
+        messages.warning(request, 'Your cart is empty. Add items to your cart before proceeding.')
+        return redirect('cart')
+
+    product_data_dict = {}
+
+    for item, quantity_data in cart.items():
+        # Check if the item follows the expected format
+        if '-' in item:
+            product_id, quantity_id = map(int, item.split('-'))
+            quantity = quantity_data.get('quantity', 0)
+            
+            # Fetch product details
+            product = Product.objects.get(id=product_id)
+            quantity_instance = Quantity.objects.get(id=quantity_id)
+            price = product.productquantity_set.get(quantity=quantity_instance).price
+            final_price = product.productquantity_set.get(quantity=quantity_instance).final_price
+            
+            # Create or update product data in the dictionary
+            if product_id not in product_data_dict:
+                product_data_dict[product_id] = {
+                    'product_id': product_id,
+                    'name': product.name,
+                    'image_urls': [media.media_url for media in product.media_set.filter(media_type='image')],
+                    'quantities': {},
+                }
+            
+            product_data_dict[product_id]['quantities'][quantity_id] = {
+                'price': price,
+                'final_price': final_price,
+                'quantity': quantity,
+                'quantity_instance':quantity_instance,
+            }
+
+    total_price = sum(
+        quantity_data['quantity'] * quantity_data['final_price']
+        for product_id, product_data in product_data_dict.items()
+        for quantity_id, quantity_data in product_data['quantities'].items()
+    )
+
+    context = {
+        'product_data': product_data_dict.values(),
+        'total_price': total_price,
+        'cart': cart,
+        'razorpay_key': 'rzp_test_esc8vkRRLTMjAN',
+    }
+
+    return render(request, 'store/order_confirmation.html', context)
 
 @login_required
 def place_order(request):
-    if request.method == 'POST':
+    # Retrieve cart details
+    cart = request.session.get('cart', {})
+    if request.method == 'POST' and cart:
         # Validate the form
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         address = request.POST.get('address')
+
+        # Retrieve Razorpay payment details
         razorpay_payment_id = request.POST.get('razorpay_payment_id')
         razorpay_order_id = request.POST.get('razorpay_order_id')
 
-        cart = request.session.get('cart', {})
-        product_ids_in_cart = cart.keys()
-        products_in_cart = Product.objects.filter(id__in=product_ids_in_cart)
-        total_prices = calculate_total_prices(products_in_cart, cart)
 
         # Create an order for the authenticated user
         order = Order.objects.create(
@@ -138,22 +237,32 @@ def place_order(request):
         )
 
         # Add ordered products to the order
-        for product_id, quantity in request.session.get('cart', {}).items():
+        for key, quantity_data in cart.items():
+            # Split the key into product_id and quantity_id
+            product_id_str, quantity_id_str = key.split('-')
+            product_id = int(product_id_str)
+            quantity_id = int(quantity_id_str)
+
             product = Product.objects.get(id=product_id)
+            quantity = Quantity.objects.get(id=quantity_id)
+
             order.order_items.create(
                 product=product,
                 quantity=quantity,
-                price=product.final_price,
+                item_quantity=quantity_data['quantity'],
+                price=product.productquantity_set.get(quantity=quantity).final_price,
             )
 
-        order.total_price = sum(total_prices[product_id][quantity_id]['final_price'] * cart[product_id] for product_id, quantity_id in cart.items())
+        order.total_price = order.order_items.aggregate(
+            total_price=Sum(F('price') * F('item_quantity'))
+        )['total_price'] or 0
 
         # Initiate payment with the order amount and get Razorpay order ID
         razorpay_order_id = create_order(order.total_price, order.id)
         payment_id = razorpay_payment_id
         r_order_id = razorpay_order_id['id']
 
-        if verify_payment(payment_id, order.total_price, order.id,r_order_id):
+        if verify_payment(payment_id, order.total_price, order.id, r_order_id):
             # Clear the cart
             request.session['cart'] = {}
 

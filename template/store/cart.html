@@ -1,314 +1,312 @@
-{% extends "base.html" %}
-{% block title %}
-Shopping Cart
-{% endblock title %}
-{% block styles %}
-<style>
-    /* Your custom styles go here */
-    .cart-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    .card {
-        border: 1px solid #ddd;
-        margin-bottom: 20px;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    .card img {
-        max-width: 100px;
-        margin-inline: 50px;
-        border-radius: 8px;
-    }
-    
-    .card-details {
-        border-left: #ced4da solid 1px;
-        flex-grow: 1;
-        padding-left: 50px;
-    }
-
-    .product-details {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .product-info {
-        flex-grow: 1;
-    }
-
-    .quantity {
-        display: flex;
-        align-items: center;
-    }
-
-    .quantity button {
-        padding: 5px;
-        margin: 0 5px;
-        font-size: 12px;
-        cursor: pointer;
-        background-color: #f8f9fa;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-    }
-
-    .quantityValue {
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-        padding: 5px;
-        margin: 0 5px;
-        font-size: 12px;
-        text-align: center;
-        min-width: 30px;
-    }
-
-    .product-actions {
-        display: flex;
-        align-items: center;
-    }
-
-    .total {
-        font-weight: bold;
-    }
-
-    .remove-btn {
-        text-align: center;
-        width: max-content;
-    }
-
-    .remove-btn i {
-        color: #eb676d;
-        margin: auto;
-        font-size: x-large;
-    }
-
-    .remove-btn button {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
-        cursor: pointer;
-    }
-
-    .img-fluid {
-        height: 100%;
-        object-fit: contain;
-        width: 100%;
-        border-radius: 8px;
-    }
-    #grand-total{
-        font-size: larger;
-        margin-left: 10px;
-    }
-    @media (max-width: 767px) {
-        .card-details{
-            border-left:none;
-            padding-left: 0;
-            width: 100%;
-        }
-        .card img {
-            margin-inline: 20px;
-        }
+    {% extends "base.html" %}
+    {% block title %}
+    Shopping Cart
+    {% endblock title %}
+    {% block styles %}
+    <style>
+        /* Your custom styles go here */
         .cart-container {
-        margin-top: 30px;
-    }
-    }
-</style>
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-{% endblock styles %}
-{% block body %}
-<div class="container cart-container">
-    <h1>Your Cart</h1>
+        .card {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
 
-    {% if products_in_cart %}
-    {% for product in products_in_cart %}
-    <div class="card">
-        <img src="{{ product.img }}" class="img-fluid" alt="{{ product.name }}">
-        <div class="card-details">
-            <p class="small text-success">{{ product.name }}</p>
-            
+        .card img {
+            max-width: 100px;
+            margin-inline: 50px;
+            border-radius: 8px;
+        }
+        
+        .card-details {
+            border-left: #ced4da solid 1px;
+            flex-grow: 1;
+            padding-left: 50px;
+        }
 
-            {% for key, value in cart.items %}
-            {% if key == product.id|stringformat:"s" %}
-            <div style="display: flex;justify-content: space-between;">
-                <div class="quantity" data-product-id="{{ key }}">
-                    <button class="btn btn-sm btn-sr decrease-quantity" data-product-id="{{ key }}">-</button>
-                    <span contenteditable="false" class="quantityValue" data-product-id="{{ key }}">{{ value }}</span>
-                    <button class="btn btn-sm btn-ss increase-quantity" data-product-id="{{ key }}">+</button>
+        .product-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity button {
+            padding: 5px;
+            margin: 0 5px;
+            font-size: 12px;
+            cursor: pointer;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        .quantityValue {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 5px;
+            margin: 0 5px;
+            font-size: 12px;
+            text-align: center;
+            min-width: 30px;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            text-align: center;
+            width: max-content;
+        }
+
+        .remove-btn i {
+            color: #eb676d;
+            margin: auto;
+            font-size: x-large;
+        }
+
+        .remove-btn button {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        .img-fluid {
+            height: 100%;
+            object-fit: contain;
+            width: 100%;
+            border-radius: 8px;
+        }
+        #grand-total{
+            font-size: larger;
+            margin-left: 10px;
+        }
+        @media (max-width: 767px) {
+            .card-details{
+                border-left:none;
+                padding-left: 0;
+                width: 100%;
+            }
+            .card img {
+                margin-inline: 20px;
+            }
+            .cart-container {
+            margin-top: 30px;
+        }
+        }
+    </style>
+
+    {% endblock styles %}
+    {% block body %}
+    <div class="container cart-container">
+        <h1>Your Cart</h1>
+
+        {% if cart_data.products %}
+        {% for product in cart_data.products %}
+        {% for quantity_id, quantity_data in product.quantities.items %}
+        <div class="card">
+            <img src="{{ product.image_urls.0 }}" class="img-fluid" alt="{{ product.name }}">
+            <div class="card-details">
+                <p class="small text-success">{{ product.name }} ({{ quantity_data.quantity_instance }})</p>
+                <div style="display: flex;justify-content: space-between;">
+                    <div class="quantity" data-product-id="{{ product.product_id }}" data-quantity-id="{{ quantity_id}}">
+                        <button class="btn btn-sm btn-sr decrease-quantity" data-product-id="{{ product.product_id }}">-</button>
+                        <span contenteditable="false" class="quantityValue" data-product-id="{{ product.product_id }}" data-quantity-id="{{ quantity_id}}">{{ quantity_data.quantity }}</span>
+                        <button class="btn btn-sm btn-ss increase-quantity" data-product-id="{{ product.product_id }}">+</button>
+                    </div>
+                    <div class="remove-btn">
+                        <button class="remove-button" data-product-id="{{ product.product_id }}" data-quantity-id="{{ quantity_id}}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="remove-btn">
-                    <button class="remove-button" data-product-id="{{ key }}">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
+                <span class="small">Price: </span><span class='product_price text-primary small'>₹{{ quantity_data.final_price }}</span><br>
+                
+                <span>Total: </span><span class='total text-success'>₹</span>
             </div>
-            <span class="small">Price: </span><span class='product_price text-primary small'>₹{{ product.final_price }}</span><br>
-            
-            <span>Total: </span><span class='total text-success'>₹</span>
-            
-            {% endif %}
-            {% endfor %}
         </div>
+        {% endfor %}
+        {% endfor %}
+        <div class="card" style="display:flex;align-items: center;justify-content: right;">
+            <p class="my-1"><strong>Total Price: </strong></p>
+            <p class="text-success my-1"><strong id="grand-total">₹ {{ cart_data.total_price }}</strong></p>
+        </div>
+
+        <div class="checkout-button-container">
+            <a href="{% url 'order_confirmation' %}" class="btn btn-ss checkout-button">Buy Now</a>
+        </div>
+        {% else %}
+        <p>Your cart is empty.</p>
+        {% endif %}
     </div>
-    {% endfor %}
-    <div class="card" style="display:flex;align-items: center;justify-content: right;">
-        <p class="my-1"><strong>Total Price: </strong></p>
-        <p class="text-success my-1"><strong id="grand-total">₹ {{ total_price }}</strong></p>
-    </div>
+    {% endblock body %}
+    {% block javascript %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var quantityCells = document.querySelectorAll('.quantityValue');
+            var decreaseButtons = document.querySelectorAll('.decrease-quantity');
+            var increaseButtons = document.querySelectorAll('.increase-quantity');
+            var removeButtons = document.querySelectorAll('.remove-button');
+            var productPrices = document.querySelectorAll('.product_price');
+            var totals = document.querySelectorAll('.total');
+            var grandTotal = document.getElementById('grand-total');
 
-    <div class="checkout-button-container">
-        <a href="{% url 'order_confirmation' %}" class="btn btn-ss checkout-button">Buy Now</a>
-    </div>
-    {% else %}
-    <p>Your cart is empty.</p>
-    {% endif %}
-</div>
-{% endblock body %}
-{% block javascript %}
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var quantityCells = document.querySelectorAll('.quantityValue');
-        var decreaseButtons = document.querySelectorAll('.decrease-quantity');
-        var increaseButtons = document.querySelectorAll('.increase-quantity');
-        var removeButtons = document.querySelectorAll('.remove-button');
-        var productPrices = document.querySelectorAll('.product_price');
-        var totals = document.querySelectorAll('.total');
-        var grandTotal = document.getElementById('grand-total');
+            function updateTotals() {
+                var grandTotalValue = 0;
 
-        function updateTotals() {
-            var grandTotalValue = 0;
+                quantityCells.forEach(function (quantityCell, index) {
+                    var quantityValue = parseInt(quantityCell.textContent.trim()) || 0;
+                    var price = parseFloat(productPrices[index].textContent.slice(1).trim()) || 0; // Remove the ₹ sign
+                    var total = quantityValue * price;
+                    totals[index].textContent = '₹' + total;
 
-            quantityCells.forEach(function (quantityCell, index) {
-                var quantityValue = parseInt(quantityCell.textContent.trim()) || 0;
-                var price = parseFloat(productPrices[index].textContent.slice(1).trim()) || 0; // Remove the ₹ sign
-                var total = quantityValue * price;
-                totals[index].textContent = '₹' + total;
-
-                grandTotalValue += total;
-            });
-
-            grandTotal.textContent = '₹' + grandTotalValue;
-        }
-
-        function createButtonClickHandler(quantityCell, index, action) {
-            return function () {
-                var currentQuantity = parseInt(quantityCell.textContent.trim()) || 0;
-                var productId = quantityCell.dataset.productId;
-
-                if (action === 'increase') {
-                    quantityCell.textContent = currentQuantity + 1;
-
-                    // Send an asynchronous request to the server to update the cart
-                    fetch(`/store/add_to_cart/${productId}/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
-                        },
-                        body: JSON.stringify({}),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Handle success
-                                console.log('Item added to the cart successfully');
-                            } else {
-                                // Handle failure
-                                console.log('Failed to add item to the cart');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error adding item to the cart:', error);
-                        });
-                } else if (action === 'decrease' && currentQuantity > 1) {
-                    quantityCell.textContent = currentQuantity - 1;
-                    // Send an asynchronous request to the server to update the cart
-                    fetch(`/store/substract_from_cart/${productId}/`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
-                        },
-                        body: JSON.stringify({}),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Handle success
-                                console.log('Item subtracted from the cart successfully');
-                            } else {
-                                // Handle failure
-                                console.log('Failed to subtract item from the cart');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error subtracting item from the cart:', error);
-                        });
-                }
-                updateTotals();
-            };
-        }
-
-        function removeFromCart(productId) {
-            // Send an asynchronous request to the server to remove the item from the cart
-            fetch(`/store/remove_cart_item/${productId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
-                },
-                body: JSON.stringify({}),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Handle success
-                        console.log('Item removed from the cart successfully');
-                        var cardToRemove = document.querySelector(`[data-product-id="${productId}"]`).closest('.card');
-                        if (cardToRemove) {
-                            var price = parseFloat(cardToRemove.querySelector('.product_price').textContent.slice(1).trim()) || 0;
-                            var quantity = parseFloat(cardToRemove.querySelector('.quantityValue').textContent) || 1; // Corrected to get quantity
-                            cardToRemove.remove();
-
-                            var grandTotalValue = parseFloat(grandTotal.textContent.slice(1).trim()) || 0;
-                            var removedTotal = price * quantity; // Calculate the removed total
-                            grandTotalValue -= removedTotal;
-                            grandTotal.textContent = '₹' + grandTotalValue;
-                        }
-                    } else {
-                        // Handle failure
-                        console.log('Failed to remove item from the cart');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error removing item from the cart:', error);
+                    grandTotalValue += total;
                 });
-        }
 
-        quantityCells.forEach(function (quantityCell, index) {
-            decreaseButtons[index].addEventListener('click', createButtonClickHandler(quantityCell, index, 'decrease'));
-            increaseButtons[index].addEventListener('click', createButtonClickHandler(quantityCell, index, 'increase'));
-        });
-
-        removeButtons.forEach(function (removeButton) {
-            // Get the product ID from the data attribute
-            var productId = removeButton.dataset.productId;
-
-            if (!productId) {
-                console.error('Product ID not found');
-                return;
+                grandTotal.textContent = '₹' + grandTotalValue;
             }
 
-            removeButton.addEventListener('click', function () {
-                removeFromCart(productId);
-            });
-        });
+            function createButtonClickHandler(quantityCell, index, action) {
+                return function () {
+                    var currentQuantity = parseInt(quantityCell.textContent.trim()) || 0;
+                    var productId = quantityCell.dataset.productId;
+                    var quantityId = quantityCell.dataset.quantityId
+                    console.log(quantityId)
 
-        updateTotals();
-    });
-</script>
-{% endblock javascript %}
+                    if (action === 'increase') {
+                        quantityCell.textContent = currentQuantity + 1;
+
+                        // Send an asynchronous request to the server to update the cart
+                        fetch(`/store/add_to_cart/${productId}/${quantityId}/`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                            },
+                            body: JSON.stringify({}),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Handle success
+                                    console.log('Item added to the cart successfully');
+                                } else {
+                                    // Handle failure
+                                    console.log('Failed to add item to the cart');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error adding item to the cart:', error);
+                            });
+                    } else if (action === 'decrease' && currentQuantity > 1) {
+                        quantityCell.textContent = currentQuantity - 1;
+                        // Send an asynchronous request to the server to update the cart
+                        fetch(`/store/substract_from_cart/${productId}/${quantityId}/`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                            },
+                            body: JSON.stringify({}),
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Handle success
+                                    console.log('Item subtracted from the cart successfully');
+                                } else {
+                                    // Handle failure
+                                    console.log('Failed to subtract item from the cart');
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error subtracting item from the cart:', error);
+                            });
+                    }
+                    updateTotals();
+                };
+            }
+
+            function removeFromCart(productId,quantityId) {
+                // Send an asynchronous request to the server to remove the item from the cart
+                fetch(`/store/remove_cart_item/${productId}/${quantityId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': '{{ csrf_token }}'  // Include CSRF token
+                    },
+                    body: JSON.stringify({}),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Handle success
+                            console.log('Item removed from the cart successfully');
+                            var cardToRemove = document.querySelector(`[data-product-id="${productId}"]`).closest('.card');
+                            if (cardToRemove) {
+                                var price = parseFloat(cardToRemove.querySelector('.product_price').textContent.slice(1).trim()) || 0;
+                                var quantity = parseFloat(cardToRemove.querySelector('.quantityValue').textContent) || 1; // Corrected to get quantity
+                                cardToRemove.remove();
+
+                                var grandTotalValue = parseFloat(grandTotal.textContent.slice(1).trim()) || 0;
+                                var removedTotal = price * quantity; // Calculate the removed total
+                                grandTotalValue -= removedTotal;
+                                grandTotal.textContent = '₹' + grandTotalValue;
+                            }
+                        } else {
+                            // Handle failure
+                            console.log('Failed to remove item from the cart');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error removing item from the cart:', error);
+                    });
+            }
+
+            quantityCells.forEach(function (quantityCell, index) {
+                decreaseButtons[index].addEventListener('click', createButtonClickHandler(quantityCell, index, 'decrease'));
+                increaseButtons[index].addEventListener('click', createButtonClickHandler(quantityCell, index, 'increase'));
+            });
+
+            removeButtons.forEach(function (removeButton) {
+                // Get the product ID from the data attribute
+                var productId = removeButton.dataset.productId;
+                var quantityId = removeButton.dataset.quantityId;
+
+                if (!productId) {
+                    console.error('Product ID not found');
+                    return;
+                }
+
+                removeButton.addEventListener('click', function () {
+                    removeFromCart(productId, quantityId);
+                });
+            });
+
+            updateTotals();
+        });
+    </script>
+    {% endblock javascript %}

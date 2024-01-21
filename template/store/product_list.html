@@ -121,11 +121,12 @@ Products
                                             {% with quantity_id=quantity_instance.quantity.id %}
                                                 <button type="button" class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
                                                         data-product-id="{{ product.id }}"
+                                                        data-quantity-id="{{ quantity_instance.quantity.id }}"
                                                         data-quantity="{{ quantity_instance.quantity.name }}"
                                                         data-price="{{ quantity_instance.price }}"
                                                         data-final-price="{{ quantity_instance.final_price }}"
                                                         data-available="{{ quantity_instance.available|lower }}"
-                                                        onclick="updatePrice({{ product.id }}, '{{ quantity_instance.quantity.name }}', {{ quantity_instance.price }}, {{ quantity_instance.final_price }}, '{{ quantity_instance.available|lower }}')">
+                                                        onclick="updatePrice('{{ product.id }}', '{{ quantity_instance.quantity.name }}', '{{ quantity_instance.price }}', '{{ quantity_instance.final_price }}', '{{ quantity_instance.available|lower }}', '{{ quantity_instance.quantity.id }}')">
                                                     {{ quantity_instance.quantity.name }}
                                                 </button>
                                             {% endwith %}
@@ -152,20 +153,20 @@ Products
                                 </p>
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
-                                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                    <form method="post" id="addToCartForm{{ product.id }}">
                                         {% csrf_token %}
                                         {% if product.productquantity_set.first.available %}
-                                            <button type="submit" id="addToCart{{ product.id }}" class="btn">
+                                            <button type="submit" id="addToCart{{ product.id }}" class="btn" onclick="addToCart('{{ product.id }}')">
                                                 <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
                                             </button>
-                                            <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn">
+                                            <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
                                                 <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                             </button>
                                         {% else %}
-                                        <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn">
+                                        <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn" onclick="addToCart('{{ product.id }}')">
                                             <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
                                         </button>
-                                        <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn">
+                                        <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
                                             <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                         </button>
                                         {% endif %}
@@ -181,59 +182,66 @@ Products
 </div>
 {% endblock body %}
 
-{% block javascript%}
+{% block javascript %}
 <script>
-    // Modify the updatePrice function to pass the selected_quantity
-function updatePrice(productId, selectedQuantity, price, finalPrice, available) {
-    // Update price and final price based on selected quantity
-    var priceElement = document.getElementById("price" + productId);
-    var finalPriceElement = document.getElementById("finalPrice" + productId);
+    function updatePrice(productId, selectedQuantity, price, finalPrice, available,selectedQuantityId) {
+        var priceElement = document.getElementById("price" + productId);
+        var finalPriceElement = document.getElementById("finalPrice" + productId);
 
-    priceElement.textContent = "MRP: ₹" + price;
-    finalPriceElement.textContent = "Price: ₹" + finalPrice;
+        priceElement.textContent = "MRP: ₹" + price;
+        finalPriceElement.textContent = "Price: ₹" + finalPrice;
 
-    // Display the discount percentage
-    displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+        displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
 
-    // Update availability buttons
-    updateAvailability(available, productId, selectedQuantity, price, finalPrice);
-
-    var allButtons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
-    var selectedButton = document.querySelector(`button[data-product-id="${productId}"][data-quantity="${selectedQuantity}"]`);
-    if (selectedButton) {
-        allButtons.forEach(function(button) {
-            button.classList.remove('active-quantity');
-        });
-        selectedButton.classList.add('active-quantity');
+        updateAvailability(available, productId, selectedQuantity);
+        updateFormAction(productId, selectedQuantityId);
+        updateActiveQuantityButton(productId, selectedQuantity);
     }
 
-}
+    function updateAvailability(availability, productId, selectedQuantity) {
+        var addButton = document.getElementById("addToCart" + productId);
+        var disabledButton = document.getElementById("removeFromCart" + productId);
+        var inStockElement = document.getElementById("inStock" + productId);
+        var outOfStockElement = document.getElementById("outOfStock" + productId);
 
-// Modify the updateAvailability function to accept price and finalPrice parameters
-function updateAvailability(availability, productId) {
-    var addButton = document.getElementById("addToCart" + productId);
-    var disabledButton = document.getElementById("removeFromCart" + productId);
-    var inStockElement = document.getElementById("inStock" + productId);
-    var outOfStockElement = document.getElementById("outOfStock" + productId);
-
-    if (addButton && disabledButton && inStockElement && outOfStockElement) {
-        if (availability === "true") {
-            addButton.style.display = "block";
-            disabledButton.style.display = "none";
-            inStockElement.style.display = 'inline';
-            outOfStockElement.style.display = 'none';
+        if (addButton && disabledButton && inStockElement && outOfStockElement) {
+            if (availability === "true") {
+                addButton.style.display = "block";
+                disabledButton.style.display = "none";
+                inStockElement.style.display = 'inline';
+                outOfStockElement.style.display = 'none';
+            } else {
+                addButton.style.display = "none";
+                disabledButton.style.display = "block";
+                inStockElement.style.display = 'none';
+                outOfStockElement.style.display = 'inline';
+            }
         } else {
-            addButton.style.display = "none";
-            disabledButton.style.display = "block";
-            inStockElement.style.display = 'none';
-            outOfStockElement.style.display = 'inline';
+            console.error('Could not find elements for product ID:', productId, availability);
         }
-    } else {
-        console.error('Could not find button group for product ID:', productId, availability);
     }
-}
 
-// Function to calculate and display the discount percentage
+    function updateFormAction(productId, selectedQuantity) {
+        console.log(productId)
+        var formElement = document.getElementById("addToCartForm" + productId);
+        if (formElement) {
+            formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';
+        } else {
+            console.error('Could not find form for product ID:', productId);
+        }
+    }
+
+    function updateActiveQuantityButton(productId, selectedQuantity) {
+        var allButtons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
+        var selectedButton = document.querySelector(`button[data-product-id="${productId}"][data-quantity="${selectedQuantity}"]`);
+        if (selectedButton) {
+            allButtons.forEach(function(button) {
+                button.classList.remove('active-quantity');
+            });
+            selectedButton.classList.add('active-quantity');
+        }
+    }
+
     function displayDiscountPercentage(price, finalPrice, productId) {
         const priceElement = document.getElementById("price" + productId);
         const finalPriceElement = document.getElementById("finalPrice" + productId);
@@ -250,13 +258,55 @@ function updateAvailability(availability, productId) {
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-        // Iterate through each product and update the discount percentage
         {% for product in products %}
             var productId = {{ product.id }};
             var priceElement = document.getElementById("price" + productId);
             var finalPriceElement = document.getElementById("finalPrice" + productId);
             displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+            var selectedQuantity = '{{ product.productquantity_set.first.quantity.id }}'; 
+            updateFormAction(productId, selectedQuantity);
         {% endfor %}
     });
 </script>
-{% endblock javascript%}
+<script>
+    function addToCart(productId) {
+        // Get the form element
+        var formElement = document.getElementById("addToCartForm" + productId);
+
+        // Prevent the default form submission
+        formElement.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Perform AJAX POST request
+            ajaxPost(formElement.action, new FormData(formElement), function (response) {
+            });
+        });
+    }
+
+    // Function to perform an AJAX POST request
+    function ajaxPost(url, data, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("X-CSRFToken", getCSRFToken()); // Add CSRF token if using Django
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Successful response
+                    callback(JSON.parse(xhr.responseText));
+                } else {
+                    // Handle error
+                    console.error("Error:", xhr.status);
+                }
+            }
+        };
+        xhr.send(data);
+    }
+
+    // Function to get CSRF token (specific to Django)
+    function getCSRFToken() {
+        var csrfCookie = document.cookie.match(/csrftoken=([\w-]+)/);
+        return csrfCookie ? csrfCookie[1] : null;
+    }
+</script>
+
+{% endblock javascript %}

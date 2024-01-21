@@ -439,36 +439,36 @@ Order Confirmation
     <!-- Display order details (You can fetch this from the session or database) -->
 
     <div class="mb-4">
-        <h2>Your Order Details:</h2>
-        {% if products_in_cart %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">S.No.</th>
-                    <th scope="col">Image</th>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                {% for product in products_in_cart %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td><img class="img-fluid" src="{{ product.img }}" alt="{{ product.name }}"></td>
-                    <td>{{ product.name }}</td>
-                    <td>₹{{ product.final_price }}</td>
-                    
+      <h2>Your Order Details:</h2>
+      {% if product_data %}
+      <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for product in product_data %}
+            {% for quantity_id, quantity_data in product.quantities.items %}
+              <tr>
+                  <td><img src="{{ product.image_urls.0 }}" class="img-fluid" alt="{{ product.name }}"></td>
+                  <td>{{ product.name }} ({{ quantity_data.quantity_instance }})</td>
+                  <td>₹{{ quantity_data.final_price }}</td>
+                  <td>{{ quantity_data.quantity }}</td>
                 </tr>
                 {% endfor %}
-                <tr>
-                    <td colspan="2" class="text-center"><strong>Total Price:</strong></td>
-                    <td colspan="2" class="text-left"><strong id="grand-total">₹ {{ total_price }}</strong></td>
-                </tr>
-            </tbody>
-        </table>
-        {% endif %}
-    </div>
+              {% endfor %}
+              <tr>
+                  <td colspan="2" class="text-center"><strong>Total Price:</strong></td>
+                  <td colspan="2" class="text-left"><strong id="grand-total">₹ {{ total_price }}</strong></td>
+              </tr>`
+          </tbody>
+      </table>
+      {% endif %}
+  </div>
 
     <form method="post" action="{% url 'place_order' %}" class="mb-4" id="order-form">
         {% csrf_token %}
