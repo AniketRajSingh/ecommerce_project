@@ -32,7 +32,8 @@
         h3,
         h4 {
             font-family: 'Open Sans' !important;
-            color: #38a509;
+            color: #1A6F67;
+            font-weight: 900;
         }
 
         .navbar-expand-lg .navbar-collapse {
@@ -308,19 +309,19 @@
                         <a class="nav-link" href="/about/">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Our Operation</a>
+                        <a class="nav-link" href="/operation">Our Operation</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/store/products/">Why Coldpress?</a>
+                        <a class="nav-link" href="/coldpress">Why Coldpress?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact/">Know our oils</a>
+                        <a class="nav-link" href="/knowouroil">Know our oils</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contact/">Contact Us</a>
                     </li>
                     <form action="{% url 'product_search' %}" method="get" class="navbar-search d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                        <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search"
                             name="q">
                         <button class="btn btn-navbar" type="submit">Search</button>
                     </form>
@@ -412,13 +413,13 @@
                 <a class="nav-link mx-3" href="/about/">About Us</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="/">Our Operation</a>
+                <a class="nav-link mx-3" href="/ouroperation">Our Operation</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="/store/products/">Why Coldpress?</a>
+                <a class="nav-link mx-3" href="/coldpress">Why Coldpress?</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link mx-3" href="/contact/">Know our oils</a>
+                <a class="nav-link mx-3" href="/knowouroils">Know our oils</a>
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item dropdown">
