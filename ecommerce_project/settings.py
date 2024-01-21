@@ -24,6 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-p_#$mq1x91=%$n5r0%4$os7i*8t714vk*v3+7la+$zih4q3^ui'
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+handler404 = 'home.views.handler404'
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -56,10 +60,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
 ]
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-handler404 = 'home.views.handler404'
 
 ROOT_URLCONF = 'ecommerce_project.urls'
 
