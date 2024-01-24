@@ -53,10 +53,16 @@ class Order(models.Model):
         ('Out For Delivery', 'Out For Delivery'),
         ('Delivered', 'Delivered'),
         ('Cancelled', 'Cancelled'),
-        ('Returned', 'Returned'),
+        ('Return Requested', 'Return Requested'),
         ('Return Accepted', 'Return Accepted'),
+        ('Return Rejected', 'Return Rejected'),
+        ('Returned', 'Returned'),
+        ('Refunded', 'Refunded'),
         ('Replacement Required', 'Replacement Required'),
+        ('Replacement Accepted', 'Replacement Accepted'),
+        ('Replacement Rejected', 'Replacement Rejected'),
         ('Product Replaced', 'Product Replaced'),
+        ('Replacement Complete', 'Replacement Complete'),
     ]
 
     delivery_status = models.CharField(

@@ -8,7 +8,7 @@
         height: max-content;
     }
 
-    .carousel-item img {
+    .carousel-item img,video {
         object-fit: cover;
         height: 500px;
         width: 100%;
@@ -51,6 +51,9 @@
         align-items: center;
         padding: 1.5rem;
         padding-inline: 3rem;
+    }
+    .body-container{
+        margin-top: 0!important;
     }
 
     @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
@@ -283,7 +286,7 @@
             {% if image.media_type == 'image' %}
             <img src="{{ image.media_url }}" class="d-block w-100" alt="Hero Image {{ forloop.counter }}">
             {% elif image.media_type == 'video' %}
-            <video controls class="d-block w-100" alt="Hero Video {{ forloop.counter }}">
+            <video poster autoplay loop playsinline muted class="d-block w-100" alt="Hero Video {{ forloop.counter }}">
                 <source src="{{ image.media_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
