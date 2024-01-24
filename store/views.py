@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
-from .models import Product, Order, Category, Quantity
+from .models import Product, Order, Category, Quantity, Cancellation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .razorpay_utils import create_order, verify_payment
@@ -298,18 +298,26 @@ def my_orders(request):
     return render(request, 'store/my_orders.html', {'orders': orders})
 
 def cancel_order(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
+    order = Order.objects.get(id=order_id)
 
-    if order.delivery_status == 'Pending':
-        # Implement cancellation logic (e.g., update order status)
-        order.delivery_status = 'Cancelled'
-        order.save()
+    if request.method == 'POST':
+        reason = request.POST.get('reason')
 
-        messages.success(request, 'Order cancelled successfully.')
-    else:
-        messages.error(request, 'Cannot cancel order. Delivery status is not pending.')
+        if reason:
+            # Save the reason in the Cancellation model
+            cancellation = Cancellation(order=order, reason=reason)
+            cancellation.save()
 
-    return redirect('my_orders')
+            # Implement cancellation logic (e.g., update order status)
+            order.delivery_status = 'Cancelled'
+            order.save()
+
+            messages.success(request, 'Order cancelled successfully.')
+            return redirect('my_orders')
+        else:
+            messages.error(request, 'Please provide a reason for cancellation.')
+
+    return render(request, 'store/cancel_order.html', {'order': order})
 
 def return_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)

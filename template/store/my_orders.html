@@ -53,6 +53,10 @@ My Orders
     .action-button {
         margin-right: 10px;
     }
+    .popup-btn-grp{
+        display: flex;
+        justify-content: space-between;
+    }
 
     @media (max-width: 767px) {
         .product-table {
@@ -61,6 +65,9 @@ My Orders
 
         .product-card {
             margin-bottom: 15px;
+        }
+        .popup-btn-grp button{
+            font-size: x-small!important;
         }
     }
 
@@ -132,12 +139,116 @@ My Orders
                 </div>
                 <div class="action-buttons">
                     {% if order.delivery_status == 'Pending' %}
-                        <a href="{% url 'cancel_order' order_id=order.id %}" class="btn btn-danger action-button">Cancel Order</a>
+                        <!-- Button to trigger the modal -->
+                        <button type="button" class="btn btn-danger action-button" data-toggle="modal" data-target="#cancelModal{{ order.id }}">Cancel Order</button>
+                
+                        <!-- The modal -->
+                        <div class="modal fade" id="cancelModal{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="cancelModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="cancelModalLabel">Cancel Order Confirmation</h5>
+                                        <button type="button" class="close popup-close-btn btn" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Include the cancellation form directly in the modal -->
+                                        <form id="cancelOrderForm" method="post" action="{% url 'cancel_order' order.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="reason">Reason for cancellation:</label>
+                                                <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+                                            </div>
+                                            <div class="popup-btn-grp">
+                                                <button type="submit" class="btn btn-danger mt-3">Confirm Cancellation</button>
+                                                <button type="button" class="btn btn-success mt-3 ms-auto" data-dismiss="modal">I don't want to cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% elif order.delivery_status == 'Cancelled' %}
+                        <p class="text-danger">Order Cancelled</p>
+                    {% elif order.delivery_status == 'Accepted' %}
+                        <!-- Generate response for Accepted status -->
+                        <div class="modal fade" id="acceptedModal{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="acceptedModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="acceptedModalLabel">Order Accepted</h5>
+                                        <button type="button" class="close popup-close-btn btn" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Your order has been accepted. We are preparing it for dispatch.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success action-button" data-toggle="modal" data-target="#acceptedModal{{ order.id }}">View Order Status</button>
+                    {% elif order.delivery_status == 'Out For Delivery' %}
+                        <!-- Generate response for Out For Delivery status -->
+                        <div class="modal fade" id="outForDeliveryModal{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="outForDeliveryModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="outForDeliveryModalLabel">Out For Delivery</h5>
+                                        <button type="button" class="close popup-close-btn btn" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Your order is out for delivery. It will be delivered to you shortly.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success action-button" data-toggle="modal" data-target="#outForDeliveryModal{{ order.id }}">Track Order</button>
                     {% elif order.delivery_status == 'Delivered' %}
                         <a href="{% url 'return_order' order_id=order.id %}" class="btn btn-warning text-light action-button">Return Order</a>
                         <a href="{% url 'replace_order' order_id=order.id %}" class="btn btn-info text-light action-button">Replace Order</a>
+                    {% elif order.delivery_status == 'Returned' %}
+                        <!-- Generate response for Returned status -->
+                        <div class="modal fade" id="returnedModal{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="returnedModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class"modal-header">
+                                        <h5 class="modal-title" id="returnedModalLabel">Order Returned</h5>
+                                        <button type="button" class="close popup-close-btn btn" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Your returned order has been received. Refund process initiated.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success action-button" data-toggle="modal" data-target="#returnedModal{{ order.id }}">View Refund Status</button>
+                    {% elif order.delivery_status == 'Replaced' %}
+                        <!-- Generate response for Replaced status -->
+                        <div class="modal fade" id="replacedModal{{ order.id }}" tabindex="-1" role="dialog" aria-labelledby="replacedModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="replacedModalLabel">Order Replaced</h5>
+                                        <button type="button" class="close popup-close-btn btn" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Your order replacement has been successfully accepted. New items are on the way.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success action-button" data-toggle="modal" data-target="#replacedModal{{ order.id }}">Track Replacement</button>
                     {% endif %}
                 </div>
+                
             </div>
         {% endfor %}
     {% else %}
@@ -145,3 +256,11 @@ My Orders
     {% endif %}
 </div>
 {% endblock body %}
+{% block javascript %}
+    <script>
+        function showCancelModal(orderId) {
+            // Show the modal
+            $('#cancelModal').modal('show');
+        }
+    </script>
+{% endblock javascript %}

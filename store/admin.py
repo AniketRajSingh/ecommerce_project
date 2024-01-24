@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Quantity, Product, Order, OrderItem, ProductQuantity, Media
+from .models import Category, Quantity, Product, Order, OrderItem, ProductQuantity, Media, Cancellation
 
 admin.site.register(Category)
 admin.site.register(Quantity)
@@ -26,7 +26,19 @@ class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 1
 
+
+class CancellationInline(admin.StackedInline):
+    model = Cancellation
+    extra = 0
+
 class OrderAdmin(admin.ModelAdmin):
-    inlines = [OrderItemInline]
+    inlines = [OrderItemInline, CancellationInline]
+    list_display = ('id', 'user', 'delivery_status', 'total_price', 'created_at')
+
+    def cancellation_reason(self, obj):
+        # Display the cancellation reason if the order is cancelled
+        cancellation = Cancellation.objects.filter(order=obj).first()
+        return cancellation.reason if cancellation else '-'
+
 
 admin.site.register(Order, OrderAdmin)

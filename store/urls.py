@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import order_confirmation, place_order, product_list, product_detail, add_to_cart,remove_cart_item, cart,customer_support,substract_from_cart
+from .views import order_confirmation, place_order, product_list, product_detail, add_to_cart,remove_cart_item, cart,customer_support,substract_from_cart,cancel_order
 
 urlpatterns = [
    
@@ -12,5 +12,6 @@ urlpatterns = [
     path('CustomerSupport/', customer_support, name='customer_support'),
     path('order-confirmation/', order_confirmation, name='order_confirmation'),
     path('place-order/', place_order, name='place_order'),
+    path('cancel_order/<int:order_id>/', cancel_order, name='cancel_order'),
     
 ]

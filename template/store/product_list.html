@@ -156,14 +156,14 @@ Products
                                     <form method="post" id="addToCartForm{{ product.id }}">
                                         {% csrf_token %}
                                         {% if product.productquantity_set.first.available %}
-                                            <button type="submit" id="addToCart{{ product.id }}" class="btn" onclick="addToCart('{{ product.id }}')">
+                                            <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button" onclick="addToCart('{{ product.id }}')">
                                                 <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
                                             </button>
                                             <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
                                                 <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                             </button>
                                         {% else %}
-                                        <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn" onclick="addToCart('{{ product.id }}')">
+                                        <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn add-to-cart-button" onclick="addToCart('{{ product.id }}')">
                                             <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
                                         </button>
                                         <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
@@ -222,7 +222,6 @@ Products
     }
 
     function updateFormAction(productId, selectedQuantity) {
-        console.log(productId)
         var formElement = document.getElementById("addToCartForm" + productId);
         if (formElement) {
             formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';
