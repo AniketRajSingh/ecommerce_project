@@ -466,7 +466,6 @@ My Orders
             </div>
             <button type="button" class="btn btn-success action-button" data-toggle="modal"
                 data-target="#returnedModal{{ order.id }}">View Refund Status</button>
-            {% endif %}
             
             {% elif order.delivery_status == 'Refunded' %}
             <div class="modal fade" id="refundedModal{{ order.id }}" tabindex="-1" role="dialog"

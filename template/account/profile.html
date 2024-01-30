@@ -14,6 +14,31 @@ User Profile
         width: 140px;
     }
 
+    label{
+        color: #1A6F67;
+        font-weight: 900;
+    }
+    .heading{
+        color: #1A6F67;
+        font-weight: bolder;
+        font-size: large;
+    }
+    .save-message {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            top: 0;
+            background-color: #2a2929ba;
+            color: white;
+            animation: fadeInOut 1s ease;
+            z-index: 999;
+            backdrop-filter: blur(3px);
+            
+        }
+
     /* Mobile Styles */
     @media (max-width: 767px) {
         .col-md-8 {
@@ -49,10 +74,10 @@ User Profile
     .btn-ss{
         padding: 8px;
     }
-    .name-input{
+    .duo-input{
         width: 48%;
     }
-    .name-container{
+    .duo-container{
         display: flex;
         justify-content: space-between;
     }
@@ -65,29 +90,36 @@ User Profile
 {% endblock %}
 
 {% block body %}
+<div class="save-message">
+    <div style="background-color: white;border-radius: 50%; width: 150px;height: 150px; display: flex;justify-content: center;align-items: center;">
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+        <dotlottie-player src="https://lottie.host/6a7bed03-67bf-4090-9c94-602fa95ee77f/ziTcbcQE3P.json" background="transparent" speed="1" style="width: 100px; height: 100px;" loop autoplay></dotlottie-player>
+    </div>
+</div>
 <div id="profile-form-main" class="container mt-5">
     <h2>Edit Profile</h2>
     <div class="row">
         <div class="col-md-8">
             <form id="profile-form" method="post" action="{% url 'edit_profile' %}">
                 {% csrf_token %}
-                <div class="name-container">
+        
+                <div class="duo-container">
                     <!-- First Name -->
-                    <div class="custom-input-group name-input">
+                    <div class="custom-input-group duo-input">
                         <label for="{{ form.first_name.id_for_label }}">First Name</label>
                         <input type="text" id="{{ form.first_name.id_for_label }}" name="{{ form.first_name.name }}"
                             value="{{ form.first_name.value }}" required>
                     </div>
-    
+        
                     <!-- Last Name -->
-                    <div class="custom-input-group name-input">
+                    <div class="custom-input-group duo-input">
                         <label for="{{ form.last_name.id_for_label }}">Last Name</label>
                         <input type="text" id="{{ form.last_name.id_for_label }}" name="{{ form.last_name.name }}"
                             value="{{ form.last_name.value }}" required>
                     </div>
-
                 </div>
-
+        
                 <!-- Email -->
                 <div class="custom-input-group">
                     <label for="{{ form.email.id_for_label }}">Email Address</label>
@@ -95,22 +127,120 @@ User Profile
                         value="{{ form.email.value }}" required>
                 </div>
 
-                <!-- Address -->
-                <div class="custom-input-group">
-                    <label for="{{ form.address.id_for_label }}">Address</label>
-                    <input type="text" id="{{ form.address.id_for_label }}" name="{{ form.address.name }}"
-                        value="{{ form.address.value }}" required>
+                <hr class="hr-divider">
+
+                <!-- Phone Numbers -->
+                <div class="heading">Phone Numbers</div>
+                <div class="duo-container">
+                    <!-- Primary Phone Number -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.primary_phone_number.id_for_label }}">Primary Phone Number</label>
+                        <input type="tel" id="{{ form.primary_phone_number.id_for_label }}" name="{{ form.primary_phone_number.name }}"
+                            value="{{ form.primary_phone_number.value }}" required>
+                    </div>
+        
+                    <!-- Alternative Phone Number -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.alternative_phone_number.id_for_label }}">Alternative Phone Number</label>
+                        <input type="tel" id="{{ form.alternative_phone_number.id_for_label }}" name="{{ form.alternative_phone_number.name }}"
+                            value="{{ form.alternative_phone_number.value }}">
+                    </div>
                 </div>
 
-                <!-- Phone Number -->
+                <hr class="hr-divider">
+        
+                <!-- Permanent Address -->
+                <div class="heading">Permanent Address</div>
+                <!-- Street -->
                 <div class="custom-input-group">
-                    <label for="{{ form.phone_number.id_for_label }}">Phone Number</label>
-                    <input type="tel" id="{{ form.phone_number.id_for_label }}" name="{{ form.phone_number.name }}"
-                        value="{{ form.phone_number.value }}" required>
+                    <label for="{{ form.permanent_street.id_for_label }}">Street</label>
+                    <input type="text" id="{{ form.permanent_street.id_for_label }}" name="{{ form.permanent_street.name }}"
+                    value="{{ form.permanent_street.value }}" required>
                 </div>
+                <div class="duo-container">
+                
+                    <!-- City -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.permanent_city.id_for_label }}">City</label>
+                        <input type="text" id="{{ form.permanent_city.id_for_label }}" name="{{ form.permanent_city.name }}"
+                            value="{{ form.permanent_city.value }}" required>
+                    </div>
+                    
+                    <!-- State -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.permanent_state.id_for_label }}">State</label>
+                        <input type="text" id="{{ form.permanent_state.id_for_label }}" name="{{ form.permanent_state.name }}"
+                        value="{{ form.permanent_state.value }}" required>
+                    </div>
+                </div>
+                <div class="duo-container">
+                
+                    <!-- Pincode -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.permanent_pincode.id_for_label }}">Pincode</label>
+                        <input type="text" id="{{ form.permanent_pincode.id_for_label }}" name="{{ form.permanent_pincode.name }}"
+                            value="{{ form.permanent_pincode.value }}" required>
+                    </div>
+                
+                    <!-- Landmark -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.permanent_landmark.id_for_label }}">Landmark</label>
+                        <input type="text" id="{{ form.permanent_landmark.id_for_label }}" name="{{ form.permanent_landmark.name }}"
+                            value="{{ form.permanent_landmark.value }}" required>
+                    </div>
+                </div>
+        
+                <hr class="hr-divider">
+        
+                <div style="display: flex;justify-content:space-between;align-items: center;">
+                    <!-- Shipping Address -->
+                    <div class="heading duo-item">Shipping Address</div>
+                    <!-- Checkbox to Copy Permanent Address to Shipping Address -->
+                    <div style="display: flex;justify-content:space-between;align-items: center;text-align: end;margin:0" class="custom-input-group duo-item">
+                        <span style="font-size: x-small; color:#38a509;">Copy Permanent Address</span>
+                        <input style="width: max-content;margin: 0;margin-left: 5px;" type="checkbox" id="copy-address" name="copy-address">
+                    </div>
+                </div>
+                
+                <!-- Street -->
+                <div class="custom-input-group">
+                    <label for="{{ form.shipping_street.id_for_label }}">Street</label>
+                    <input type="text" id="{{ form.shipping_street.id_for_label }}" name="{{ form.shipping_street.name }}"
+                        value="{{ form.shipping_street.value }}" required>
+                </div>
+                <div class="duo-container">
+                    <!-- City -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.shipping_city.id_for_label }}">City</label>
+                        <input type="text" id="{{ form.shipping_city.id_for_label }}" name="{{ form.shipping_city.name }}"
+                            value="{{ form.shipping_city.value }}" required>
+                    </div>
+                    <!-- State -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.shipping_state.id_for_label }}">State</label>
+                        <input type="text" id="{{ form.shipping_state.id_for_label }}" name="{{ form.shipping_state.name }}"
+                            value="{{ form.shipping_state.value }}" required>
+                    </div>
+                </div>
+                <div class="duo-container">
+                    <!-- Pincode -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.shipping_pincode.id_for_label }}">Pincode</label>
+                        <input type="text" id="{{ form.shipping_pincode.id_for_label }}" name="{{ form.shipping_pincode.name }}"
+                            value="{{ form.shipping_pincode.value }}" required>
+                    </div>
+                    
+                    <!-- Landmark -->
+                    <div class="custom-input-group duo-input">
+                        <label for="{{ form.shipping_landmark.id_for_label }}">Landmark</label>
+                        <input type="text" id="{{ form.shipping_landmark.id_for_label }}" name="{{ form.shipping_landmark.name }}"
+                            value="{{ form.shipping_landmark.value }}" required>
+                    </div>
 
+                </div>
+        
                 <button class="btn btn-ss" type="submit">Save Changes</button>
-            </form>
+            </form>           
         </div>
         <div class="col-md-4 mobile-hidden">
             <svg class="animated" id="freepik_stories-profile-interface" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"
@@ -961,4 +1091,79 @@ User Profile
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock body %}
+{% block javascript %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get the checkbox and the input fields
+        var copyAddressCheckbox = document.getElementById('copy-address');
+        var permanentStreet = document.getElementById('{{ form.permanent_street.id_for_label }}');
+        var permanentCity = document.getElementById('{{ form.permanent_city.id_for_label }}');
+        var permanentState = document.getElementById('{{ form.permanent_state.id_for_label }}');
+        var permanentPincode = document.getElementById('{{ form.permanent_pincode.id_for_label }}');
+        var permanentLandmark = document.getElementById('{{ form.permanent_landmark.id_for_label }}');
+
+        var shippingStreet = document.getElementById('{{ form.shipping_street.id_for_label }}');
+        var shippingCity = document.getElementById('{{ form.shipping_city.id_for_label }}');
+        var shippingState = document.getElementById('{{ form.shipping_state.id_for_label }}');
+        var shippingPincode = document.getElementById('{{ form.shipping_pincode.id_for_label }}');
+        var shippingLandmark = document.getElementById('{{ form.shipping_landmark.id_for_label }}');
+
+        // Add an event listener to the checkbox
+        copyAddressCheckbox.addEventListener('change', function () {
+            // If the checkbox is checked, copy the values
+            if (copyAddressCheckbox.checked) {
+                shippingStreet.value = permanentStreet.value;
+                shippingCity.value = permanentCity.value;
+                shippingState.value = permanentState.value;
+                shippingPincode.value = permanentPincode.value;
+                shippingLandmark.value = permanentLandmark.value;
+            } else {
+                // If the checkbox is unchecked, clear the values
+                shippingStreet.value = '';
+                shippingCity.value = '';
+                shippingState.value = '';
+                shippingPincode.value = '';
+                shippingLandmark.value = '';
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var profileForm = document.getElementById('profile-form');
+
+        profileForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Fetch API to submit the form asynchronously
+            fetch(profileForm.action, {
+                method: 'POST',
+                body: new FormData(profileForm),
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',  // Set header for AJAX detection
+                    'X-CSRFToken': '{{ csrf_token }}'       // Include CSRF token
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+            const saveMessage = document.querySelector('.save-message');
+            if (data.success) {
+                // If the save is successful, show the popup message
+                saveMessage.style.display = 'flex';
+                // Hide the message after 3 seconds
+                setTimeout(() => {
+                    saveMessage.style.display = 'none';
+                }, 3000);
+            } else {
+                // Handle errors if needed
+                console.error('Error saving profile:', data);
+            }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
+{% endblock javascript %}

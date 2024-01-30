@@ -13,6 +13,7 @@
         flex-direction: row;
     }
 
+
     .product-image {
         flex: 1;
         padding: 20px;
@@ -53,6 +54,7 @@
         margin-inline: auto;
         max-height: 300px;
         object-fit: contain;
+        border-bottom:rgba(0, 0, 0, 0.175) solid 1px ;
     }
 
     .text-btn {
@@ -66,6 +68,10 @@
     }
     .discription{
         font-size: .875em;
+    }
+    .product-details{
+        margin-top: 6rem;
+        border-top: rgba(0, 0, 0, 0.175) solid 1px ;
     }
 
     @media (max-width: 767px) {
@@ -119,7 +125,7 @@
 <div class="mt-5 product-details-container">  
     <div class="row" style="width: 100%;">
         <div class="col-12 col-md-8">
-            <div class="product-info card h-100 me-md-5 p-5">
+            <div class="product-info h-100 me-md-5 p-5">
                 <h1 class="p-name">{{ product.name }}</h1>
                 <h2>Product Details:</h2>
                 <div id="product-description" class="lead">
@@ -139,34 +145,37 @@
 
         <div class="col-12 col-md-4">
             <div class="product-image card h-100">
-                <!-- Image Carousel -->
-                <div id="carousel{{ product.id }}" class="carousel slide card" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for media in product.media_set.all %}
-                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                {% if media.media_type == 'image' %}
-                                    <img src="{{ media.media_url }}" class="d-block w-100 img-fluid" alt="Product Image">
-                                {% elif media.media_type == 'video' %}
-                                    <video class="d-block w-100" controls>
-                                        <source src="{{ media.media_url }}" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                <!-- Mini Carousel -->
+            <div id="mini-carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for media in product.media_set.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <img src="{{ media.media_url }}" class="d-block w-100 img-fluid" alt="Thumbnail" data-bs-target="#main-carousel{{ product.id }}" data-bs-slide-to="{{ forloop.index }}">
+                        </div>
+                    {% endfor %}
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#mini-carousel{{ product.id }}" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#mini-carousel{{ product.id }}" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <!-- Thumbnails -->
+                <div class="carousel-indicators" style="margin-bottom: -20px;">
+                    {% for media in product.media_set.all %}
+                        <button type="button" data-bs-target="#mini-carousel{{ product.id }}" data-bs-slide-to="{{ forloop.index }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.index }}" style="width: 100px;">
+                            <img style="max-height: 5rem;" class="d-block w-100" src="{{ media.media_url }}" alt="Thumbnail">
+                        </button>
+                    {% endfor %}
+                </div>
+                <!-- Thumbnails -->
+            </div>
+            <!-- Mini Carousel -->
             
                 <!-- Product Details -->
-                <div class="product-details card mt-4 p-3">
+                <div class="product-details p-3">
                     <p>Quantity: 
                         {% for quantity_instance in product_quantities %}
                             <button class="btn btn-outline-success{% if quantity_instance.quantity.id == selected_quantity %} active-quantity {% endif %}" data-quantity="{{ quantity_instance.quantity.id }}" data-final-price="{{ quantity_instance.final_price }}" data-price="{{ quantity_instance.price }}" data-availablity="{{ quantity_instance.available }}">
@@ -188,7 +197,7 @@
                     <p id="final_price" class="product-price">Price: ₹<span id="finalPriceValue">{{ product.productquantity_set.first.final_price }}</span></p>
                     <form method="post" id="addToCartForm{{ product.id }}" action="{% url 'add_to_cart' product.id product.productquantity_set.first.quantity.id %}" onclick="addToCart('{{ product.id }}')">
                         {% csrf_token %}
-                    <button type="submit" id="addToCartBtn" class="btn btn-success mt-2"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                    <button type="submit" id="addToCartBtn" class="btn btn-success add-to-cart-button mt-2"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
                     </form>
                 </div>
             </div>
@@ -308,6 +317,56 @@
             });
         });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+    const carousel = document.getElementById('mini-carousel{{ product.id }}');
+    const slides = carousel.querySelectorAll('.carousel-item');
+    const indicators = carousel.querySelectorAll('.carousel-indicators button');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.style.display = i === index ? 'block' : 'none';
+        });
+        updateIndicators(index);
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function goToSlide(index) {
+        currentSlide = index;
+        showSlide(currentSlide);
+    }
+
+    function updateIndicators(activeIndex) {
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === activeIndex);
+        });
+    }
+
+    // Attach event listeners to buttons
+    const prevButton = carousel.querySelector('.carousel-control-prev');
+    const nextButton = carousel.querySelector('.carousel-control-next');
+
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+
+    // Attach event listeners to indicators
+    indicators.forEach((indicator, i) => {
+        indicator.addEventListener('click', () => goToSlide(i));
+    });
+
+    // Show the initial slide
+    showSlide(currentSlide);
+});
+
 </script>
 <script>
     function addToCart(productId) {
@@ -349,6 +408,7 @@
         return csrfCookie ? csrfCookie[1] : null;
     }
 </script>
+
 
 {% endblock javascript %}
 

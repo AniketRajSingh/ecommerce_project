@@ -4,6 +4,9 @@
 {% block title %}Home{% endblock title %}
 {% block styles %}
 <style>
+    .row{
+        justify-content: space-evenly!important;
+    }
     .carousel-item {
         height: max-content;
     }
@@ -173,7 +176,7 @@
             font-size: 1rem;
         }
 
-        .carousel-item img {
+        .carousel-item img,video {
             object-fit: cover;
             height: 200px;
         }
@@ -271,7 +274,9 @@
 <div id="popup-container" class="popup-container fade-in">
     <div class="popup-card">
         <span class="popup-close-btn me-2" onclick="closePopup()">&times;</span>
+        <a href="{{ popup_content.redirection_link }}">
         <img src="{{ popup_content.image_url }}" alt="Popup Image">
+        </a>
         <p>{{ popup_content.description }}</p>
         <a href="{{ popup_content.redirection_link }}" style="width: 90%;" class="btn btn-ss">
             {{ popup_content.button_name }}</a>
@@ -331,6 +336,7 @@
                     <div class="carousel-inner">
                         {% for media in product.media_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <a href="{% url 'product_detail' product_id=product.id %}">
                             {% if media.media_type == 'image' %}
                             <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
                                 alt="Product Image">
@@ -340,6 +346,7 @@
                                 Your browser does not support the video tag.
                             </video>
                             {% endif %}
+                            </a>
                         </div>
                         {% endfor %}
                     </div>
@@ -385,6 +392,7 @@
                     <div class="carousel-inner">
                         {% for media in product.media_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <a href="{% url 'product_detail' product_id=product.id %}">
                             {% if media.media_type == 'image' %}
                             <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
                                 alt="Product Image">
@@ -394,6 +402,7 @@
                                 Your browser does not support the video tag.
                             </video>
                             {% endif %}
+                        </a>
                         </div>
                         {% endfor %}
                     </div>
@@ -432,6 +441,7 @@
                                         <div class="carousel-inner">
                                             {% for media in product.media_set.all %}
                                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                    <a href="{% url 'product_detail' product_id=product.id %}">
                                                     {% if media.media_type == 'image' %}
                                                         <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top" alt="Product Image">
                                                     {% elif media.media_type == 'video' %}
@@ -440,6 +450,7 @@
                                                             Your browser does not support the video tag.
                                                         </video>
                                                     {% endif %}
+                                                    </a>
                                                 </div>
                                             {% endfor %}
                                         </div>
@@ -452,9 +463,65 @@
                                             <span class="visually-hidden">Next</span>
                                         </button>
                                     </div>
-                                    <div class="card-body">
+                                    <div style="text-align: left!important;" class="card-body">
                                         <h5 class="card-title">{{ product.name }}</h5>
-                                        <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Shop Now</a>
+                                        <span>Quantity:
+                                            <div class="btn-group mt-2 mb-2" role="group" aria-label="Quantity">
+                                                {% for quantity_instance in product.productquantity_set.all %}
+                                                    {% with quantity_id=quantity_instance.quantity.id %}
+                                                        <button type="button" class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
+                                                                data-product-id="{{ product.id }}"
+                                                                data-quantity-id="{{ quantity_instance.quantity.id }}"
+                                                                data-quantity="{{ quantity_instance.quantity.name }}"
+                                                                data-price="{{ quantity_instance.price }}"
+                                                                data-final-price="{{ quantity_instance.final_price }}"
+                                                                data-available="{{ quantity_instance.available|lower }}"
+                                                                onclick="updatePrice('{{ product.id }}', '{{ quantity_instance.quantity.name }}', '{{ quantity_instance.price }}', '{{ quantity_instance.final_price }}', '{{ quantity_instance.available|lower }}', '{{ quantity_instance.quantity.id }}')">
+                                                            {{ quantity_instance.quantity.name }}
+                                                        </button>
+                                                    {% endwith %}
+                                                {% endfor %}
+                                            </div>
+                                        </span>
+                                        
+                                        <p class="availability">Availability: 
+                                            {% if product.productquantity_set.first.available %}
+                                                <span id="inStock{{ product.id }}" class="text-success">In Stock</span>
+                                                <span id="outOfStock{{ product.id }}" style="display: none;" class="text-danger">Out of Stock</span>
+                                            {% else %}
+                                                <span id="inStock{{ product.id }}" style="display: none;" class="text-success">In Stock</span>
+                                                <span id="outOfStock{{ product.id }}" class="text-danger">Out of Stock</span>
+                                            {% endif %}
+                                        </p>
+                                        
+                                        <span id="price{{ product.id }}" class="card-text small text-decoration-line-through text-danger">
+                                            MRP: ₹{{ product.productquantity_set.first.price }}
+                                        </span>
+                                        <span id="discount{{ product.id }}" class="discount mx-1 extra small"></span>
+                                        <p id="finalPrice{{ product.id }}" class="card-text text-primary">
+                                            Price: ₹{{ product.productquantity_set.first.final_price }}
+                                        </p>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
+                                            <form method="post" id="addToCartForm{{ product.id }}">
+                                                {% csrf_token %}
+                                                {% if product.productquantity_set.first.available %}
+                                                    <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button" onclick="addToCart('{{ product.id }}')">
+                                                        <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
+                                                    </button>
+                                                    <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                                    </button>
+                                                {% else %}
+                                                <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn add-to-cart-button" onclick="addToCart('{{ product.id }}')">
+                                                    <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
+                                                </button>
+                                                <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                                    <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                                </button>
+                                                {% endif %}
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -463,14 +530,6 @@
                 </div>
             {% endfor %}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
     
 </section>
@@ -517,6 +576,8 @@
                         </blockquote>
                         {% if review.photo_url %}
                             <img src="{{ review.photo_url }}" alt="Customer Photo">
+                            {% else %}
+                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Customer Photo">
                         {% endif %}
                         <div class="author">
                             <h5>{{ review.customer_name }}<span>{{ review.location }}</span></h5>
@@ -567,40 +628,130 @@
 {% endblock body %}
 {% block javascript %}
 <script>
-    // Function to calculate and display the discount percentage
-    function displayDiscountPercentage(price, finalPrice, discountContainer) {
-        // Ensure the elements exist before performing calculations
-        if (price && finalPrice && discountContainer) {
-            // Parse the price values
+    function updatePrice(productId, selectedQuantity, price, finalPrice, available,selectedQuantityId) {
+        var priceElement = document.getElementById("price" + productId);
+        var finalPriceElement = document.getElementById("finalPrice" + productId);
+
+        priceElement.textContent = "MRP: ₹" + price;
+        finalPriceElement.textContent = "Price: ₹" + finalPrice;
+
+        displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+
+        updateAvailability(available, productId, selectedQuantity);
+        updateFormAction(productId, selectedQuantityId);
+        updateActiveQuantityButton(productId, selectedQuantity);
+    }
+
+    function updateAvailability(availability, productId, selectedQuantity) {
+        var addButton = document.getElementById("addToCart" + productId);
+        var disabledButton = document.getElementById("removeFromCart" + productId);
+        var inStockElement = document.getElementById("inStock" + productId);
+        var outOfStockElement = document.getElementById("outOfStock" + productId);
+
+        if (addButton && disabledButton && inStockElement && outOfStockElement) {
+            if (availability === "true") {
+                addButton.style.display = "block";
+                disabledButton.style.display = "none";
+                inStockElement.style.display = 'inline';
+                outOfStockElement.style.display = 'none';
+            } else {
+                addButton.style.display = "none";
+                disabledButton.style.display = "block";
+                inStockElement.style.display = 'none';
+                outOfStockElement.style.display = 'inline';
+            }
+        } else {
+            console.error('Could not find elements for product ID:', productId, availability);
+        }
+    }
+
+    function updateFormAction(productId, selectedQuantity) {
+        var formElement = document.getElementById("addToCartForm" + productId);
+        if (formElement) {
+            formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';
+        } else {
+            console.error('Could not find form for product ID:', productId);
+        }
+    }
+
+    function updateActiveQuantityButton(productId, selectedQuantity) {
+        var allButtons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
+        var selectedButton = document.querySelector(`button[data-product-id="${productId}"][data-quantity="${selectedQuantity}"]`);
+        if (selectedButton) {
+            allButtons.forEach(function(button) {
+                button.classList.remove('active-quantity');
+            });
+            selectedButton.classList.add('active-quantity');
+        }
+    }
+
+    function displayDiscountPercentage(price, finalPrice, productId) {
+        const priceElement = document.getElementById("price" + productId);
+        const finalPriceElement = document.getElementById("finalPrice" + productId);
+        const discountContainer = document.getElementById("discount" + productId);
+
+        if (priceElement && finalPriceElement && discountContainer) {
             const originalPrice = parseFloat(price.replace('MRP: ₹', '').trim());
             const discountedPrice = parseFloat(finalPrice.replace('Price: ₹', '').trim());
 
-            // Calculate the discount percentage
             const discountPercentage = ((originalPrice - discountedPrice) / originalPrice) * 100;
 
-            // Display the discount percentage in the specified container
             discountContainer.textContent = discountPercentage.toFixed(0) + '% OFF';
         }
     }
 
-    // Call the function for each product card on page load
-    document.addEventListener('DOMContentLoaded', function () {
-        const productCards = document.querySelectorAll('.card');
-
-        productCards.forEach(function (card) {
-            const priceElement = card.querySelector('#price');
-            const finalPriceElement = card.querySelector('#final_price');
-            const discountContainer = card.querySelector('.text-success');
-
-            if (priceElement && finalPriceElement && discountContainer) {
-                const price = priceElement.textContent;
-                const finalPrice = finalPriceElement.textContent;
-
-                // Call the function to display the discount percentage
-                displayDiscountPercentage(price, finalPrice, discountContainer);
-            }
-        });
+    document.addEventListener("DOMContentLoaded", function() {
+        {% for product_chunk in product_chunk_list %}
+        {% for product in product_chunk %}
+            var productId = {{ product.id }};
+            var priceElement = document.getElementById("price" + productId);
+            var finalPriceElement = document.getElementById("finalPrice" + productId);
+            displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+            var selectedQuantity = '{{ product.productquantity_set.first.quantity.id }}'; 
+            updateFormAction(productId, selectedQuantity);
+        {% endfor %}
+        {% endfor %}
     });
+</script>
+<script>
+    function addToCart(productId) {
+        // Get the form element
+        var formElement = document.getElementById("addToCartForm" + productId);
+
+        // Prevent the default form submission
+        formElement.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Perform AJAX POST request
+            ajaxPost(formElement.action, new FormData(formElement), function (response) {
+            });
+        });
+    }
+
+    // Function to perform an AJAX POST request
+    function ajaxPost(url, data, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("X-CSRFToken", getCSRFToken()); // Add CSRF token if using Django
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Successful response
+                    callback(JSON.parse(xhr.responseText));
+                } else {
+                    // Handle error
+                    console.error("Error:", xhr.status);
+                }
+            }
+        };
+        xhr.send(data);
+    }
+
+    // Function to get CSRF token (specific to Django)
+    function getCSRFToken() {
+        var csrfCookie = document.cookie.match(/csrftoken=([\w-]+)/);
+        return csrfCookie ? csrfCookie[1] : null;
+    }
 </script>
 <script>
     // Add JavaScript to handle popup display

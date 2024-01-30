@@ -220,7 +220,11 @@ def place_order(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
-        address = request.POST.get('address')
+        permanent_street = request.POST.get('street')
+        permanent_city = request.POST.get('city')
+        permanent_state = request.POST.get('state')
+        permanent_pincode = request.POST.get('pincode')
+        permanent_landmark = request.POST.get('landmark')
 
         # Retrieve Razorpay payment details
         razorpay_payment_id = request.POST.get('razorpay_payment_id')
@@ -233,7 +237,11 @@ def place_order(request):
             name=name,
             email=email,
             phone=phone,
-            address=address,
+            permanent_street=permanent_street,
+            permanent_city=permanent_city,
+            permanent_state=permanent_state,
+            permanent_pincode=permanent_pincode,
+            permanent_landmark=permanent_landmark,
         )
 
         # Add ordered products to the order
