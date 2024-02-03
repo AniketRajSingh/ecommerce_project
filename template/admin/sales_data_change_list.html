@@ -1,0 +1,63 @@
+{% extends 'admin/change_list.html' %}
+{% load static %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <canvas id="salesChart"></canvas>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const ctx = document.getElementById('salesChart').getContext('2d');
+      let chartData = {{ chart_data|safe }};
+      
+      if (Array.isArray(chartData) && chartData.length > 0) {
+        const dates = chartData.map(entry => new Date(entry.chart_date));
+        const revenues = chartData.map(entry => entry.revenue);
+
+        const chart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: dates,
+            datasets: [{
+              label: 'Total Sales',
+              data: revenues,
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                type: 'time',
+                time: {
+                  unit: 'day'
+                },
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Total Sales'
+                }
+              }
+            }
+          }
+        });
+      } else {
+        console.error('Invalid or empty chartData:', chartData);
+      }
+    });
+  </script>
+{{ block.super }}
+{% endblock %}

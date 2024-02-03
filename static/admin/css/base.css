@@ -103,7 +103,6 @@ body {
     color: var(--body-fg);
     background: var(--body-bg);
 }
-
 /* LINKS */
 
 a:link, a:visited {

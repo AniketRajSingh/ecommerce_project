@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from datetime import date
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -114,3 +117,19 @@ class Replacement(models.Model):
     order = models.OneToOneField('Order', on_delete=models.CASCADE)
     reason = models.TextField()
     date_requested = models.DateTimeField(auto_now_add=True)
+
+class SalesData(models.Model):
+    date = models.DateField(default=date.today)
+    total_sales = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    def __str__(self):
+        return f"SalesData - {self.date}"
+    
+@receiver(post_save, sender=Order)
+def update_sales_data(sender, instance, created, **kwargs):
+    if created:
+        # Get or create SalesData for the current date
+        sales_data, created = SalesData.objects.get_or_create(date=date.today())
+        # Update total sales based on the new order
+        sales_data.total_sales += instance.total_price
+        sales_data.save()

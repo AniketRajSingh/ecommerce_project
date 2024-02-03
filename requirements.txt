@@ -22,3 +22,4 @@ typing_extensions==4.0.1
 urllib3==2.1.0
 gunicorn
 whitenoise
+django-admin-interface==0.28.5

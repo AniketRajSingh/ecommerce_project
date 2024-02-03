@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    "admin_interface",
+    'chartjs',
+    "colorfield",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -172,3 +175,12 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
 AUTH_USER_MODEL = 'auth.User'
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
+ADMIN_INTERFACE_APPS = [
+    'chartit',
+]
+
+ADMIN_INTERFACE_ORDER = (
+    {'app': 'chartit', 'models': ['salesdata']},
+)

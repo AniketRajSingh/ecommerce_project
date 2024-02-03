@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Category, Quantity, Product, Order, OrderItem, ProductQuantity, Media, Cancellation
+from .models import Category, Quantity, Product, Order, OrderItem, ProductQuantity, Media, Cancellation, SalesData
+from django.db.models.functions import TruncDate
+from django.db.models import Sum
 
 admin.site.register(Category)
 admin.site.register(Quantity)
@@ -42,3 +44,19 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Order, OrderAdmin)
+
+class SalesDataAdmin(admin.ModelAdmin):
+    change_list_template = 'admin/sales_data_change_list.html'
+
+    def changelist_view(self, request, extra_context=None):
+        # Add the chart to the change list page
+        aggregated_data = SalesData.objects.annotate(chart_date=TruncDate('date')).values('chart_date').annotate(revenue=Sum('total_sales')).order_by('chart_date')
+        chart_data = list(aggregated_data)
+        for entry in chart_data:
+            entry['chart_date'] = entry['chart_date'].isoformat()
+            entry['revenue'] = float(entry['revenue'])
+        extra_context = extra_context or {}
+        extra_context['chart_data'] = chart_data
+        return super().changelist_view(request, extra_context=extra_context)
+
+admin.site.register(SalesData, SalesDataAdmin)

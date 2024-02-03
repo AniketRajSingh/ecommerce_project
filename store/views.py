@@ -6,7 +6,7 @@ from .models import Product, Order, Category, Quantity, Cancellation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .razorpay_utils import create_order, verify_payment
-from django.db.models import F, ExpressionWrapper, fields, Sum
+from django.db.models import Sum
 
 def product_list(request):
     categories = Category.objects.all()
@@ -271,6 +271,7 @@ def place_order(request):
         r_order_id = razorpay_order_id['id']
 
         if verify_payment(payment_id, order.total_price, order.id, r_order_id):
+
             # Clear the cart
             request.session['cart'] = {}
 
