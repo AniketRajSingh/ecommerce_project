@@ -67,11 +67,35 @@
   </div>
 
   <script>
+    // Function to generate dynamic colors based on quantity
+    function generateColors(numColors, totalQuantities) {
+        const colors = [];
+        const maxQuantity = Math.max(...totalQuantities);
+        const minQuantity = Math.min(...totalQuantities);
+    
+        // Generate color shades based on quantity
+        for (let i = 0; i < numColors; i++) {
+            const normalizedQuantity = (totalQuantities[i] - minQuantity) / (maxQuantity - minQuantity);
+            const color = getColorShade(normalizedQuantity);
+            colors.push(color);
+        }
+    
+        return colors;
+    }
+    
+    // Function to get color shade based on normalized quantity
+    function getColorShade(normalizedQuantity) {
+        const red = Math.round(255 * (1 - normalizedQuantity*0.5));
+        const green = Math.round(255 * (normalizedQuantity ** 0.25));
+        const blue = 0;
+        const alpha = 0.2;  // Set alpha value (transparency)
+    
+        return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+    }
     document.addEventListener('DOMContentLoaded', function () {
       // Sales Chart
       const salesCtx = document.getElementById('salesChart').getContext('2d');
       let salesChartData = {{ chart_data|safe }};
-      console.log(salesChartData)
       
       if (Array.isArray(salesChartData) && salesChartData.length > 0) {
         const salesDates = salesChartData.map(entry => new Date(entry.chart_date));
@@ -116,98 +140,136 @@
 
       // Product Quantity Chart
       const productQuantityCtx = document.getElementById('productQuantityChart').getContext('2d');
-      let productQuantityChartData = {{ product_quantity_data|safe }};
-      console.log(productQuantityChartData)
-
-      if (Array.isArray(productQuantityChartData) && productQuantityChartData.length > 0) {
-        const productNames = productQuantityChartData.map(entry => entry.product_name);
-        const totalQuantities = productQuantityChartData.map(entry => entry.total_quantity);
-
-        const productQuantityChart = new Chart(productQuantityCtx, {
-          type: 'polarArea',
-          data: {
-            labels: productNames,
-            datasets: [{
-              label: 'Total Quantity',
-              data: totalQuantities,
-              backgroundColor: 'rgba(144, 238, 144, 0.2)',
-              borderColor: 'rgba(144, 238, 144, 1)', 
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: 'Product'
-                }
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: 'Quantity of Product Sold'
-                }
-              }
-            }
+          let productQuantityChartData = {{ product_quantity_data|safe }};
+        
+          if (Array.isArray(productQuantityChartData) && productQuantityChartData.length > 0) {
+              const productNames = productQuantityChartData.map(entry => entry.product_name);
+              const totalQuantities = productQuantityChartData.map(entry => entry.total_quantity);
+          
+              // Generate dynamic colors based on quantity
+              const backgroundColors = generateColors(totalQuantities.length, totalQuantities);
+          
+              const productQuantityChart = new Chart(productQuantityCtx, {
+                  type: 'polarArea',
+                  data: {
+                      labels: productNames,
+                      datasets: [{
+                          label: 'Total Quantity',
+                          data: totalQuantities,
+                          backgroundColor: backgroundColors,
+                          borderColor: backgroundColors.map(color => color.replace('0.2', '1')),  // Set border colors to full opacity
+                          borderWidth: 1
+                      }]
+                  },
+                  options: {
+                      scales: {
+                          x: {
+                              title: {
+                                  display: true,
+                                  text: 'Product'
+                              }
+                          },
+                          y: {
+                              title: {
+                                  display: true,
+                                  text: 'Quantity of Product Sold'
+                              }
+                          }
+                      }
+                  }
+              });
+          } else {
+              console.error('Invalid or empty productQuantityChartData:', productQuantityChartData);
           }
-        });
-      } else {
-        console.error('Invalid or empty productQuantityChartData:', productQuantityChartData);
-      }
+      
 
       // Order Status Chart
-const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
-let orderStatusChartData = {{ order_status_data|safe }};
-console.log(orderStatusChartData)
-
-if (Array.isArray(orderStatusChartData) && orderStatusChartData.length > 0) {
-    const orderStatusLabels = orderStatusChartData.map(entry => entry.delivery_status);
-    const totalOrders = orderStatusChartData.map(entry => entry.total_orders);
-
-    const colors = [
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(255, 99, 132, 0.2)',
-        // Add more colors as needed
-    ];
-
-    const orderStatusDataset = [{
-        label: 'Total Orders',
-        data: totalOrders,
-        backgroundColor: colors,
-        borderColor: colors.map(color => color.replace('0.2', '1')),  // Set border colors to full opacity
-        borderWidth: 1
-    }];
-
-    const orderStatusChart = new Chart(orderStatusCtx, {
-        type: 'pie',
-        data: {
-            labels: orderStatusLabels,
-            datasets: orderStatusDataset
-        },
-        options: {
-            scales: {
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Order Status'
-                    }
-                },
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Total Orders'
-                    }
-                }
-            }
-        }
-    });
-} else {
-    console.error('Invalid or empty orderStatusChartData:', orderStatusChartData);
-}
+      const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+      let orderStatusChartData = {{ order_status_data|safe }};
+      
+      if (Array.isArray(orderStatusChartData) && orderStatusChartData.length > 0) {
+          const orderStatusLabels = orderStatusChartData.map(entry => entry.delivery_status);
+          const totalOrders = orderStatusChartData.map(entry => entry.total_orders);
+      
+          const orderStatusDataset = [{
+              data: totalOrders,
+              backgroundColor: orderStatusLabels.map(label => getStatusColor(label)),
+              borderColor: orderStatusLabels.map(label => getStatusColor(label).replace('0.2', '1')),  // Set border colors to full opacity
+              borderWidth: 1
+          }];
+      
+          const orderStatusChart = new Chart(orderStatusCtx, {
+              type: 'pie',
+              data: {
+                  labels: orderStatusLabels,
+                  datasets: orderStatusDataset
+              },
+              options: {
+                  scales: {
+                      x: {
+                          title: {
+                              display: true,
+                              text: 'Order Status'
+                          }
+                      },
+                      y: {
+                          title: {
+                              display: true,
+                              text: 'Total Orders'
+                          }
+                      }
+                  }
+              }
+          });
+      } else {
+          console.error('Invalid or empty orderStatusChartData:', orderStatusChartData);
+      }
+      
+      // Function to get color based on status
+      function getStatusColor(status) {
+          switch (status) {
+              // Existing statuses
+              case 'Pending':
+                  return 'rgba(255, 206, 86, 0.2)';
+              case 'Accepted':
+                  return 'rgba(153, 102, 255, 0.2)';
+              case 'Out For Delivery':
+                  return 'rgba(54, 162, 235, 0.2)';
+              case 'Delivered':
+                  return 'rgba(75, 192, 192, 0.2)';
+              case 'Cancelled':
+                  return 'rgba(255, 99, 132, 0.2)';
+              // New statuses
+              case 'Return Requested':
+                  return 'rgba(255, 0, 0, 0.2)'; // Red
+              case 'Return Accepted':
+                  return 'rgba(255, 165, 0, 0.2)'; // Orange
+              case 'Return Rejected':
+                  return 'rgba(128, 0, 128, 0.2)'; // Purple
+              case 'Returned':
+                  return 'rgba(0, 128, 0, 0.2)'; // Green
+              case 'Refunded':
+                  return 'rgba(0, 255, 0, 0.2)'; // Lime Green
+              case 'Replacement Required':
+                  return 'rgba(255, 69, 0, 0.2)'; // Red-Orange
+              case 'Replacement Accepted':
+                  return 'rgba(0, 255, 255, 0.2)'; // Cyan
+              case 'Replacement Rejected':
+                  return 'rgba(255, 20, 147, 0.2)'; // Deep Pink
+              case 'Product Replaced':
+                  return 'rgba(255, 215, 0, 0.2)'; // Gold
+              case 'Replacement Complete':
+                  return 'rgba(173, 216, 230, 0.2)'; // Light Blue
+              // Emotions
+              case 'Happy':
+                  return 'rgba(0, 255, 0, 0.2)'; // Green for Delivered
+              case 'Sad':
+                  return 'rgba(255, 69, 0, 0.2)'; // Red-Orange for Cancelled
+              default:
+                  return 'rgba(0, 0, 0, 0.2)'; // Default color
+          }
+      }
+      
     });
   </script>
   {{ block.super }}
