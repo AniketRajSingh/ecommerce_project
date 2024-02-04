@@ -5,8 +5,6 @@ from django.db.models import Sum, Count
 import pandas as pd
 from io import BytesIO
 from django.http import HttpResponse
-import xlsxwriter
-from django.utils import timezone
 
 admin.site.register(Category)
 admin.site.register(Quantity)
@@ -52,28 +50,46 @@ class SalesDataAdmin(admin.ModelAdmin):
     actions = ['generate_excel_report']
 
     def changelist_view(self, request, extra_context=None):
-        # Logic to get data for Sales Chart
-        aggregated_data = SalesData.objects.annotate(chart_date=TruncDate('date')).values('chart_date').annotate(revenue=Sum('total_sales')).order_by('chart_date')
+        # Logic to get data for Sales Chart with date filter
+        start_date = request.GET.get('date__gte')
+        end_date = request.GET.get('date__lte')
+
+        # Logic to get data for Sales Chart based on the selected date range
+        queryset = SalesData.objects.all()
+
+        # Apply date range filter only if both start_date and end_date are provided
+        if start_date and end_date:
+            queryset = queryset.filter(date__range=(start_date, end_date))
+
+        aggregated_data = queryset.annotate(chart_date=TruncDate('date')).values('chart_date').annotate(revenue=Sum('total_sales')).order_by('chart_date')
         chart_data = list(aggregated_data)
         for entry in chart_data:
             entry['chart_date'] = entry['chart_date'].isoformat()
             entry['revenue'] = float(entry['revenue'])
 
-        # Logic to get data for Product Quantity chart
-        product_quantity_data = OrderItem.objects.values('product__name').annotate(total_quantity=Sum('item_quantity'))
-
-        product_quantity_chart_data = list(product_quantity_data)
+        # Logic to get data for Product Quantity chart with date filter
+        if start_date and end_date:
+            product_quantity_data = OrderItem.objects.filter(order__created_at__date__gte=start_date, order__created_at__date__lte=end_date) \
+                .values('product__name') \
+                .annotate(total_quantity=Sum('item_quantity'))
+            product_quantity_chart_data = list(product_quantity_data)
+        else:
+            product_quantity_chart_data = list(OrderItem.objects.values('product__name').annotate(total_quantity=Sum('item_quantity')))
         for entry in product_quantity_chart_data:
-            entry['product_name'] = entry['product__name']
-            entry['total_quantity'] = float(entry['total_quantity'])
+                entry['product_name'] = entry['product__name']
+                entry['total_quantity'] = float(entry['total_quantity'])
 
-        # Logic to get data for Order Status chart
-        order_status_data = Order.objects.values('delivery_status').annotate(total_orders=Count('id'))
-
-        order_status_chart_data = list(order_status_data)
+        # Logic to get data for Order Status chart with date filter
+        if start_date and end_date:
+            order_status_data = Order.objects.filter(created_at__date__gte=start_date, created_at__date__lte=end_date) \
+                .values('delivery_status') \
+                .annotate(total_orders=Count('id'))
+            order_status_chart_data = list(order_status_data)
+        else:
+            order_status_chart_data = list(Order.objects.values('delivery_status').annotate(total_orders=Count('id')))
         for entry in order_status_chart_data:
-            entry['delivery_status'] = entry['delivery_status']
-            entry['total_orders'] = float(entry['total_orders'])
+                entry['delivery_status'] = entry['delivery_status']
+                entry['total_orders'] = float(entry['total_orders'])
 
         extra_context = extra_context or {}
         extra_context['chart_data'] = chart_data

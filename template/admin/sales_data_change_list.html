@@ -1,5 +1,6 @@
 {% extends 'admin/change_list.html' %}
 {% load static %}
+{% load i18n admin_urls static %}
 
 {% block extrastyle %}
   {{ block.super }}
@@ -198,6 +199,21 @@
       }
     });
   </script>
-  <h1 style="margin-top: 20px;">SALES DATA</h1>
   {{ block.super }}
+  {% endblock %}
+  {% block date_hierarchy %}
+  <div id="date-hierarchy" class="date-hierarchy">
+    <h2>{% trans "Date hierarchy" %}</h2>
+    <div class="filter">
+      <h3>{% trans "By Date" %}</h3>
+      <form action="" method="GET" id="date-filter-form">
+        <label for="id_date__gte">{% trans 'From:' %}</label>
+        <input type="date" name="date__gte" id="id_date__gte" class="vDateField" value="{{ date_params.gte }}">
+        <label for="id_date__lte">{% trans 'To:' %}</label>
+        <input type="date" name="date__lte" id="id_date__lte" class="vDateField" value="{{ date_params.lte }}">
+        <input type="submit" value="{% trans 'Go' %}">
+      </form>
+    </div>
+  </div>
+  <h1 style="margin-top: 20px;">SALES DATA</h1>
 {% endblock %}
