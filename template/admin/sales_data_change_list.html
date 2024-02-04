@@ -157,46 +157,57 @@
       }
 
       // Order Status Chart
-      const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
-      let orderStatusChartData = {{ order_status_data|safe }};
-      console.log(orderStatusChartData)
+const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+let orderStatusChartData = {{ order_status_data|safe }};
+console.log(orderStatusChartData)
 
-      if (Array.isArray(orderStatusChartData) && orderStatusChartData.length > 0) {
-        const orderStatusLabels = orderStatusChartData.map(entry => entry.delivery_status);
-        const totalOrders = orderStatusChartData.map(entry => entry.total_orders);
+if (Array.isArray(orderStatusChartData) && orderStatusChartData.length > 0) {
+    const orderStatusLabels = orderStatusChartData.map(entry => entry.delivery_status);
+    const totalOrders = orderStatusChartData.map(entry => entry.total_orders);
 
-        const orderStatusChart = new Chart(orderStatusCtx, {
-          type: 'pie',
-          data: {
+    const colors = [
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(255, 99, 132, 0.2)',
+        // Add more colors as needed
+    ];
+
+    const orderStatusDataset = [{
+        label: 'Total Orders',
+        data: totalOrders,
+        backgroundColor: colors,
+        borderColor: colors.map(color => color.replace('0.2', '1')),  // Set border colors to full opacity
+        borderWidth: 1
+    }];
+
+    const orderStatusChart = new Chart(orderStatusCtx, {
+        type: 'pie',
+        data: {
             labels: orderStatusLabels,
-            datasets: [{
-              label: 'Total Orders',
-              data: totalOrders,
-              backgroundColor: 'rgba(255, 206, 86, 0.2)',
-              borderColor: 'rgba(255, 206, 86, 1)',
-              borderWidth: 1
-            }]
-          },
-          options: {
+            datasets: orderStatusDataset
+        },
+        options: {
             scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: 'Order Status'
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Order Status'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Total Orders'
+                    }
                 }
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: 'Total Orders'
-                }
-              }
             }
-          }
-        });
-      } else {
-        console.error('Invalid or empty orderStatusChartData:', orderStatusChartData);
-      }
+        }
+    });
+} else {
+    console.error('Invalid or empty orderStatusChartData:', orderStatusChartData);
+}
     });
   </script>
   {{ block.super }}
