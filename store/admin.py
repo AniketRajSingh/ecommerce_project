@@ -95,32 +95,40 @@ class SalesDataAdmin(admin.ModelAdmin):
         chart_data = queryset.annotate(chart_date=TruncDate('date')).values('chart_date').annotate(revenue=Sum('total_sales')).order_by('chart_date')
         chart_data = list(chart_data)
 
-        # Get data for Product Quantity chart
-        product_quantity_data = OrderItem.objects.values('product__name').annotate(total_quantity=Sum('item_quantity'))
-        product_quantity_chart_data = list(product_quantity_data)
+        # Extract dates from SalesData queryset
+        sales_data_dates = [sales_data.date for sales_data in queryset]
 
-        # Get data for Order Status chart
-        order_status_data = Order.objects.values('delivery_status').annotate(total_orders=Count('id'))
-        order_status_chart_data = list(order_status_data)
+        # Get data for Product Quantity chart based on SalesData dates
+        product_quantity_data_by_date = OrderItem.objects.filter(order__created_at__date__in=sales_data_dates) \
+            .values('product__name') \
+            .annotate(total_quantity=Sum('item_quantity'))
+        product_quantity_chart_data_by_date = list(product_quantity_data_by_date)
 
-        # Get data for Order table
-        order_data = Order.objects.values('id', 'delivery_status', 'user__username', 'total_price', 'created_at')
-        df_order = pd.DataFrame(list(order_data))
+        # Get data for Order Status chart based on SalesData dates
+        order_status_data_by_date = Order.objects.filter(created_at__date__in=sales_data_dates) \
+            .values('delivery_status') \
+            .annotate(total_orders=Count('id'))
+        order_status_chart_data_by_date = list(order_status_data_by_date)
 
-        # Convert 'created_at' column to a readable format
-        df_order['created_at'] = df_order['created_at'].dt.strftime('%b. %d, %Y, %I:%M %p')
+        # Get data for Order table based on SalesData dates
+        order_data_by_date = Order.objects.filter(created_at__date__in=sales_data_dates) \
+            .values('id', 'delivery_status', 'user__username', 'total_price', 'created_at')
+        df_order_by_date = pd.DataFrame(list(order_data_by_date))
 
-        # Write each DataFrame to a different sheet
+        # Convert timestamps to the appropriate format
+        df_order_by_date['created_at'] = df_order_by_date['created_at'].dt.strftime('%b. %d, %Y, %I:%M %p')
+
+        # Write each DataFrame to a different sheet for data based on SalesData dates
         df_sales = pd.DataFrame(chart_data)
         df_sales.to_excel(writer, sheet_name='SalesData', index=False)
 
-        df_product_quantity = pd.DataFrame(product_quantity_chart_data)
-        df_product_quantity.to_excel(writer, sheet_name='ProductQuantity', index=False)
+        df_product_quantity_by_date = pd.DataFrame(product_quantity_chart_data_by_date)
+        df_product_quantity_by_date.to_excel(writer, sheet_name='ProductQuantity', index=False)
 
-        df_order_status = pd.DataFrame(order_status_chart_data)
-        df_order_status.to_excel(writer, sheet_name='OrderStatus', index=False)
+        df_order_status_by_date = pd.DataFrame(order_status_chart_data_by_date)
+        df_order_status_by_date.to_excel(writer, sheet_name='OrderStatus', index=False)
 
-        df_order.to_excel(writer, sheet_name='OrderData', index=False)
+        df_order_by_date.to_excel(writer, sheet_name='OrderData', index=False)
 
         # Access the xlsxwriter workbook and worksheet objects directly
         workbook = writer.book
@@ -129,8 +137,7 @@ class SalesDataAdmin(admin.ModelAdmin):
         worksheet_order_status = writer.sheets['OrderStatus']
         worksheet_order_data = writer.sheets['OrderData']
         worksheet_sales.write_column('B2', df_sales['revenue'], num_format)
-        worksheet_product_quantity.write_column('B2', df_product_quantity['total_quantity'], num_format)
-        # worksheet_order_data.write_column('D3', df_order['total_price'], num_format)
+        worksheet_product_quantity.write_column('B2', df_product_quantity_by_date['total_quantity'], num_format)
 
         # Create a chart object for the Sales Chart
         sales_chart = workbook.add_chart({'type': 'line'})
@@ -143,7 +150,7 @@ class SalesDataAdmin(admin.ModelAdmin):
 
         # Create a column chart for the Product Quantity
         product_quantity_chart = workbook.add_chart({'type': 'column'})
-        product_quantity_chart.add_series({'values': '=ProductQuantity!$B$2:$D${}'.format(len(chart_data) + 1),
+        product_quantity_chart.add_series({'values': '=ProductQuantity!$B$2:$B${}'.format(len(df_product_quantity_by_date) + 1),
                                            'name': 'Total Quantity'})
         product_quantity_chart.set_title({'name': 'Product Quantity Chart'})
         product_quantity_chart.set_x_axis({'name': 'Product'})
@@ -152,10 +159,11 @@ class SalesDataAdmin(admin.ModelAdmin):
 
         # Create a pie chart for the Order Status
         order_status_chart = workbook.add_chart({'type': 'pie'})
-        order_status_chart.add_series({'values': '=OrderStatus!$B$2:$B${}'.format(len(chart_data) + 1),
+        order_status_chart.add_series({'values': '=OrderStatus!$B$2:$B${}'.format(len(df_order_status_by_date) + 1),
                                        'name': 'Total Orders'})
         order_status_chart.set_title({'name': 'Order Status Chart'})
         worksheet_order_status.insert_chart('D2', order_status_chart)
+
 
         # Add Order data to the 'OrderData' sheet
         worksheet_order_data.merge_range('A1:E1', 'Order Data', center_align)
@@ -169,7 +177,7 @@ class SalesDataAdmin(admin.ModelAdmin):
         # Center align all cells in all sheets
         for sheet_name in writer.sheets:
             worksheet = writer.sheets[sheet_name]
-            for col_num,value in enumerate(df_order.columns.values):
+            for col_num, value in enumerate(df_order_by_date.columns.values):
                 worksheet.set_column(col_num, col_num, None, center_align)
 
         # Save the Excel file
