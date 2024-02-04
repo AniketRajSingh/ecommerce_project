@@ -7,27 +7,82 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 {% endblock %}
 
+{% block extrahead %}
+  {{ block.super }}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+{% endblock %}
+
 {% block content %}
-  <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-    <canvas id="salesChart"></canvas>
+<style>
+    .chart-container {
+      width: 100%;
+      position: relative; 
+      height:auto;
+    }
+    .half-chart-container{
+        width: 100% !important;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .half-chart{
+        width: 50%;
+    }
+    @media (max-width: 767px) {
+      .half-chart-container{
+        display: block;
+      }
+      .half-chart{
+        width: 100%;
+      }
+    }
+</style>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+          <h2 class="text-center mb-3">Total Sales Chart</h2>
+        <div class="chart-container mt-4 mb-4">
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="chart-container mt-4 mb-4 half-chart-container">
+                <div class="half-chart">
+                    <h2 class="text-center mb-3">Order Status Chart</h2>
+                    <canvas id="orderStatusChart"></canvas>
+                </div>
+                <div class="half-chart">
+                    <h2 class="text-center mb-3">Product Quantity Chart</h2>
+                    <canvas id="productQuantityChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const ctx = document.getElementById('salesChart').getContext('2d');
-      let chartData = {{ chart_data|safe }};
+      // Sales Chart
+      const salesCtx = document.getElementById('salesChart').getContext('2d');
+      let salesChartData = {{ chart_data|safe }};
+      console.log(salesChartData)
       
-      if (Array.isArray(chartData) && chartData.length > 0) {
-        const dates = chartData.map(entry => new Date(entry.chart_date));
-        const revenues = chartData.map(entry => entry.revenue);
+      if (Array.isArray(salesChartData) && salesChartData.length > 0) {
+        const salesDates = salesChartData.map(entry => new Date(entry.chart_date));
+        const salesRevenues = salesChartData.map(entry => entry.revenue);
 
-        const chart = new Chart(ctx, {
-          type: 'bar',
+        const salesChart = new Chart(salesCtx, {
+          type: 'line',
           data: {
-            labels: dates,
+            labels: salesDates,
             datasets: [{
               label: 'Total Sales',
-              data: revenues,
+              data: salesRevenues,
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
               borderWidth: 1
@@ -55,9 +110,93 @@
           }
         });
       } else {
-        console.error('Invalid or empty chartData:', chartData);
+        console.error('Invalid or empty salesChartData:', salesChartData);
+      }
+
+      // Product Quantity Chart
+      const productQuantityCtx = document.getElementById('productQuantityChart').getContext('2d');
+      let productQuantityChartData = {{ product_quantity_data|safe }};
+      console.log(productQuantityChartData)
+
+      if (Array.isArray(productQuantityChartData) && productQuantityChartData.length > 0) {
+        const productNames = productQuantityChartData.map(entry => entry.product_name);
+        const totalQuantities = productQuantityChartData.map(entry => entry.total_quantity);
+
+        const productQuantityChart = new Chart(productQuantityCtx, {
+          type: 'polarArea',
+          data: {
+            labels: productNames,
+            datasets: [{
+              label: 'Total Quantity',
+              data: totalQuantities,
+              backgroundColor: 'rgba(144, 238, 144, 0.2)',
+              borderColor: 'rgba(144, 238, 144, 1)', 
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Product'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Quantity of Product Sold'
+                }
+              }
+            }
+          }
+        });
+      } else {
+        console.error('Invalid or empty productQuantityChartData:', productQuantityChartData);
+      }
+
+      // Order Status Chart
+      const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+      let orderStatusChartData = {{ order_status_data|safe }};
+      console.log(orderStatusChartData)
+
+      if (Array.isArray(orderStatusChartData) && orderStatusChartData.length > 0) {
+        const orderStatusLabels = orderStatusChartData.map(entry => entry.delivery_status);
+        const totalOrders = orderStatusChartData.map(entry => entry.total_orders);
+
+        const orderStatusChart = new Chart(orderStatusCtx, {
+          type: 'pie',
+          data: {
+            labels: orderStatusLabels,
+            datasets: [{
+              label: 'Total Orders',
+              data: totalOrders,
+              backgroundColor: 'rgba(255, 206, 86, 0.2)',
+              borderColor: 'rgba(255, 206, 86, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              x: {
+                title: {
+                  display: true,
+                  text: 'Order Status'
+                }
+              },
+              y: {
+                title: {
+                  display: true,
+                  text: 'Total Orders'
+                }
+              }
+            }
+          }
+        });
+      } else {
+        console.error('Invalid or empty orderStatusChartData:', orderStatusChartData);
       }
     });
   </script>
-{{ block.super }}
+  {{ block.super }}
 {% endblock %}
