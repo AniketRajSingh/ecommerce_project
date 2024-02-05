@@ -72,7 +72,7 @@ Products
 {% block body %}
 <!-- Product List -->
 <div class="container mt-5">
-    <h1>Search Results</h1>
+    <h1>Products: </h1>
     <div class="row">
         <div class="col-12 col-md-3 pb-4">
             <div class="card h-100 text-center">
@@ -84,8 +84,9 @@ Products
             </div>
         </div>
         <div class="col-12 col-md-9">
+            <h2>Search Results:</h2>
             <div class="row">
-                {% if products %}
+            {% if products %}
                 {% for product in products %}
                     <div class="col-12 col-md-4 mb-4">
                         <div class="card h-100">
@@ -93,6 +94,7 @@ Products
                                 <div class="carousel-inner">
                                     {% for media in product.media_set.all %}
                                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
                                             {% if media.media_type == 'image' %}
                                                 <img src="{{ media.media_url }}" class="d-block w-100 card-img-top" alt="Product Image">
                                             {% elif media.media_type == 'video' %}
@@ -101,6 +103,7 @@ Products
                                                     Your browser does not support the video tag.
                                                 </video>
                                             {% endif %}
+                                        </a>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -152,34 +155,41 @@ Products
                                 <p id="finalPrice{{ product.id }}" class="card-text text-primary">
                                     Price: ₹{{ product.productquantity_set.first.final_price }}
                                 </p>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
-                                    <form method="post" id="addToCartForm{{ product.id }}">
-                                        {% csrf_token %}
-                                        {% if product.productquantity_set.first.available %}
-                                            <button type="submit" id="addToCart{{ product.id }}" class="btn" onclick="addToCart('{{ product.id }}')">
-                                                <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
-                                            </button>
-                                            <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
-                                                <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
-                                            </button>
-                                        {% else %}
-                                        <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn" onclick="addToCart('{{ product.id }}')">
-                                            <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
-                                        </button>
-                                        <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
-                                            <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
-                                        </button>
-                                        {% endif %}
-                                    </form>
-                                </div>
+                                <form method="post" id="addToCartForm{{ product.id }}">
+                                    {% csrf_token %}
+                                    {% if product.productquantity_set.first.available %}
+                                    <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button cart-button"
+                                        onclick="addToCart('{{ product.id }}')">
+                                        <span class="add-to-cart">Add to cart</span>
+                                        <span class="added">Added</span>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <i class="fas fa-box"></i>
+                                    </button>
+                                    <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
+                                        disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                    </button>
+                                    {% else %}
+                                    <button type="submit" id="addToCart{{ product.id }}" style="display: none;"
+                                        class="btn add-to-cart-button cart-button" onclick="addToCart('{{ product.id }}')">
+                                        <span class="add-to-cart">Add to cart</span>
+                                        <span class="added">Added</span>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <i class="fas fa-box"></i>
+                                    </button>
+                                    <button type="submit" id="removeFromCart{{ product.id }}" disabled
+                                        class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                    </button>
+                                    {% endif %}
+                                </form>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-                {% else %}
-                <p>No Results Found</p>
-                {% endif %}
+            {% else %}
+                    <span>No results found</span>
+            {% endif %}
             </div>
         </div>       
     </div>
@@ -226,7 +236,6 @@ Products
     }
 
     function updateFormAction(productId, selectedQuantity) {
-        console.log(productId)
         var formElement = document.getElementById("addToCartForm" + productId);
         if (formElement) {
             formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';

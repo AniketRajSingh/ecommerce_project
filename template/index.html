@@ -4,14 +4,16 @@
 {% block title %}Home{% endblock title %}
 {% block styles %}
 <style>
-    .row{
-        justify-content: space-evenly!important;
+    .row {
+        justify-content: space-evenly !important;
     }
+
     .carousel-item {
         height: max-content;
     }
 
-    .carousel-item img,video {
+    .carousel-item img,
+    video {
         object-fit: cover;
         height: 500px;
         width: 100%;
@@ -55,8 +57,9 @@
         padding: 1.5rem;
         padding-inline: 3rem;
     }
-    .body-container{
-        margin-top: 0!important;
+
+    .body-container {
+        margin-top: 0 !important;
     }
 
     @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
@@ -176,7 +179,8 @@
             font-size: 1rem;
         }
 
-        .carousel-item img,video {
+        .carousel-item img,
+        video {
             object-fit: cover;
             height: 200px;
         }
@@ -202,11 +206,13 @@
         figure.snip1157 .author h5 span {
             font-size: small;
         }
-        .card-img-top{
-            height: 150px!important;
+
+        .card-img-top {
+            height: 150px !important;
         }
     }
 </style>
+
 <style>
     /* Popup styles */
     .popup-container {
@@ -274,11 +280,11 @@
 <div id="popup-container" class="popup-container fade-in">
     <div class="popup-card">
         <span class="popup-close-btn me-2" onclick="closePopup()">&times;</span>
-        <a href="{{ popup_content.redirection_link }}">
-        <img src="{{ popup_content.image_url }}" alt="Popup Image">
+        <a href="{{ popup_content.redirection_link }}" target="_blank">
+            <img src="{{ popup_content.image_url }}" alt="Popup Image">
         </a>
         <p>{{ popup_content.description }}</p>
-        <a href="{{ popup_content.redirection_link }}" style="width: 90%;" class="btn btn-ss">
+        <a href="{{ popup_content.redirection_link }}" target="_blank" style="width: 90%;" class="btn btn-ss">
             {{ popup_content.button_name }}</a>
     </div>
 </div>
@@ -336,16 +342,16 @@
                     <div class="carousel-inner">
                         {% for media in product.media_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <a href="{% url 'product_detail' product_id=product.id %}">
-                            {% if media.media_type == 'image' %}
-                            <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
-                                alt="Product Image">
-                            {% elif media.media_type == 'video' %}
-                            <video class="d-block w-100 card-img-top" controls>
-                                <source src="{{ media.media_url }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            {% endif %}
+                            <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                {% if media.media_type == 'image' %}
+                                <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
+                                    alt="Product Image">
+                                {% elif media.media_type == 'video' %}
+                                <video class="d-block w-100 card-img-top" controls>
+                                    <source src="{{ media.media_url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                {% endif %}
                             </a>
                         </div>
                         {% endfor %}
@@ -363,7 +369,8 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Shop Now</a>
+                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank" class="btn btn-ss">Shop
+                        Now</a>
                 </div>
             </div>
         </div>
@@ -392,17 +399,17 @@
                     <div class="carousel-inner">
                         {% for media in product.media_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <a href="{% url 'product_detail' product_id=product.id %}">
-                            {% if media.media_type == 'image' %}
-                            <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
-                                alt="Product Image">
-                            {% elif media.media_type == 'video' %}
-                            <video class="d-block w-100 card-img-top" controls>
-                                <source src="{{ media.media_url }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            {% endif %}
-                        </a>
+                            <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                {% if media.media_type == 'image' %}
+                                <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
+                                    alt="Product Image">
+                                {% elif media.media_type == 'video' %}
+                                <video class="d-block w-100 card-img-top" controls>
+                                    <source src="{{ media.media_url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                {% endif %}
+                            </a>
                         </div>
                         {% endfor %}
                     </div>
@@ -419,7 +426,8 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Shop Now</a>
+                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank" class="btn btn-ss">Shop
+                        Now</a>
                 </div>
             </div>
         </div>
@@ -432,106 +440,120 @@
     <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for product_chunk in product_chunk_list %}
-                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <div class="row product-cards-mobile">
-                        {% for product in product_chunk %}
-                            <div class="col-6 col-md-4 col-lg-3 my-2">
-                                <div class="card product-card text-center">
-                                    <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-                                            {% for media in product.media_set.all %}
-                                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                                    <a href="{% url 'product_detail' product_id=product.id %}">
-                                                    {% if media.media_type == 'image' %}
-                                                        <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top" alt="Product Image">
-                                                    {% elif media.media_type == 'video' %}
-                                                        <video class="d-block w-100 card-img-top" controls>
-                                                            <source src="{{ media.media_url }}" type="video/mp4">
-                                                            Your browser does not support the video tag.
-                                                        </video>
-                                                    {% endif %}
-                                                    </a>
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button>
-                                    </div>
-                                    <div style="text-align: left!important;" class="card-body">
-                                        <h5 class="card-title">{{ product.name }}</h5>
-                                        <span>Quantity:
-                                            <div class="btn-group mt-2 mb-2" role="group" aria-label="Quantity">
-                                                {% for quantity_instance in product.productquantity_set.all %}
-                                                    {% with quantity_id=quantity_instance.quantity.id %}
-                                                        <button type="button" class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
-                                                                data-product-id="{{ product.id }}"
-                                                                data-quantity-id="{{ quantity_instance.quantity.id }}"
-                                                                data-quantity="{{ quantity_instance.quantity.name }}"
-                                                                data-price="{{ quantity_instance.price }}"
-                                                                data-final-price="{{ quantity_instance.final_price }}"
-                                                                data-available="{{ quantity_instance.available|lower }}"
-                                                                onclick="updatePrice('{{ product.id }}', '{{ quantity_instance.quantity.name }}', '{{ quantity_instance.price }}', '{{ quantity_instance.final_price }}', '{{ quantity_instance.available|lower }}', '{{ quantity_instance.quantity.id }}')">
-                                                            {{ quantity_instance.quantity.name }}
-                                                        </button>
-                                                    {% endwith %}
-                                                {% endfor %}
-                                            </div>
-                                        </span>
-                                        
-                                        <p class="availability">Availability: 
-                                            {% if product.productquantity_set.first.available %}
-                                                <span id="inStock{{ product.id }}" class="text-success">In Stock</span>
-                                                <span id="outOfStock{{ product.id }}" style="display: none;" class="text-danger">Out of Stock</span>
-                                            {% else %}
-                                                <span id="inStock{{ product.id }}" style="display: none;" class="text-success">In Stock</span>
-                                                <span id="outOfStock{{ product.id }}" class="text-danger">Out of Stock</span>
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <div class="row product-cards-mobile">
+                    {% for product in product_chunk %}
+                    <div class="col-6 col-md-4 col-lg-3 my-2">
+                        <div class="card product-card text-center">
+                            <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    {% for media in product.media_set.all %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                            {% if media.media_type == 'image' %}
+                                            <img src="{{ media.media_url }}"
+                                                class="d-block w-100 img-fluid card-img-top" alt="Product Image">
+                                            {% elif media.media_type == 'video' %}
+                                            <video class="d-block w-100 card-img-top" controls>
+                                                <source src="{{ media.media_url }}" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
                                             {% endif %}
-                                        </p>
-                                        
-                                        <span id="price{{ product.id }}" class="card-text small text-decoration-line-through text-danger">
-                                            MRP: ₹{{ product.productquantity_set.first.price }}
-                                        </span>
-                                        <span id="discount{{ product.id }}" class="discount mx-1 extra small"></span>
-                                        <p id="finalPrice{{ product.id }}" class="card-text text-primary">
-                                            Price: ₹{{ product.productquantity_set.first.final_price }}
-                                        </p>
-                                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                                            <a href="{% url 'product_detail' product_id=product.id %}" class="btn btn-ss">Explore</a>
-                                            <form method="post" id="addToCartForm{{ product.id }}">
-                                                {% csrf_token %}
-                                                {% if product.productquantity_set.first.available %}
-                                                    <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button" onclick="addToCart('{{ product.id }}')">
-                                                        <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
-                                                    </button>
-                                                    <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
-                                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
-                                                    </button>
-                                                {% else %}
-                                                <button type="submit" id="addToCart{{ product.id }}" style="display: none;" class="btn add-to-cart-button" onclick="addToCart('{{ product.id }}')">
-                                                    <i style="font-size: 2rem;color: #eb676d;" class="fa-solid fa-cart-plus"></i>
-                                                </button>
-                                                <button type="submit" id="removeFromCart{{ product.id }}" disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
-                                                    <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
-                                                </button>
-                                                {% endif %}
-                                            </form>
-                                        </div>
+                                        </a>
                                     </div>
+                                    {% endfor %}
                                 </div>
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
                             </div>
-                        {% endfor %}
+                            <div style="text-align: left!important;" class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <span>Quantity:
+                                    <div class=" mt-2 mb-2" role="group" aria-label="Quantity">
+                                        {% for quantity_instance in product.productquantity_set.all %}
+                                        {% with quantity_id=quantity_instance.quantity.id %}
+                                        <button type="button"
+                                            class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
+                                            data-product-id="{{ product.id }}"
+                                            data-quantity-id="{{ quantity_instance.quantity.id }}"
+                                            data-quantity="{{ quantity_instance.quantity.name }}"
+                                            data-price="{{ quantity_instance.price }}"
+                                            data-final-price="{{ quantity_instance.final_price }}"
+                                            data-available="{{ quantity_instance.available|lower }}"
+                                            onclick="updatePrice('{{ product.id }}', '{{ quantity_instance.quantity.name }}', '{{ quantity_instance.price }}', '{{ quantity_instance.final_price }}', '{{ quantity_instance.available|lower }}', '{{ quantity_instance.quantity.id }}')">
+                                            {{ quantity_instance.quantity.name }}
+                                        </button>
+                                        {% endwith %}
+                                        {% endfor %}
+                                    </div>
+                                </span>
+
+                                <p class="availability">Availability:
+                                    {% if product.productquantity_set.first.available %}
+                                    <span id="inStock{{ product.id }}" class="text-success">In Stock</span>
+                                    <span id="outOfStock{{ product.id }}" style="display: none;" class="text-danger">Out
+                                        of Stock</span>
+                                    {% else %}
+                                    <span id="inStock{{ product.id }}" style="display: none;" class="text-success">In
+                                        Stock</span>
+                                    <span id="outOfStock{{ product.id }}" class="text-danger">Out of Stock</span>
+                                    {% endif %}
+                                </p>
+
+                                <span id="price{{ product.id }}"
+                                    class="card-text small text-decoration-line-through text-danger">
+                                    MRP: ₹{{ product.productquantity_set.first.price }}
+                                </span>
+                                <span id="discount{{ product.id }}" class="discount mx-1 extra small"></span>
+                                <p id="finalPrice{{ product.id }}" class="card-text text-primary">
+                                    Price: ₹{{ product.productquantity_set.first.final_price }}
+                                </p>
+                                <form method="post" id="addToCartForm{{ product.id }}">
+                                    {% csrf_token %}
+                                    {% if product.productquantity_set.first.available %}
+                                    <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button cart-button"
+                                        onclick="addToCart('{{ product.id }}')">
+                                        <span class="add-to-cart">Add to cart</span>
+                                        <span class="added">Added</span>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <i class="fas fa-box"></i>
+                                    </button>
+                                    <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
+                                        disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                    </button>
+                                    {% else %}
+                                    <button type="submit" id="addToCart{{ product.id }}" style="display: none;"
+                                        class="btn add-to-cart-button cart-button" onclick="addToCart('{{ product.id }}')">
+                                        <span class="add-to-cart">Add to cart</span>
+                                        <span class="added">Added</span>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <i class="fas fa-box"></i>
+                                    </button>
+                                    <button type="submit" id="removeFromCart{{ product.id }}" disabled
+                                        class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                    </button>
+                                    {% endif %}
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>
-    
+
 </section>
 
 
@@ -551,7 +573,7 @@
                             <div class="arrow"></div>
                         </blockquote>
                         {% if review.photo_url %}
-                            <img src="{{ review.photo_url }}" alt="Customer Photo">
+                        <img src="{{ review.photo_url }}" alt="Customer Photo">
                         {% endif %}
                         <div class="author">
                             <h5>{{ review.customer_name }}<span>{{ review.location }}</span></h5>
@@ -559,39 +581,39 @@
                     </figure>
                 </div>
             </div>
-            {% endfor %}           
+            {% endfor %}
         </div>
     </div>
     <div id="reviewCarousel" class="carousel slide display-desktop" data-ride="carousel">
         <div class="carousel-inner">
             {% for review in reviews %}
-                {% if forloop.first or forloop.counter0|divisibleby:3 %}
+            {% if forloop.first or forloop.counter0|divisibleby:3 %}
             <div style="display: flex!important;" class="carousel-item {% if forloop.first %}active{% endif %} row">
                 {% endif %}
-    
+
                 <div class="col-md-4">
                     <figure class="snip1157">
                         <blockquote>{{ review.review_text }}
                             <div class="arrow"></div>
                         </blockquote>
                         {% if review.photo_url %}
-                            <img src="{{ review.photo_url }}" alt="Customer Photo">
-                            {% else %}
-                            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Customer Photo">
+                        <img src="{{ review.photo_url }}" alt="Customer Photo">
+                        {% else %}
+                        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Customer Photo">
                         {% endif %}
                         <div class="author">
                             <h5>{{ review.customer_name }}<span>{{ review.location }}</span></h5>
                         </div>
                     </figure>
                 </div>
-    
+
                 {% endfor %}
                 {% if forloop.last or forloop.counter0|divisibleby:3 %}
             </div>
-                {% endif %}
+            {% endif %}
         </div>
     </div>
-    
+
 
 </section>
 <section style="background-color: #38a509;color: white; margin-bottom: -3rem p-0 m-0">
@@ -628,7 +650,7 @@
 {% endblock body %}
 {% block javascript %}
 <script>
-    function updatePrice(productId, selectedQuantity, price, finalPrice, available,selectedQuantityId) {
+    function updatePrice(productId, selectedQuantity, price, finalPrice, available, selectedQuantityId) {
         var priceElement = document.getElementById("price" + productId);
         var finalPriceElement = document.getElementById("finalPrice" + productId);
 
@@ -678,7 +700,7 @@
         var allButtons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
         var selectedButton = document.querySelector(`button[data-product-id="${productId}"][data-quantity="${selectedQuantity}"]`);
         if (selectedButton) {
-            allButtons.forEach(function(button) {
+            allButtons.forEach(function (button) {
                 button.classList.remove('active-quantity');
             });
             selectedButton.classList.add('active-quantity');
@@ -700,17 +722,18 @@
         }
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         {% for product_chunk in product_chunk_list %}
         {% for product in product_chunk %}
-            var productId = {{ product.id }};
-            var priceElement = document.getElementById("price" + productId);
-            var finalPriceElement = document.getElementById("finalPrice" + productId);
-            displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
-            var selectedQuantity = '{{ product.productquantity_set.first.quantity.id }}'; 
-            updateFormAction(productId, selectedQuantity);
-        {% endfor %}
-        {% endfor %}
+        var productId = {{ product.id }
+    };
+    var priceElement = document.getElementById("price" + productId);
+    var finalPriceElement = document.getElementById("finalPrice" + productId);
+    displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+    var selectedQuantity = '{{ product.productquantity_set.first.quantity.id }}';
+    updateFormAction(productId, selectedQuantity);
+    {% endfor %}
+    {% endfor %}
     });
 </script>
 <script>

@@ -406,6 +406,122 @@
             }
         }
     </style>
+    <style>
+    .cart-button {
+        position: relative;
+        padding: 10px;
+        width: 100%;
+        height: 40px;
+        border: 0;
+        border-radius: 10px;
+        background-color: #198754;
+        outline: none;
+        cursor: pointer;
+        color: #fff;
+        transition: .3s ease-in-out;
+        overflow: hidden;
+    }
+    .cart-button:hover {
+        background-color: #1A6F67;
+    }
+    .cart-button:active {
+        transform: scale(.9);
+    }
+    
+    .cart-button .fa-shopping-cart {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: -10%;
+        font-size: 2em;
+        transform: translate(-50%,-50%);
+    }
+    .cart-button .fa-box {
+        position: absolute;
+        z-index: 3;
+        top: -20%;
+        left: 52%;
+        font-size: 1.2em;
+        transform: translate(-50%,-50%);
+    }
+    .cart-button span {
+        position: absolute;
+        z-index: 3;
+        left: 50%;
+        top: 50%;
+        font-size: 1.2em;
+        color: #fff;
+        transform: translate(-50%,-50%);
+    }
+    .cart-button span.add-to-cart {
+        opacity: 1;
+    }
+    .cart-button span.added {
+        opacity: 0;
+    }
+    
+    .cart-button.clicked .fa-shopping-cart {
+        animation: cart 1.5s ease-in-out forwards;
+    }
+    .cart-button.clicked .fa-box {
+        animation: box 1.5s ease-in-out forwards;
+    }
+    .cart-button.clicked span.add-to-cart {
+        animation: txt1 1.5s ease-in-out forwards;
+    }
+    .cart-button.clicked span.added {
+        animation: txt2 1.5s ease-in-out forwards;
+    }
+    @keyframes cart {
+        0% {
+            left: -10%;
+        }
+        40%, 60% {
+            left: 50%;
+        }
+        100% {
+            left: 110%;
+        }
+    }
+    @keyframes box {
+        0%, 40% {
+            top: -20%;
+        }
+        60% {
+            top: 40%;
+            left: 52%;
+        }
+        100% {
+            top: 40%;
+            left: 112%;
+        }
+    }
+    @keyframes txt1 {
+        0% {
+            opacity: 1;
+        }
+        20%, 100% {
+            opacity: 0;
+        }
+    }
+    @keyframes txt2 {
+        0%, 80% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+    
+    .youtube-link {
+        position: fixed;
+        left: 20px;
+        bottom: 20px;
+        color: #000;
+        text-decoration: none;
+        font-size: 12px;
+    }
+    </style>
 </head>
 
 <body>
@@ -418,7 +534,7 @@
                     style="background-color: white;position: absolute;right: 20px;">
                     <span class="navbar-toggler-icon" style="color: #1A6F67;" onclick="moveLogo()"></span>
                 </button>
-                <a id="logo-image" class="navbar-brand logo-box" href="/about/"><img src="/static/products/22222.jpg"
+                <a id="logo-image" class="navbar-brand logo-box" href="/"><img src="/static/products/22222.jpg"
                         alt="Logo"><span class="logo-text small">SNEH-SATTVA</span></a>
             </div>
             <div class="navbar-collapse collapse" id="navbarNav">
@@ -788,6 +904,21 @@
         });
 
     </script>
+
+<script>
+    const cartButtons = document.querySelectorAll('.cart-button');
+
+cartButtons.forEach(button => {
+    button.addEventListener('click', cartClick);
+});
+
+function cartClick() {
+    let button = this;
+    button.classList.add('clicked');
+    setTimeout(function() {
+    button.classList.remove('clicked');
+}, 4500);}
+</script>
 
     {% block javascript %}{% endblock javascript %}
 </body>
