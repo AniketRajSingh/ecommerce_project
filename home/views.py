@@ -2,8 +2,7 @@ from django.shortcuts import render
 from store.models import Product, Category
 from django import forms
 from django.http import HttpResponse
-from .models import HomePagePopup , Review, HomePageCarousel
-
+from .models import Review, HomePagePopup, HomePageCarousel
 from django.shortcuts import render
 
 def home(request):
@@ -26,14 +25,13 @@ def home(request):
     product_chunks = [padded_products[i:i + chunk_size] for i in range(0, len(padded_products), chunk_size)]
 
     reviews = Review.objects.all()  # Fetch the latest 3 reviews
-
-    popup_content = HomePagePopup.objects.first()
+    homepage_popup = HomePagePopup.objects.get(display_on_homepage=True)
 
     return render(request, 'index.html', {
         'special_offers_products': special_offers_products,
         'recommended_products': recommended_products,
         'reviews': reviews,
-        'popup_content': popup_content,
+        'popup_content': homepage_popup,
         'carousel_url': carousel_url,
         'product_chunk_list': product_chunks
     })

@@ -1,14 +1,17 @@
 # accounts/views.py
 from django import forms
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Address
 from django.template.loader import render_to_string
 from django.contrib.auth.models import User
+from django.forms.models import modelformset_factory
+
+
 
 def signup(request):
     if request.method == 'POST':
@@ -41,33 +44,21 @@ def user_logout(request):
     logout(request)
     return redirect('home')
 
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['street', 'city', 'state', 'pincode', 'landmark']
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['email', 'primary_phone_number', 'alternative_phone_number', 'first_name', 'last_name',
-                  'permanent_street', 'permanent_city', 'permanent_state', 'permanent_pincode', 'permanent_landmark',
-                  'shipping_street', 'shipping_city', 'shipping_state', 'shipping_pincode', 'shipping_landmark']
+        fields = ['email', 'primary_phone_number', 'alternative_phone_number', 'first_name', 'last_name']
 
     email = forms.EmailField(label='Email Address')
     primary_phone_number = forms.CharField(label='Primary Phone Number', max_length=15)
     alternative_phone_number = forms.CharField(label='Alternative Phone Number', max_length=15)
     first_name = forms.CharField(label='First Name', max_length=30)
     last_name = forms.CharField(label='Last Name', max_length=30)
-
-    # Permanent Address Fields
-    permanent_street = forms.CharField(label='Street', max_length=255, required=False)
-    permanent_city = forms.CharField(label='City', max_length=100, required=False)
-    permanent_state = forms.CharField(label='State', max_length=100, required=False)
-    permanent_pincode = forms.CharField(label='Pincode', max_length=20, required=False)
-    permanent_landmark = forms.CharField(label='Landmark', max_length=255, required=False)
-
-    # Shipping Address Fields
-    shipping_street = forms.CharField(label='Street', max_length=255, required=False)
-    shipping_city = forms.CharField(label='City', max_length=100, required=False)
-    shipping_state = forms.CharField(label='State', max_length=100, required=False)
-    shipping_pincode = forms.CharField(label='Pincode', max_length=20, required=False)
-    shipping_landmark = forms.CharField(label='Landmark', max_length=255, required=False)
 
     def save(self, commit=True):
         # Save the UserProfile instance
@@ -85,20 +76,58 @@ class UserProfileForm(forms.ModelForm):
             user.save()
 
         return user_profile
-    
+
+UserProfileFormSet = forms.inlineformset_factory(UserProfile, Address, form=AddressForm, extra=1)
+
 @login_required
 def edit_profile(request):
     user_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    user_address = Address.objects.filter(user_profile=user_profile)
+    
+    user_form = UserProfileForm(instance=user_profile)
+    address_forms = [AddressForm(instance=address) for address in user_address]
 
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=user_profile)
+        if 'user_form_submit' in request.POST:
+            user_form = UserProfileForm(request.POST, instance=user_profile)
+            if user_form.is_valid():
+                user_form.save()
+                return JsonResponse({'success': True}) 
+            else:
+                return JsonResponse({'success': False, 'user_errors': user_form.errors})
+        elif 'street' in request.POST:
+            address_form = AddressForm(request.POST)
+            if address_form.is_valid() and 'address_id' not in request.POST :
+                address = address_form.save(commit=False)
+                address.user_profile = user_profile
+                address.save()
+                return JsonResponse({'success': True, 'address_id': address.pk}) 
+            elif address_form.is_valid() and 'address_id' in request.POST :
+                return JsonResponse({'success': True}) 
+            else:
+                return JsonResponse({'success': False, 'address_errors': address_form.errors})
+
+    return render(request, 'account/profile.html', {'user_form': user_form, 'address_forms': address_forms})
+
+def delete_address(request, address_id):
+    address = get_object_or_404(Address, pk=address_id)
+    if request.method == 'DELETE':
+        address.delete()
+        return JsonResponse({'success': True}) 
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+def edit_address(request, address_id):
+    address = get_object_or_404(Address, pk=address_id)
+    if request.method == 'POST':
+        form = AddressForm(request.POST, instance=address)
         if form.is_valid():
             form.save()
-            return JsonResponse({'success': True, 'message': 'Profile updated successfully'})
+            return JsonResponse({'success': True}) 
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
     else:
-        form = UserProfileForm(instance=user_profile)
-    return render(request, 'account/profile.html', {'form': form})
-
+        return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
 def login_signup_view(request):
     return render(request, 'login_signup_template.html')

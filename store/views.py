@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .razorpay_utils import create_order, verify_payment
 from django.db.models import Sum
+from accounts.models import Address
+from django.db.models import F
 
 def product_list(request):
     categories = Category.objects.all()
@@ -161,6 +163,7 @@ def customer_support(request):
 
 def order_confirmation(request):
     cart = request.session.get('cart', {})
+    addresses = Address.objects.filter(user_profile=request.user.userprofile)
 
     if not cart:
         messages.warning(request, 'Your cart is empty. Add items to your cart before proceeding.')
@@ -207,6 +210,7 @@ def order_confirmation(request):
         'total_price': total_price,
         'cart': cart,
         'razorpay_key': 'rzp_test_esc8vkRRLTMjAN',
+        'addresses':addresses,
     }
 
     return render(request, 'store/order_confirmation.html', context)
@@ -220,11 +224,11 @@ def place_order(request):
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
-        permanent_street = request.POST.get('street')
-        permanent_city = request.POST.get('city')
-        permanent_state = request.POST.get('state')
-        permanent_pincode = request.POST.get('pincode')
-        permanent_landmark = request.POST.get('landmark')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        pincode = request.POST.get('pincode')
+        landmark = request.POST.get('landmark')
 
         # Retrieve Razorpay payment details
         razorpay_payment_id = request.POST.get('razorpay_payment_id')
@@ -237,11 +241,11 @@ def place_order(request):
             name=name,
             email=email,
             phone=phone,
-            permanent_street=permanent_street,
-            permanent_city=permanent_city,
-            permanent_state=permanent_state,
-            permanent_pincode=permanent_pincode,
-            permanent_landmark=permanent_landmark,
+            street=street,
+            city=city,
+            state=state,
+            pincode=pincode,
+            landmark=landmark,
         )
 
         # Add ordered products to the order

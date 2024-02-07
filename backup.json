@@ -1,0 +1,3444 @@
+[
+    {
+        "model": "admin_interface.theme",
+        "pk": 1,
+        "fields": {
+            "name": "Sneh Sattva",
+            "active": true,
+            "title": "SNEH SATTVA ADMIN PAGE",
+            "title_color": "#FFFFFF",
+            "title_visible": true,
+            "logo": "admin-interface/logo/22222.jpg",
+            "logo_color": "#FFFFFF",
+            "logo_max_width": 50,
+            "logo_max_height": 50,
+            "logo_visible": true,
+            "favicon": "admin-interface/favicon/22222.jpg",
+            "env_name": "",
+            "env_color": "#1A6F67",
+            "env_visible_in_header": true,
+            "env_visible_in_favicon": true,
+            "language_chooser_active": true,
+            "language_chooser_control": "default-select",
+            "language_chooser_display": "name",
+            "css_header_background_color": "#1A6F67",
+            "css_header_text_color": "#FFFFFF",
+            "css_header_link_color": "#FFFFFF",
+            "css_header_link_hover_color": "#C9F0DD",
+            "css_module_background_color": "#198754",
+            "css_module_background_selected_color": "#C9F0DD",
+            "css_module_text_color": "#FFFFFF",
+            "css_module_link_color": "#FFFFFF",
+            "css_module_link_selected_color": "#FFFFFF",
+            "css_module_link_hover_color": "#C9F0DD",
+            "css_module_rounded_corners": true,
+            "css_generic_link_color": "#0C3C26",
+            "css_generic_link_hover_color": "#1A6F67",
+            "css_generic_link_active_color": "#198754",
+            "css_save_button_background_color": "#0C4B33",
+            "css_save_button_background_hover_color": "#0C3C26",
+            "css_save_button_text_color": "#FFFFFF",
+            "css_delete_button_background_color": "#BA2121",
+            "css_delete_button_background_hover_color": "#A41515",
+            "css_delete_button_text_color": "#FFFFFF",
+            "related_modal_active": true,
+            "related_modal_background_color": "#000000",
+            "related_modal_background_opacity": "0.3",
+            "related_modal_rounded_corners": true,
+            "related_modal_close_button_visible": true,
+            "list_filter_highlight": true,
+            "list_filter_dropdown": true,
+            "list_filter_sticky": true,
+            "list_filter_removal_links": false,
+            "foldable_apps": true,
+            "show_fieldsets_as_tabs": false,
+            "show_inlines_as_tabs": false,
+            "collapsible_stacked_inlines": false,
+            "collapsible_stacked_inlines_collapsed": true,
+            "collapsible_tabular_inlines": false,
+            "collapsible_tabular_inlines_collapsed": true,
+            "recent_actions_visible": true,
+            "form_submit_sticky": false,
+            "form_pagination_sticky": false
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2024-02-06T15:52:32.993Z",
+            "user": 1,
+            "content_type": 18,
+            "object_id": "21",
+            "object_repr": "Order 21 - admin",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 2,
+        "fields": {
+            "action_time": "2024-02-06T15:52:33.087Z",
+            "user": 1,
+            "content_type": 18,
+            "object_id": "20",
+            "object_repr": "Order 20 - admin",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 3,
+        "fields": {
+            "action_time": "2024-02-06T15:52:54.427Z",
+            "user": 1,
+            "content_type": 23,
+            "object_id": "5",
+            "object_repr": "SalesData - 2024-02-05",
+            "action_flag": 3,
+            "change_message": ""
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add email address",
+            "content_type": 1,
+            "codename": "add_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change email address",
+            "content_type": 1,
+            "codename": "change_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete email address",
+            "content_type": 1,
+            "codename": "delete_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view email address",
+            "content_type": 1,
+            "codename": "view_emailaddress"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add email confirmation",
+            "content_type": 2,
+            "codename": "add_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change email confirmation",
+            "content_type": 2,
+            "codename": "change_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete email confirmation",
+            "content_type": 2,
+            "codename": "delete_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view email confirmation",
+            "content_type": 2,
+            "codename": "view_emailconfirmation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add social account",
+            "content_type": 3,
+            "codename": "add_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change social account",
+            "content_type": 3,
+            "codename": "change_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete social account",
+            "content_type": 3,
+            "codename": "delete_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view social account",
+            "content_type": 3,
+            "codename": "view_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add social application",
+            "content_type": 4,
+            "codename": "add_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change social application",
+            "content_type": 4,
+            "codename": "change_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete social application",
+            "content_type": 4,
+            "codename": "delete_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view social application",
+            "content_type": 4,
+            "codename": "view_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add social application token",
+            "content_type": 5,
+            "codename": "add_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change social application token",
+            "content_type": 5,
+            "codename": "change_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete social application token",
+            "content_type": 5,
+            "codename": "delete_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view social application token",
+            "content_type": 5,
+            "codename": "view_socialtoken"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 6,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 6,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 6,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 6,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 7,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 7,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 7,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 7,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 8,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 8,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 8,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 8,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 9,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 9,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 9,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 9,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 10,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 10,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 10,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 10,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 41,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 11,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 42,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 11,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 43,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 11,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 44,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 11,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 45,
+        "fields": {
+            "name": "Can add category",
+            "content_type": 12,
+            "codename": "add_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 46,
+        "fields": {
+            "name": "Can change category",
+            "content_type": 12,
+            "codename": "change_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 47,
+        "fields": {
+            "name": "Can delete category",
+            "content_type": 12,
+            "codename": "delete_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 48,
+        "fields": {
+            "name": "Can view category",
+            "content_type": 12,
+            "codename": "view_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 49,
+        "fields": {
+            "name": "Can add order",
+            "content_type": 13,
+            "codename": "add_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 50,
+        "fields": {
+            "name": "Can change order",
+            "content_type": 13,
+            "codename": "change_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 51,
+        "fields": {
+            "name": "Can delete order",
+            "content_type": 13,
+            "codename": "delete_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 52,
+        "fields": {
+            "name": "Can view order",
+            "content_type": 13,
+            "codename": "view_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 53,
+        "fields": {
+            "name": "Can add quantity",
+            "content_type": 14,
+            "codename": "add_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 54,
+        "fields": {
+            "name": "Can change quantity",
+            "content_type": 14,
+            "codename": "change_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 55,
+        "fields": {
+            "name": "Can delete quantity",
+            "content_type": 14,
+            "codename": "delete_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 56,
+        "fields": {
+            "name": "Can view quantity",
+            "content_type": 14,
+            "codename": "view_quantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 57,
+        "fields": {
+            "name": "Can add return",
+            "content_type": 15,
+            "codename": "add_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 58,
+        "fields": {
+            "name": "Can change return",
+            "content_type": 15,
+            "codename": "change_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 59,
+        "fields": {
+            "name": "Can delete return",
+            "content_type": 15,
+            "codename": "delete_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 60,
+        "fields": {
+            "name": "Can view return",
+            "content_type": 15,
+            "codename": "view_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 61,
+        "fields": {
+            "name": "Can add replacement",
+            "content_type": 16,
+            "codename": "add_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 62,
+        "fields": {
+            "name": "Can change replacement",
+            "content_type": 16,
+            "codename": "change_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 63,
+        "fields": {
+            "name": "Can delete replacement",
+            "content_type": 16,
+            "codename": "delete_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 64,
+        "fields": {
+            "name": "Can view replacement",
+            "content_type": 16,
+            "codename": "view_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 65,
+        "fields": {
+            "name": "Can add product",
+            "content_type": 17,
+            "codename": "add_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 66,
+        "fields": {
+            "name": "Can change product",
+            "content_type": 17,
+            "codename": "change_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 67,
+        "fields": {
+            "name": "Can delete product",
+            "content_type": 17,
+            "codename": "delete_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 68,
+        "fields": {
+            "name": "Can view product",
+            "content_type": 17,
+            "codename": "view_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 69,
+        "fields": {
+            "name": "Can add order item",
+            "content_type": 18,
+            "codename": "add_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 70,
+        "fields": {
+            "name": "Can change order item",
+            "content_type": 18,
+            "codename": "change_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 71,
+        "fields": {
+            "name": "Can delete order item",
+            "content_type": 18,
+            "codename": "delete_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 72,
+        "fields": {
+            "name": "Can view order item",
+            "content_type": 18,
+            "codename": "view_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 73,
+        "fields": {
+            "name": "Can add cancellation",
+            "content_type": 19,
+            "codename": "add_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 74,
+        "fields": {
+            "name": "Can change cancellation",
+            "content_type": 19,
+            "codename": "change_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 75,
+        "fields": {
+            "name": "Can delete cancellation",
+            "content_type": 19,
+            "codename": "delete_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 76,
+        "fields": {
+            "name": "Can view cancellation",
+            "content_type": 19,
+            "codename": "view_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 77,
+        "fields": {
+            "name": "Can add home page popup",
+            "content_type": 20,
+            "codename": "add_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 78,
+        "fields": {
+            "name": "Can change home page popup",
+            "content_type": 20,
+            "codename": "change_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 79,
+        "fields": {
+            "name": "Can delete home page popup",
+            "content_type": 20,
+            "codename": "delete_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 80,
+        "fields": {
+            "name": "Can view home page popup",
+            "content_type": 20,
+            "codename": "view_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 81,
+        "fields": {
+            "name": "Can add user profile",
+            "content_type": 21,
+            "codename": "add_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 82,
+        "fields": {
+            "name": "Can change user profile",
+            "content_type": 21,
+            "codename": "change_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 83,
+        "fields": {
+            "name": "Can delete user profile",
+            "content_type": 21,
+            "codename": "delete_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 84,
+        "fields": {
+            "name": "Can view user profile",
+            "content_type": 21,
+            "codename": "view_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 85,
+        "fields": {
+            "name": "Can add product quantity",
+            "content_type": 22,
+            "codename": "add_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 86,
+        "fields": {
+            "name": "Can change product quantity",
+            "content_type": 22,
+            "codename": "change_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 87,
+        "fields": {
+            "name": "Can delete product quantity",
+            "content_type": 22,
+            "codename": "delete_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 88,
+        "fields": {
+            "name": "Can view product quantity",
+            "content_type": 22,
+            "codename": "view_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 89,
+        "fields": {
+            "name": "Can add media",
+            "content_type": 23,
+            "codename": "add_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 90,
+        "fields": {
+            "name": "Can change media",
+            "content_type": 23,
+            "codename": "change_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 91,
+        "fields": {
+            "name": "Can delete media",
+            "content_type": 23,
+            "codename": "delete_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 92,
+        "fields": {
+            "name": "Can view media",
+            "content_type": 23,
+            "codename": "view_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 93,
+        "fields": {
+            "name": "Can add review",
+            "content_type": 24,
+            "codename": "add_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 94,
+        "fields": {
+            "name": "Can change review",
+            "content_type": 24,
+            "codename": "change_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 95,
+        "fields": {
+            "name": "Can delete review",
+            "content_type": 24,
+            "codename": "delete_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 96,
+        "fields": {
+            "name": "Can view review",
+            "content_type": 24,
+            "codename": "view_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 97,
+        "fields": {
+            "name": "Can add home page carousel",
+            "content_type": 25,
+            "codename": "add_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 98,
+        "fields": {
+            "name": "Can change home page carousel",
+            "content_type": 25,
+            "codename": "change_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 99,
+        "fields": {
+            "name": "Can delete home page carousel",
+            "content_type": 25,
+            "codename": "delete_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 100,
+        "fields": {
+            "name": "Can view home page carousel",
+            "content_type": 25,
+            "codename": "view_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 101,
+        "fields": {
+            "name": "Can add refund",
+            "content_type": 26,
+            "codename": "add_refund"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 102,
+        "fields": {
+            "name": "Can change refund",
+            "content_type": 26,
+            "codename": "change_refund"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 103,
+        "fields": {
+            "name": "Can delete refund",
+            "content_type": 26,
+            "codename": "delete_refund"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 104,
+        "fields": {
+            "name": "Can view refund",
+            "content_type": 26,
+            "codename": "view_refund"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 105,
+        "fields": {
+            "name": "Can add Theme",
+            "content_type": 27,
+            "codename": "add_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 106,
+        "fields": {
+            "name": "Can change Theme",
+            "content_type": 27,
+            "codename": "change_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 107,
+        "fields": {
+            "name": "Can delete Theme",
+            "content_type": 27,
+            "codename": "delete_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 108,
+        "fields": {
+            "name": "Can view Theme",
+            "content_type": 27,
+            "codename": "view_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 109,
+        "fields": {
+            "name": "Can add sales data",
+            "content_type": 28,
+            "codename": "add_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 110,
+        "fields": {
+            "name": "Can change sales data",
+            "content_type": 28,
+            "codename": "change_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 111,
+        "fields": {
+            "name": "Can delete sales data",
+            "content_type": 28,
+            "codename": "delete_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 112,
+        "fields": {
+            "name": "Can view sales data",
+            "content_type": 28,
+            "codename": "view_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 113,
+        "fields": {
+            "name": "Can add social account",
+            "content_type": 4,
+            "codename": "add_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 114,
+        "fields": {
+            "name": "Can change social account",
+            "content_type": 4,
+            "codename": "change_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 115,
+        "fields": {
+            "name": "Can delete social account",
+            "content_type": 4,
+            "codename": "delete_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 116,
+        "fields": {
+            "name": "Can view social account",
+            "content_type": 4,
+            "codename": "view_socialaccount"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 117,
+        "fields": {
+            "name": "Can add social application",
+            "content_type": 3,
+            "codename": "add_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 118,
+        "fields": {
+            "name": "Can change social application",
+            "content_type": 3,
+            "codename": "change_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 119,
+        "fields": {
+            "name": "Can delete social application",
+            "content_type": 3,
+            "codename": "delete_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 120,
+        "fields": {
+            "name": "Can view social application",
+            "content_type": 3,
+            "codename": "view_socialapp"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 121,
+        "fields": {
+            "name": "Can add Theme",
+            "content_type": 6,
+            "codename": "add_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 122,
+        "fields": {
+            "name": "Can change Theme",
+            "content_type": 6,
+            "codename": "change_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 123,
+        "fields": {
+            "name": "Can delete Theme",
+            "content_type": 6,
+            "codename": "delete_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 124,
+        "fields": {
+            "name": "Can view Theme",
+            "content_type": 6,
+            "codename": "view_theme"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 125,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 7,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 126,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 7,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 127,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 7,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 128,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 7,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 129,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 8,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 130,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 8,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 131,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 8,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 132,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 8,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 133,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 9,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 134,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 9,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 135,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 9,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 136,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 9,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 137,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 10,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 138,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 10,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 139,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 10,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 140,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 10,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 141,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 11,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 142,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 11,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 143,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 11,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 144,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 11,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 145,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 12,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 146,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 12,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 147,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 12,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 148,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 12,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 149,
+        "fields": {
+            "name": "Can add category",
+            "content_type": 13,
+            "codename": "add_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 150,
+        "fields": {
+            "name": "Can change category",
+            "content_type": 13,
+            "codename": "change_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 151,
+        "fields": {
+            "name": "Can delete category",
+            "content_type": 13,
+            "codename": "delete_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 152,
+        "fields": {
+            "name": "Can view category",
+            "content_type": 13,
+            "codename": "view_category"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 153,
+        "fields": {
+            "name": "Can add order",
+            "content_type": 18,
+            "codename": "add_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 154,
+        "fields": {
+            "name": "Can change order",
+            "content_type": 18,
+            "codename": "change_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 155,
+        "fields": {
+            "name": "Can delete order",
+            "content_type": 18,
+            "codename": "delete_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 156,
+        "fields": {
+            "name": "Can view order",
+            "content_type": 18,
+            "codename": "view_order"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 157,
+        "fields": {
+            "name": "Can add product",
+            "content_type": 16,
+            "codename": "add_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 158,
+        "fields": {
+            "name": "Can change product",
+            "content_type": 16,
+            "codename": "change_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 159,
+        "fields": {
+            "name": "Can delete product",
+            "content_type": 16,
+            "codename": "delete_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 160,
+        "fields": {
+            "name": "Can view product",
+            "content_type": 16,
+            "codename": "view_product"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 161,
+        "fields": {
+            "name": "Can add sales data",
+            "content_type": 23,
+            "codename": "add_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 162,
+        "fields": {
+            "name": "Can change sales data",
+            "content_type": 23,
+            "codename": "change_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 163,
+        "fields": {
+            "name": "Can delete sales data",
+            "content_type": 23,
+            "codename": "delete_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 164,
+        "fields": {
+            "name": "Can view sales data",
+            "content_type": 23,
+            "codename": "view_salesdata"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 165,
+        "fields": {
+            "name": "Can add return",
+            "content_type": 21,
+            "codename": "add_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 166,
+        "fields": {
+            "name": "Can change return",
+            "content_type": 21,
+            "codename": "change_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 167,
+        "fields": {
+            "name": "Can delete return",
+            "content_type": 21,
+            "codename": "delete_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 168,
+        "fields": {
+            "name": "Can view return",
+            "content_type": 21,
+            "codename": "view_return"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 169,
+        "fields": {
+            "name": "Can add replacement",
+            "content_type": 22,
+            "codename": "add_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 170,
+        "fields": {
+            "name": "Can change replacement",
+            "content_type": 22,
+            "codename": "change_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 171,
+        "fields": {
+            "name": "Can delete replacement",
+            "content_type": 22,
+            "codename": "delete_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 172,
+        "fields": {
+            "name": "Can view replacement",
+            "content_type": 22,
+            "codename": "view_replacement"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 173,
+        "fields": {
+            "name": "Can add product quantity",
+            "content_type": 17,
+            "codename": "add_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 174,
+        "fields": {
+            "name": "Can change product quantity",
+            "content_type": 17,
+            "codename": "change_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 175,
+        "fields": {
+            "name": "Can delete product quantity",
+            "content_type": 17,
+            "codename": "delete_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 176,
+        "fields": {
+            "name": "Can view product quantity",
+            "content_type": 17,
+            "codename": "view_productquantity"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 177,
+        "fields": {
+            "name": "Can add order item",
+            "content_type": 19,
+            "codename": "add_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 178,
+        "fields": {
+            "name": "Can change order item",
+            "content_type": 19,
+            "codename": "change_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 179,
+        "fields": {
+            "name": "Can delete order item",
+            "content_type": 19,
+            "codename": "delete_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 180,
+        "fields": {
+            "name": "Can view order item",
+            "content_type": 19,
+            "codename": "view_orderitem"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 181,
+        "fields": {
+            "name": "Can add media",
+            "content_type": 15,
+            "codename": "add_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 182,
+        "fields": {
+            "name": "Can change media",
+            "content_type": 15,
+            "codename": "change_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 183,
+        "fields": {
+            "name": "Can delete media",
+            "content_type": 15,
+            "codename": "delete_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 184,
+        "fields": {
+            "name": "Can view media",
+            "content_type": 15,
+            "codename": "view_media"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 185,
+        "fields": {
+            "name": "Can add cancellation",
+            "content_type": 20,
+            "codename": "add_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 186,
+        "fields": {
+            "name": "Can change cancellation",
+            "content_type": 20,
+            "codename": "change_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 187,
+        "fields": {
+            "name": "Can delete cancellation",
+            "content_type": 20,
+            "codename": "delete_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 188,
+        "fields": {
+            "name": "Can view cancellation",
+            "content_type": 20,
+            "codename": "view_cancellation"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 189,
+        "fields": {
+            "name": "Can add home page carousel",
+            "content_type": 26,
+            "codename": "add_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 190,
+        "fields": {
+            "name": "Can change home page carousel",
+            "content_type": 26,
+            "codename": "change_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 191,
+        "fields": {
+            "name": "Can delete home page carousel",
+            "content_type": 26,
+            "codename": "delete_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 192,
+        "fields": {
+            "name": "Can view home page carousel",
+            "content_type": 26,
+            "codename": "view_homepagecarousel"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 193,
+        "fields": {
+            "name": "Can add home page popup",
+            "content_type": 24,
+            "codename": "add_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 194,
+        "fields": {
+            "name": "Can change home page popup",
+            "content_type": 24,
+            "codename": "change_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 195,
+        "fields": {
+            "name": "Can delete home page popup",
+            "content_type": 24,
+            "codename": "delete_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 196,
+        "fields": {
+            "name": "Can view home page popup",
+            "content_type": 24,
+            "codename": "view_homepagepopup"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 197,
+        "fields": {
+            "name": "Can add review",
+            "content_type": 25,
+            "codename": "add_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 198,
+        "fields": {
+            "name": "Can change review",
+            "content_type": 25,
+            "codename": "change_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 199,
+        "fields": {
+            "name": "Can delete review",
+            "content_type": 25,
+            "codename": "delete_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 200,
+        "fields": {
+            "name": "Can view review",
+            "content_type": 25,
+            "codename": "view_review"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 201,
+        "fields": {
+            "name": "Can add user profile",
+            "content_type": 27,
+            "codename": "add_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 202,
+        "fields": {
+            "name": "Can change user profile",
+            "content_type": 27,
+            "codename": "change_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 203,
+        "fields": {
+            "name": "Can delete user profile",
+            "content_type": 27,
+            "codename": "delete_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 204,
+        "fields": {
+            "name": "Can view user profile",
+            "content_type": 27,
+            "codename": "view_userprofile"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 205,
+        "fields": {
+            "name": "Can add address",
+            "content_type": 28,
+            "codename": "add_address"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 206,
+        "fields": {
+            "name": "Can change address",
+            "content_type": 28,
+            "codename": "change_address"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 207,
+        "fields": {
+            "name": "Can delete address",
+            "content_type": 28,
+            "codename": "delete_address"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 208,
+        "fields": {
+            "name": "Can view address",
+            "content_type": 28,
+            "codename": "view_address"
+        }
+    },
+    {
+        "model": "auth.group",
+        "pk": 1,
+        "fields": {
+            "name": "Operations1",
+            "permissions": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                25,
+                26,
+                27,
+                28,
+                21,
+                22,
+                23,
+                24,
+                33,
+                34,
+                35,
+                36,
+                29,
+                30,
+                31,
+                32,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                93,
+                94,
+                95,
+                96,
+                45,
+                46,
+                47,
+                48,
+                13,
+                14,
+                15,
+                16,
+                9,
+                10,
+                11,
+                12,
+                17,
+                18,
+                19,
+                20,
+                77,
+                78,
+                79,
+                80,
+                49,
+                50,
+                51,
+                52,
+                57,
+                58,
+                59,
+                60,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                53,
+                54,
+                55,
+                56,
+                85,
+                86,
+                87,
+                88,
+                81,
+                82,
+                83,
+                84,
+                89,
+                90,
+                91,
+                92
+            ]
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$G9OrIAS1queWqtvcpX6oAn$6hgbAcVf5xr/W1yUBz8mq79N2N3Bb8M8/r1PIjF3o/U=",
+            "last_login": "2024-02-07T00:52:25.250Z",
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "Aniket",
+            "last_name": "Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-15T13:54:51.437Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$WvJwO84iiCGl1MRmqu4xh3$A647QwVojDXcUbN6jpgBjPLiGZQ44M9hNxhCTr133+k=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "Operations1",
+            "first_name": "Shivaji",
+            "last_name": "Ramdas",
+            "email": "shivajir.shelke@gmail.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2024-01-20T10:37:13Z",
+            "groups": [],
+            "user_permissions": [
+                48,
+                49,
+                50,
+                51,
+                52,
+                57,
+                58,
+                59,
+                60,
+                69,
+                70,
+                71,
+                72,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                53,
+                54,
+                55,
+                56,
+                85,
+                86,
+                87,
+                88,
+                89,
+                90,
+                91,
+                92
+            ]
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$LArwDnHjgTQxLgpaj2Xj92$uYnQFTxsT2eSztOsPRXV2Rs+zvj3EBQOBVLEU/FBG8g=",
+            "last_login": "2024-01-30T03:39:11.306Z",
+            "is_superuser": false,
+            "username": "msbharti",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-01-30T01:22:53.391Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 7,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$0bNQIqputUxxJP7lOQLtM1$6aB/QxFcJY/F15rrQCA/nMfb6qxSkfTfZmjJpKpfVKk=",
+            "last_login": "2024-02-04T17:14:19.414Z",
+            "is_superuser": false,
+            "username": "diweshy02@gmail.com",
+            "first_name": "dgd",
+            "last_name": "ytdtyf",
+            "email": "diweshy02@gmail.com",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2024-02-04T17:14:18.439Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": {
+            "app_label": "account",
+            "model": "emailaddress"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": {
+            "app_label": "account",
+            "model": "emailconfirmation"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": {
+            "app_label": "socialaccount",
+            "model": "socialapp"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": {
+            "app_label": "socialaccount",
+            "model": "socialaccount"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": {
+            "app_label": "socialaccount",
+            "model": "socialtoken"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": {
+            "app_label": "admin_interface",
+            "model": "theme"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": {
+            "app_label": "admin",
+            "model": "logentry"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": {
+            "app_label": "auth",
+            "model": "permission"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": {
+            "app_label": "auth",
+            "model": "group"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": {
+            "app_label": "auth",
+            "model": "user"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 11,
+        "fields": {
+            "app_label": "contenttypes",
+            "model": "contenttype"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 12,
+        "fields": {
+            "app_label": "sessions",
+            "model": "session"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 13,
+        "fields": {
+            "app_label": "store",
+            "model": "category"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 14,
+        "fields": {
+            "app_label": "store",
+            "model": "quantity"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 15,
+        "fields": {
+            "app_label": "store",
+            "model": "media"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 16,
+        "fields": {
+            "app_label": "store",
+            "model": "product"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 17,
+        "fields": {
+            "app_label": "store",
+            "model": "productquantity"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 18,
+        "fields": {
+            "app_label": "store",
+            "model": "order"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 19,
+        "fields": {
+            "app_label": "store",
+            "model": "orderitem"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 20,
+        "fields": {
+            "app_label": "store",
+            "model": "cancellation"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 21,
+        "fields": {
+            "app_label": "store",
+            "model": "return"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 22,
+        "fields": {
+            "app_label": "store",
+            "model": "replacement"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 23,
+        "fields": {
+            "app_label": "store",
+            "model": "salesdata"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 24,
+        "fields": {
+            "app_label": "home",
+            "model": "homepagepopup"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 25,
+        "fields": {
+            "app_label": "home",
+            "model": "review"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 26,
+        "fields": {
+            "app_label": "home",
+            "model": "homepagecarousel"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 27,
+        "fields": {
+            "app_label": "accounts",
+            "model": "userprofile"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 28,
+        "fields": {
+            "app_label": "accounts",
+            "model": "address"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "32pywzukx0c80b5hckr5te6uvwuun6gx",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWnaoR3ApXvP0Mx0poIaSCisjHdXEha6_e-9_zKJtnVIW9UljWLOxpvT78aUHzrtQO403Wab52ldRra7Yg9a7XUWfV4O9-9goDp869ir475gbCJ4T86H7EEDcgyhAwB2StIBljYjimAE8E1RapX7gMjm_QG88zc4:1rXNil:zXxQKmvy21FHkUhAGbfwsCSD95LzEFznzEfNB9U3-k4",
+            "expire_date": "2024-02-20T15:50:51.492Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "7l69vj19g8ndqx8aw9v35ykgv78b4kur",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWnaoR3ApXvP0Mx0poIaSCisjHdXEha6_e-9_zKJtnVIW9UljWLOxpvT78aUHzrtQO403Wab52ldRra7Yg9a7XUWfV4O9-9goDp869ir475gbCJ4T86H7EEDcgyhAwB2StIBljYjimAE8E1RapX7gMjm_QG88zc4:1rXNmn:oS2882PxWMRpASZzrEEMJ4IJ_uGr0r3lh-hn0iYyTWA",
+            "expire_date": "2024-02-20T15:55:01.719Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "h7ylz9b6r4pua1n0dljr7ss5lnbt2gsd",
+        "fields": {
+            "session_data": ".eJxVjEEOgjAQRe_StWnaoR3ApXvP0Mx0poIaSCisjHdXEha6_e-9_zKJtnVIW9UljWLOxpvT78aUHzrtQO403Wab52ldRra7Yg9a7XUWfV4O9-9goDp869ir475gbCJ4T86H7EEDcgyhAwB2StIBljYjimAE8E1RapX7gMjm_QG88zc4:1rXNjX:aHLeNLVc8XgNONUws4dGVJbZrG4f4rRY3Yp0ldySms4",
+            "expire_date": "2024-02-20T15:51:39.468Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "npzfcreoo5rqvnkltcfvmt7xbunygtcf",
+        "fields": {
+            "session_data": ".eJxVjMEOwiAQRP-Fs2lgC9viTX-ELLAEYkMTCyfjv9uaHvQ4b2beSzjqLbu-8dOVKK5Cicsv8xQeXI-CluXAA4Ww9tqG7-ast-G2J66tBGplrffz9afKtOXdYyxLbxOa0YBSJJUOClijN1rPAOAlU5wB0xQQY0QDoMbENLG3GtGL9weU7zus:1rXWAr:dZA1r2HctYvyxKU-0f5aJaRw5aTCaw6F4KHnd-BciCc",
+            "expire_date": "2024-02-21T00:52:25.352Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "ud5mlu3tkgewlgmle4myewhan938vr8h",
+        "fields": {
+            "session_data": ".eJxVjMEOwiAQRP-Fs2lgC9viTX-ELLAEYkMTCyfjv9uaHvQ4b2beSzjqLbu-8dOVKK5Cicsv8xQeXI-CluXAA4Ww9tqG7-ast-G2J66tBGplrffz9afKtOXdYyxLbxOa0YBSJJUOClijN1rPAOAlU5wB0xQQY0QDoMbENLG3GtGL9weU7zus:1rXVxd:5JeUh0yZJqZUsGI8pyDF16Yy9kRIjrziNqhrhsIJ60o",
+            "expire_date": "2024-02-21T00:38:45.768Z"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 4,
+        "fields": {
+            "name": "Special Offers"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 5,
+        "fields": {
+            "name": "Spices"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 6,
+        "fields": {
+            "name": "Essential Oils"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 1,
+        "fields": {
+            "name": "500 ml"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 2,
+        "fields": {
+            "name": "1 L"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 3,
+        "fields": {
+            "name": "5 L"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 4,
+        "fields": {
+            "name": "15 Ltrs"
+        }
+    },
+    {
+        "model": "store.quantity",
+        "pk": 5,
+        "fields": {
+            "name": "200 ml"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 1,
+        "fields": {
+            "product": 1,
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/GbYs9QrW/1704732452026.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 4,
+        "fields": {
+            "product": 4,
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/q7dxnjM1/1704722672258.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 5,
+        "fields": {
+            "product": 7,
+            "media_type": "image",
+            "media_url": "https://i.ibb.co/fvB47Lt/1703801052788.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 6,
+        "fields": {
+            "product": 5,
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/9Q2vXtHj/1703802983349.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 8,
+        "fields": {
+            "product": 6,
+            "media_type": "image",
+            "media_url": "https://i.ibb.co/N2GMQCV/1704728177559.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 9,
+        "fields": {
+            "product": 3,
+            "media_type": "image",
+            "media_url": "https://i.ibb.co/xm55qs1/1704728257684.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 10,
+        "fields": {
+            "product": 7,
+            "media_type": "image",
+            "media_url": "https://i.ibb.co/k6SMYW6/IMG-20240115-WA0013.jpg"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 11,
+        "fields": {
+            "product": 4,
+            "media_type": "image",
+            "media_url": "https://indicwisdom.com/wp-content/uploads/2023/12/vision-1536x864-1.webp"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 12,
+        "fields": {
+            "product": 8,
+            "media_type": "image",
+            "media_url": "https://i.ibb.co/xm55qs1/1704728257684.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 13,
+        "fields": {
+            "product": 8,
+            "media_type": "video",
+            "media_url": "https://indicwisdom.com/wp-content/uploads/2023/11/abhimanyu-for-indic-wisdom-awareness-videos-sunflower-manufacturing-whatsapp-size-reduce.mp4"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 14,
+        "fields": {
+            "product": 2,
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/ncs90BXB/1704732410982.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 15,
+        "fields": {
+            "product": 3,
+            "media_type": "image",
+            "media_url": "https://gcdnb.pbrd.co/images/vldy9yRXzlSB.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 16,
+        "fields": {
+            "product": 1,
+            "media_type": "image",
+            "media_url": "https://pasteboard.co/VwMYQP0pxR36.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 17,
+        "fields": {
+            "product": 6,
+            "media_type": "image",
+            "media_url": "https://pasteboard.co/vldy9yRXzlSB.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 18,
+        "fields": {
+            "product": 3,
+            "media_type": "image",
+            "media_url": "https://gcdnb.pbrd.co/images/mIHMheGmggMe.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 19,
+        "fields": {
+            "product": 3,
+            "media_type": "image",
+            "media_url": "https://gcdnb.pbrd.co/images/qWCOtI6y8EQg.png"
+        }
+    },
+    {
+        "model": "store.media",
+        "pk": 20,
+        "fields": {
+            "product": 3,
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/GbYs9QrW/1704732452026.png"
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 1,
+        "fields": {
+            "name": "Cold Pressed Coconut Oil",
+            "description": "Cold-pressed coconut oil is a natural oil that is extracted from the meat of mature coconuts without the use of heat or chemicals. This method of extraction preserves the oil's natural nutrients, making it a healthier and more beneficial option than other processed coconut oils.\r\n\r\n Here are some of the benefits of using cold-pressed coconut oil:\r\n\r\n1.Promotes Heart Health: Cold-pressed coconut oil contains medium-chain triglycerides (MCTs), which are easily digested and metabolized by the body. Studies have shown that MCTs can help reduce cholesterol levels and improve overall heart health.\r\n\r\n2.Boosts Immune System: Cold-pressed coconut oil is rich in lauric acid, which is known to have antimicrobial properties. Lauric acid can help boost the immune system by fighting off harmful bacteria, viruses, and fungi.\r\n\r\n3.Aids in Digestion: The MCTs in cold-pressed coconut oil can help improve digestion and nutrient absorption in the body. This can be particularly beneficial for those with digestive issues or malabsorption problems.\r\n\r\n4.Moisturizes Skin and Hair: Cold-pressed coconut oil is a natural moisturizer that can help nourish and hydrate the skin and hair. Its high fatty acid content helps keep the skin and hair soft and supple.\r\n\r\n5.Improves Brain Function: The MCTs in cold-pressed coconut oil can also help improve brain function and memory. Studies have shown that MCTs can help increase ketone levels in the brain, which may improve cognitive function in people with Alzheimer's and other neurological disorders.\r\n\r\n6.Supports Weight Loss: The MCTs in cold-pressed coconut oil can help boost metabolism and promote fat burning, making it a useful tool for weight loss. It can also help reduce appetite and cravings, which can make it easier to stick to a healthy diet.\r\n\r\nIn summary, cold-pressed coconut oil is a natural, versatile oil that offers a wide range of health benefits. Its high nutrient content and unique fatty acid profile make it a valuable addition to any healthy lifestyle.",
+            "short_description": "Revitalize with our cold-pressed coconut oil—promotes heart health, boosts immunity, aids digestion, nourishes skin and hair, enhances brain function, and supports weight loss. Pure well-being in a bottle!",
+            "categories": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 2,
+        "fields": {
+            "name": "Cold Pressed Mustard OIl",
+            "description": "Kachi Ghani Mustard Oil (sarso oil) is extracted from mustard seeds (black, brown and white), and is reddish brown or amber in colour. It has been commonly used in North and East India since ancient times, and comes with a bevy of health benefits.\r\n\r\n1.Good for Heart Health: Cold pressed mustard oil is rich in monounsaturated and polyunsaturated fats, which are considered healthy fats that can help reduce the risk of heart disease. These fats help to reduce bad cholesterol (LDL) levels and increase good cholesterol (HDL) levels in the body.\r\n\r\n2.Boosts Immunity: Mustard oil is a good source of antioxidants, which helps to boost the immune system and protect the body from harmful free radicals.\r\n\r\n3.Promotes Healthy Skin: Mustard oil is rich in Vitamin E, which helps to nourish and hydrate the skin. It also has anti-inflammatory and anti-bacterial properties that help to reduce skin infections and prevent acne.\r\n\r\n4.Relieves Joint Pain: Cold pressed mustard oil has anti-inflammatory properties that help to reduce joint pain and swelling. It is commonly used in Ayurvedic medicine to treat joint pain and arthritis.\r\nPromotes Hair Growth: Mustard oil is rich in essential fatty acids, which helps to nourish and strengthen the hair. It also has anti-fungal properties that help to prevent dandruff and other scalp infections.\r\n\r\n5.Improves Digestion: Mustard oil stimulates the production of digestive juices, which helps to improve digestion and prevent digestive problems such as constipation, bloating and gas.\r\n\r\n6.Acts as a Natural Insect Repellent: Mustard oil has a strong pungent Odor that acts as a natural insect repellent. It is commonly used to repel mosquitoes and other insects.\r\nIt's important to note that while cold pressed mustard oil has several potential health benefits, it is still recommended to consume it in moderation.",
+            "short_description": "Kachi Ghani Mustard Oil, extracted from mustard seeds, offers heart health, immunity boost, skin and joint benefits, promoting digestion and acting as a natural insect repellent",
+            "categories": []
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 3,
+        "fields": {
+            "name": "Cold Pressed Sunflower  Oil",
+            "description": "Cold-pressed sunflower oil is a natural oil that is extracted from sunflower seeds without the use of heat or chemicals. This method of extraction preserves the oil's natural nutrients, making it a healthier and more beneficial option than other processed sunflower oils. Here are some of the benefits of using cold-pressed sunflower oil:\r\n\r\n1.Promotes Heart Health: Cold-pressed sunflower oil is rich in healthy unsaturated fats, such as omega-3 and omega-6 fatty acids, which can help reduce inflammation and lower cholesterol levels. This can help improve heart health and reduce the risk of heart disease.\r\n\r\n2.Boosts Immune System: Cold-pressed sunflower oil is a rich source of vitamin E, which is a powerful antioxidant that can help boost the immune system and protect the body from free radical damage. Vitamin E can also help improve skin health and reduce the risk of certain cancers.\r\n\r\n3.Improves Skin Health: Cold-pressed sunflower oil is a natural moisturizer that can help nourish and hydrate the skin. Its high vitamin E content can also help reduce the appearance of fine lines and wrinkles and protect the skin from sun damage.\r\n\r\n4.Aids in Digestion: Cold-pressed sunflower oil is a good source of fiber, which can help improve digestion and promote regular bowel movements. It can also help reduce inflammation in the gut and improve nutrient absorption.\r\n\r\n5.Supports Weight Loss: Cold-pressed sunflower oil is a low-calorie and low-fat option that can help support weight loss. It can help boost metabolism and promote fat burning, making it a useful tool for weight management.\r\n\r\n6.Boosts Energy: Cold-pressed sunflower oil is a good source of essential fatty acids, which can help improve energy levels and reduce fatigue. It can also help improve mood and cognitive function.",
+            "short_description": "Cold-pressed sunflower oil, extracted without heat or chemicals, promotes heart health, boosts immunity, enhances skin, aids digestion, supports weight loss, and boosts energy.",
+            "categories": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 4,
+        "fields": {
+            "name": "Cold Pressed Groundnut Oil",
+            "description": "Cold pressed groundnut oil is a type of oil that is extracted from groundnuts (also known as peanuts) through a mechanical process that does not involve the use of heat or chemicals. This process helps to retain the natural nutrients and flavor of the oil.\r\n\r\n1.Groundnut oil is a good source of healthy fats, including monounsaturated and polyunsaturated fats, which are considered beneficial for heart health. It is also rich in antioxidants, such as Vitamin E, which helps to protect the body from harmful free radicals.\r\n\r\n2.Cold pressed groundnut oil is commonly used for cooking due to its high smoke point, which means that it can withstand high temperatures without burning or smoking. This makes it ideal for deep frying, sautéing and other high heat cooking methods.\r\n\r\n3.Snehsattva Cold Pressed Groundnut Oil is 100% natural & pure. It is specifically prepared from fresh groundnuts through a meticulous and engineered process.\r\n\r\nExtracted through no heat process to preserve natural goodness rich Aroma. 100% pure, unadulterated oil, ensured by the Fatty Acid Profiling process.\r\n\r\nFree from trans-fat. No Preservatives added.\r\n\r\nIt’s a good source of the antioxidant vitamin E, which may help reduce heart disease risk factors. It may also help improve insulin sensitivity and blood sugar in those with diabetes.\r\n\r\nCompletely free of cholesterol\r\n\r\nStore in cool and dry place at room temperature.\r\nAvoid Sunlight exposure\"",
+            "short_description": "Snehsattva Cold Pressed Groundnut Oil",
+            "categories": []
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 5,
+        "fields": {
+            "name": "Cold Pressed Til Oil",
+            "description": "Cold-pressed til oil, also known as sesame oil, is a natural oil that is extracted from sesame seeds without the use of heat or chemicals. This method of extraction preserves the oil's natural nutrients, making it a healthier and more beneficial option than other processed sesame oils. Here are some of the benefits of using cold-pressed til oil:\r\n\r\n1.Promotes Heart Health: Cold-pressed til oil is rich in healthy unsaturated fats, including omega-3, omega-6, and omega-9 fatty acids, which can help lower cholesterol levels and reduce the risk of heart disease.\r\n\r\n2.Improves Skin Health: Cold-pressed til oil is a natural moisturizer that can help hydrate and nourish the skin. Its high vitamin E content can also help reduce inflammation and improve skin texture.\r\n\r\n3.Reduces Inflammation: Cold-pressed til oil contains a high amount of sesamol, which is a natural anti-inflammatory compound. Consuming til oil can help reduce inflammation in the body, which can be beneficial for those with inflammatory conditions, such as arthritis or asthma.\r\n\r\n4.Aids in Digestion: Cold-pressed til oil is a good source of fiber, which can help improve digestion and promote regular bowel movements. It can also help reduce inflammation in the gut and improve nutrient absorption.\r\n\r\n5.Supports Bone Health: Cold-pressed til oil is a good source of calcium, which is essential for strong and healthy bones. Consuming til oil can help reduce the risk of osteoporosis and other bone-related conditions.\r\n\r\n6.Boosts Immune System: Cold-pressed til oil is a good source of antioxidants, including sesamol and sesamin, which can help boost the immune system and protect the body from free radical damage. It can also help reduce the risk of certain cancers.\r\n\r\nIn summary, cold-pressed til oil is a natural and nutritious oil that offers a range of health benefits. Its high nutrient content and unique fatty acid profile make it a valuable addition to any healthy lifestyle.",
+            "short_description": "Cold-pressed til oil, extracted from sesame seeds, promotes heart health, skin nourishment, inflammation reduction, digestion, bone health, and immune system support. A natural and nutritious choice",
+            "categories": []
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 6,
+        "fields": {
+            "name": "Cold Pressed Safflower Oil",
+            "description": "Cold-pressed safflower oil is a natural oil that is extracted from safflower seeds without the use of heat or chemicals. This method of extraction preserves the oil's natural nutrients, making it a healthier and more beneficial option than other processed safflower oils. Here are some of the benefits of using cold-pressed safflower oil:\r\n\r\n1.Promotes Heart Health: Cold-pressed safflower oil is rich in healthy unsaturated fats, including omega-6 and omega-9 fatty acids, which can help lower cholesterol levels and reduce the risk of heart disease.\r\n\r\n2.Aids in Weight Loss: Cold-pressed safflower oil contains a high amount of linoleic acid, which can help boost metabolism and promote fat burning. Studies have shown that consuming safflower oil can help reduce belly fat and improve body composition.\r\nImproves Skin Health: Cold-pressed safflower oil is a natural moisturizer that can help hydrate and nourish the skin. Its high linoleic acid content can also help reduce inflammation and improve skin texture.\r\n\r\n3.Reduces Inflammation: Cold-pressed safflower oil contains a high amount of omega-6 fatty acids, which can help reduce inflammation in the body. This can be particularly beneficial for those with inflammatory conditions, such as arthritis or asthma.\r\n\r\n4.Supports Immune System: Cold-pressed safflower oil is a good source of vitamin E, which is a powerful antioxidant that can help boost the immune system and protect the body from free radical damage. Vitamin E can also help improve skin health and reduce the risk of certain cancers.\r\n\r\n5.Improves Digestion: Cold-pressed safflower oil is a good source of fibre, which can help improve digestion and promote regular bowel movements. It can also help reduce inflammation in the gut and improve nutrient absorption.\r\n\r\nIn summary, cold-pressed safflower oil is a natural and nutritious oil that offers a range of health benefits. Its high nutrient content and unique fatty acid profile make it a valuable addition to any healthy lifestyle.",
+            "short_description": "Cold-pressed safflower oil, rich in omega-6 fatty acids and vitamin E, promotes heart health, aids weight loss, improves skin, reduces inflammation, and supports digestion.",
+            "categories": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 7,
+        "fields": {
+            "name": "Cold Pressed Flaxseed Oil",
+            "description": "Flaxseed oil, also known as linseed oil, is a type of oil derived from the seeds of the flax plant (Linum usitatissimum). It is renowned for its nutritional benefits, particularly its high content of omega-3 fatty acids, lignans, and other essential nutrients. Here are some key aspects of flaxseed oil:\r\n\r\n1.Omega-3 Fatty Acids: Flaxseed oil is one of the richest plant-based sources of alpha-linolenic acid (ALA), which is an essential omega-3 fatty acid. Omega-3 fatty acids are crucial for heart health, brain function, and reducing inflammation in the body.\r\n\r\n2.Lignans: Flaxseeds and their oil contain lignans, which are phytochemicals with antioxidant properties. Lignans have been associated with potential health benefits, including hormonal balance and reduced risk of certain cancers.\r\n\r\n3.Nutritional Profile: In addition to omega-3 fatty acids and lignans, flaxseed oil is a good source of vitamin E, an antioxidant that helps protect cells from damage. It also provides a small amount of vitamin K.\r\n\r\n4.Health Benefits: Consumption of flaxseed oil is linked to various health benefits, such as lowering cholesterol levels, supporting cardiovascular health, reducing inflammation, and potentially aiding in the management of certain conditions like arthritis.\r\n\r\n5.Cold-Pressed: High-quality flaxseed oil is often cold-pressed, a method of extraction that involves pressing the seeds without using heat. This helps preserve the oil's nutritional content and prevents the degradation of delicate compounds, such as omega-3 fatty acids.\r\n\r\n6.Use in Cooking: While flaxseed oil is not suitable for cooking at high temperatures due to its low smoke point, it can be added to foods after cooking or used in salad dressings, dips, and smoothies. Its distinct nutty flavor can complement various dishes.\r\n\r\nSupplement Form: Flaxseed oil is commonly available as a dietary supplement in the form of softgel capsules or liquid. It is important to store the oil in a cool, dark place to prevent oxidation, as omega-3 fatty acids are susceptible to degradation when exposed to heat and light.",
+            "short_description": "Flaxseed oil, a mysterious substance harvested by Jawas in Star Wars, powers their vehicles and technology, valued for its potency.",
+            "categories": [
+                4
+            ]
+        }
+    },
+    {
+        "model": "store.product",
+        "pk": 8,
+        "fields": {
+            "name": "Badam Oil",
+            "description": "Badam Oil",
+            "short_description": "Badam Oil",
+            "categories": [
+                6
+            ]
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 1,
+        "fields": {
+            "product": 1,
+            "quantity": 1,
+            "price": "280.00",
+            "final_price": "220.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 2,
+        "fields": {
+            "product": 1,
+            "quantity": 2,
+            "price": "510.00",
+            "final_price": "390.00",
+            "available": false
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 3,
+        "fields": {
+            "product": 2,
+            "quantity": 1,
+            "price": "280.00",
+            "final_price": "220.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 4,
+        "fields": {
+            "product": 2,
+            "quantity": 2,
+            "price": "510.00",
+            "final_price": "390.00",
+            "available": false
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 6,
+        "fields": {
+            "product": 3,
+            "quantity": 1,
+            "price": "200.00",
+            "final_price": "150.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 7,
+        "fields": {
+            "product": 3,
+            "quantity": 2,
+            "price": "425.00",
+            "final_price": "320.00",
+            "available": false
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 9,
+        "fields": {
+            "product": 4,
+            "quantity": 1,
+            "price": "210.00",
+            "final_price": "165.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 10,
+        "fields": {
+            "product": 4,
+            "quantity": 2,
+            "price": "380.00",
+            "final_price": "295.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 12,
+        "fields": {
+            "product": 5,
+            "quantity": 1,
+            "price": "340.00",
+            "final_price": "238.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 13,
+        "fields": {
+            "product": 5,
+            "quantity": 2,
+            "price": "630.00",
+            "final_price": "441.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 15,
+        "fields": {
+            "product": 6,
+            "quantity": 1,
+            "price": "250.00",
+            "final_price": "185.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 16,
+        "fields": {
+            "product": 6,
+            "quantity": 2,
+            "price": "425.00",
+            "final_price": "320.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 18,
+        "fields": {
+            "product": 7,
+            "quantity": 1,
+            "price": "280.00",
+            "final_price": "196.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 19,
+        "fields": {
+            "product": 7,
+            "quantity": 2,
+            "price": "530.00",
+            "final_price": "371.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 21,
+        "fields": {
+            "product": 4,
+            "quantity": 3,
+            "price": "1875.00",
+            "final_price": "1450.00",
+            "available": false
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 22,
+        "fields": {
+            "product": 4,
+            "quantity": 4,
+            "price": "4500.00",
+            "final_price": "3950.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 23,
+        "fields": {
+            "product": 8,
+            "quantity": 5,
+            "price": "350.00",
+            "final_price": "310.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.productquantity",
+        "pk": 24,
+        "fields": {
+            "product": 8,
+            "quantity": 1,
+            "price": "850.00",
+            "final_price": "750.00",
+            "available": true
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 10,
+        "fields": {
+            "delivery_status": "Delivered",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7248432377",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "1450.00",
+            "created_at": "2024-01-21T15:38:45.610Z",
+            "order_id": "order_NRJZynP91KJIFQ",
+            "payment_id": "pay_NRJZkYu25jiqEK",
+            "payment_status": "authorized",
+            "payment_amount": "1450.00",
+            "payment_timestamp": "2024-01-21T15:38:35Z"
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 12,
+        "fields": {
+            "delivery_status": "Out For Delivery",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7248432377",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "1876.00",
+            "created_at": "2024-01-21T16:07:45.497Z",
+            "order_id": "order_NRK4bMp1Dhzmv4",
+            "payment_id": "pay_NRK4NoTBigm7y0",
+            "payment_status": "authorized",
+            "payment_amount": "1876.00",
+            "payment_timestamp": "2024-01-21T16:07:34Z"
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 13,
+        "fields": {
+            "delivery_status": "Accepted",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7248432377",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "346.00",
+            "created_at": "2024-01-21T20:09:07.881Z",
+            "order_id": "order_NROBYku94OMXXw",
+            "payment_id": "pay_NROB0y6bEdmHOQ",
+            "payment_status": "authorized",
+            "payment_amount": "346.00",
+            "payment_timestamp": "2024-01-21T20:08:38Z"
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 14,
+        "fields": {
+            "delivery_status": "Cancelled",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7248432377",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "370.00",
+            "created_at": "2024-01-21T20:09:09.923Z",
+            "order_id": "order_NROBaU0BSL9fNI",
+            "payment_id": "pay_NROBEbS7015xgZ",
+            "payment_status": "authorized",
+            "payment_amount": "370.00",
+            "payment_timestamp": "2024-01-21T20:08:50Z"
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 15,
+        "fields": {
+            "delivery_status": "Cancelled",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7248432377",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "2176.00",
+            "created_at": "2024-01-24T19:01:47.394Z",
+            "order_id": "order_NSYdmo1fRKOe6C",
+            "payment_id": "pay_NSYdXMlJWCNoyO",
+            "payment_status": "authorized",
+            "payment_amount": "2176.00",
+            "payment_timestamp": "2024-01-24T19:01:34Z"
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 16,
+        "fields": {
+            "delivery_status": "Pending",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7248432377",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "935.00",
+            "created_at": "2024-01-25T03:31:55.092Z",
+            "order_id": "order_NShKfByHySYzmN",
+            "payment_id": "pay_NShK15AAWYAKWT",
+            "payment_status": "authorized",
+            "payment_amount": "935.00",
+            "payment_timestamp": "2024-01-25T03:31:20Z"
+        }
+    },
+    {
+        "model": "store.order",
+        "pk": 19,
+        "fields": {
+            "delivery_status": "Cancelled",
+            "user": 1,
+            "name": "Aniket Raj Singh",
+            "email": "mohitrajingh223@gmail.com",
+            "phone": "7800873509",
+            "street": "",
+            "city": "",
+            "state": "",
+            "pincode": "",
+            "landmark": "",
+            "total_price": "150.00",
+            "created_at": "2024-01-30T02:27:59.121Z",
+            "order_id": "order_NUeuixlZgaAZIy",
+            "payment_id": "pay_NUeoKqXGXLqUrA",
+            "payment_status": "authorized",
+            "payment_amount": "150.00",
+            "payment_timestamp": "2024-01-30T02:21:57Z"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 19,
+        "fields": {
+            "order": 10,
+            "product": 1,
+            "quantity": 1,
+            "item_quantity": "2.00",
+            "price": "220.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 20,
+        "fields": {
+            "order": 10,
+            "product": 6,
+            "quantity": 2,
+            "item_quantity": "2.00",
+            "price": "320.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 21,
+        "fields": {
+            "order": 10,
+            "product": 6,
+            "quantity": 1,
+            "item_quantity": "2.00",
+            "price": "185.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 22,
+        "fields": {
+            "order": 12,
+            "product": 7,
+            "quantity": 2,
+            "item_quantity": "4.00",
+            "price": "371.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 23,
+        "fields": {
+            "order": 12,
+            "product": 7,
+            "quantity": 1,
+            "item_quantity": "2.00",
+            "price": "196.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 24,
+        "fields": {
+            "order": 13,
+            "product": 7,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "196.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 25,
+        "fields": {
+            "order": 13,
+            "product": 3,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "150.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 26,
+        "fields": {
+            "order": 14,
+            "product": 3,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "150.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 27,
+        "fields": {
+            "order": 14,
+            "product": 1,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "220.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 28,
+        "fields": {
+            "order": 15,
+            "product": 1,
+            "quantity": 1,
+            "item_quantity": "9.00",
+            "price": "220.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 29,
+        "fields": {
+            "order": 15,
+            "product": 7,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "196.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 30,
+        "fields": {
+            "order": 16,
+            "product": 6,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "185.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 31,
+        "fields": {
+            "order": 16,
+            "product": 3,
+            "quantity": 1,
+            "item_quantity": "5.00",
+            "price": "150.00"
+        }
+    },
+    {
+        "model": "store.orderitem",
+        "pk": 32,
+        "fields": {
+            "order": 19,
+            "product": 3,
+            "quantity": 1,
+            "item_quantity": "1.00",
+            "price": "150.00"
+        }
+    },
+    {
+        "model": "store.cancellation",
+        "pk": 1,
+        "fields": {
+            "order": 14,
+            "reason": "Not Suitable",
+            "date_requested": "2024-01-22T09:51:11.335Z"
+        }
+    },
+    {
+        "model": "store.cancellation",
+        "pk": 2,
+        "fields": {
+            "order": 15,
+            "reason": "no",
+            "date_requested": "2024-02-05T14:19:21.475Z"
+        }
+    },
+    {
+        "model": "store.cancellation",
+        "pk": 32,
+        "fields": {
+            "order": 19,
+            "reason": "uu",
+            "date_requested": "2024-02-05T14:26:46.583Z"
+        }
+    },
+    {
+        "model": "store.salesdata",
+        "pk": 1,
+        "fields": {
+            "date": "2024-01-21",
+            "total_sales": "4042.00"
+        }
+    },
+    {
+        "model": "store.salesdata",
+        "pk": 2,
+        "fields": {
+            "date": "2024-01-24",
+            "total_sales": "2176.00"
+        }
+    },
+    {
+        "model": "store.salesdata",
+        "pk": 3,
+        "fields": {
+            "date": "2024-01-25",
+            "total_sales": "935.00"
+        }
+    },
+    {
+        "model": "store.salesdata",
+        "pk": 4,
+        "fields": {
+            "date": "2024-01-30",
+            "total_sales": "150.00"
+        }
+    },
+    {
+        "model": "home.homepagepopup",
+        "pk": 3,
+        "fields": {
+            "image_url": "https://i.ibb.co/ZNJ60gH/IMG-20240110-195241.jpg",
+            "description": "Enjoy the goodness of handpicked seeds and nutrition packed into every drop",
+            "button_name": "Order Now",
+            "redirection_link": "https://sneh-sattva.onrender.com/store/products/1/"
+        }
+    },
+    {
+        "model": "home.homepagepopup",
+        "pk": 4,
+        "fields": {
+            "image_url": "https://i.ibb.co/Yf3j5K4/IMG-20240115-WA0010.jpg",
+            "description": "Temporary",
+            "button_name": "Temp",
+            "redirection_link": "https://sneh-sattva.onrender.com/"
+        }
+    },
+    {
+        "model": "home.review",
+        "pk": 1,
+        "fields": {
+            "customer_name": "Harshal Shewale",
+            "location": "Pune",
+            "review_text": "Best one amongst I have ever purchased. I had also purchased Seasome oil of this brand. It was of very good quality. On this experience I purchased cold pressed groundnut oil and found of best quality as expected.",
+            "photo_url": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        }
+    },
+    {
+        "model": "home.review",
+        "pk": 2,
+        "fields": {
+            "customer_name": "Vineet Bharadwaj",
+            "location": "Panipat",
+            "review_text": "I switched to cold pressed oil around five years back when the concept was fairly getting noticed. Took some while to figure out authentic taste even though we know immense benefits it has. Very happy to have chanced upon this brand on Amazon. As I work for Himachal Pradesh electricity department and my posting is at remote location, but delivery and availability of this oil is great. Have been using for so many years now.",
+            "photo_url": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        }
+    },
+    {
+        "model": "home.review",
+        "pk": 3,
+        "fields": {
+            "customer_name": "Meenal Ohol",
+            "location": "Pune",
+            "review_text": "I am  very much satisfied with the products sold by Snehsattva. I am rest assured that all are pure and natural. This relives me from tension that whether I am giving best nutritious and pure food to my family.",
+            "photo_url": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        }
+    },
+    {
+        "model": "home.homepagecarousel",
+        "pk": 1,
+        "fields": {
+            "media_type": "image",
+            "media_url": "http://sneh-sattva.onrender.com/static/products/hero.jpg",
+            "image_description": "This is 1st Image with GroundNut Oil (change how you see accordingly...)"
+        }
+    },
+    {
+        "model": "home.homepagecarousel",
+        "pk": 2,
+        "fields": {
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/pd8hpN8V/1-new-1.jpg",
+            "image_description": "2"
+        }
+    },
+    {
+        "model": "home.homepagecarousel",
+        "pk": 3,
+        "fields": {
+            "media_type": "image",
+            "media_url": "https://i.postimg.cc/6QGRn4sX/55-1.jpg",
+            "image_description": "3"
+        }
+    },
+    {
+        "model": "home.homepagecarousel",
+        "pk": 4,
+        "fields": {
+            "media_type": "video",
+            "media_url": "https://indicwisdom.com/wp-content/uploads/2023/11/abhimanyu-for-indic-wisdom-awareness-videos-sunflower-manufacturing-whatsapp-size-reduce.mp4%20",
+            "image_description": "This is the video we want on the home carousel"
+        }
+    },
+    {
+        "model": "accounts.userprofile",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "email": "mohitrajingh223@gmail.com",
+            "primary_phone_number": "7248432377",
+            "alternative_phone_number": "7800873509",
+            "first_name": "Aniket",
+            "last_name": "Raj Singh"
+        }
+    },
+    {
+        "model": "accounts.userprofile",
+        "pk": 4,
+        "fields": {
+            "user": 6,
+            "email": "",
+            "primary_phone_number": "",
+            "alternative_phone_number": "",
+            "first_name": "",
+            "last_name": ""
+        }
+    },
+    {
+        "model": "accounts.userprofile",
+        "pk": 5,
+        "fields": {
+            "user": 7,
+            "email": "diweshy02@gmail.com",
+            "primary_phone_number": "07307050103",
+            "alternative_phone_number": "rgdhjgtnj",
+            "first_name": "dgd",
+            "last_name": "ytdtyf"
+        }
+    }
+]

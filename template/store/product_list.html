@@ -79,10 +79,11 @@ Products
                 <h3 class="mt-5">Categories</h3>
                 <a class="btn category-btn{% if not selected_category %} selected{% endif %}"
                     href="{% url 'product_list' %}">All</a></li>
-                {% for category in categories %}
-                <a class="btn category-btn{% if category.name == selected_category %} selected{% endif %}"
-                    href="?category={{ category.name }}">{{ category.name }}</a></li>
+                    {% for category in categories|dictsort:"name" %}
+                    <a class="btn category-btn{% if category.name == selected_category %} selected{% endif %}"
+                        href="?category={{ category.name }}">{{ category.name }}</a>
                 {% endfor %}
+                
             </div>
         </div>
         <div class="col-12 col-md-9">

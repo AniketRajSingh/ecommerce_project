@@ -77,11 +77,11 @@ class Order(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     phone = models.CharField(max_length=15)
-    permanent_street = models.TextField()
-    permanent_city = models.TextField()
-    permanent_state = models.TextField()
-    permanent_pincode = models.TextField()
-    permanent_landmark = models.TextField()
+    street = models.TextField()
+    city = models.TextField()
+    state = models.TextField()
+    pincode = models.TextField()
+    landmark = models.TextField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     order_id = models.CharField(max_length=255, blank=True, null=True)
@@ -127,7 +127,7 @@ class SalesData(models.Model):
     
 @receiver(post_save, sender=Order)
 def update_sales_data(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.total_price is not None:
         # Get or create SalesData for the current date
         sales_data, created = SalesData.objects.get_or_create(date=date.today())
         # Update total sales based on the new order

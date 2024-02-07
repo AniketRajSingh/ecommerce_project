@@ -272,6 +272,49 @@
         }
     }
 </style>
+<style>
+    input:focus,textarea:focus{
+        border-color: #38a509!important;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 34, 0.25)!important;
+    }
+    /* Styling for the getintouchpopup card */
+    .getintouchpopup {
+      display: none;
+      position: fixed;
+      width: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Styling for the overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Styling for the form */
+    .form {
+      text-align: center;
+    }
+    
+    /* Styling for the close button */
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 20px!important;
+      cursor: pointer;
+    }
+    </style>
 
 {% endblock styles %}
 {% block body %}
@@ -623,7 +666,33 @@
             <p>Our wholesale team is available and will assist you during the process.</p>
         </div>
         <div style="display: flex;align-items: center;justify-content: end;" class="col-md-6">
-            <a class="btn btn-light text-success">Get In Touch</a>
+            <button onclick="openGetInTouchPopup()" class="btn btn-light text-success">Get In Touch</button>
+        </div>
+        <div class="overlay" id="overlay"></div>
+
+        <div class="getintouchpopup" id="getintouchpopup">
+          <span class="close popup-close-btn" onclick="closeGetInTouchPopup()">&times;</span>
+          <div class="form">
+            <h2 class="mb-4">Get in Touch</h2>
+            <form>
+              <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Name" required>
+              </div>
+              <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Email" required>
+              </div>
+              <div class="mb-3">
+                <input type="tel" class="form-control" placeholder="Phone Number" required>
+              </div>
+              <div class="mb-3">
+                <input type="tel" class="form-control" placeholder="WhatsApp Number" required>
+              </div>
+              <div class="mb-3">
+                <textarea class="form-control" placeholder="Message" rows="4"></textarea>
+              </div>
+              <button type="submit" style="width: 100%;" class="btn btn-ss">Submit</button>
+            </form>
+          </div>
         </div>
     </div>
     <div class="row me-0" style="background-color: #FFFFFF!important; justify-content: center;align-items: center;">
@@ -796,4 +865,17 @@
         }
     }
 </script>
+<script>
+    // Function to open the getintouchpopup
+    function openGetInTouchPopup() {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('getintouchpopup').style.display = 'block';
+    }
+    
+    // Function to close the getintouchpopup
+    function closeGetInTouchPopup() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('getintouchpopup').style.display = 'none';
+    }
+    </script>
 {% endblock javascript %}

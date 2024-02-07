@@ -104,6 +104,9 @@
             font-size: larger;
             margin-left: 10px;
         }
+        .checkout-button-container{
+            text-align: right;
+        }
         @media (max-width: 767px) {
             .card-details{
                 border-left:none;
@@ -156,7 +159,15 @@
         </div>
 
         <div class="checkout-button-container">
-            <a href="{% url 'order_confirmation' %}" class="btn btn-ss checkout-button">Buy Now</a>
+            <button type="submit" class="btn  cart-button"
+                onclick="setTimeout(function() { window.location.href='{% url 'order_confirmation' %}'; }, 3000);">
+                <span class="add-to-cart">Buy Now</span>
+                <span class="added">Confirm Order</span>
+                <i class="fas fa-shopping-cart"></i>
+                <i class="fas fa-box"></i>
+            </button>
+
+
         </div>
         {% else %}
         <p>Your cart is empty.</p>

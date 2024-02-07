@@ -487,6 +487,30 @@ Order Confirmation
     display: block;
     height: 28px;
   }
+  /* Add animation keyframes */
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply animation to the card when clicked */
+.address-card.clicked {
+  animation: clickAnimation 0.3s;
+}
+.address-card:hover {
+  scale:1.01;
+}
+.address-card.active{
+  background-color: #39A609;
+  color: white;
+}
 
   @media (max-width: 767px) {
     table {
@@ -559,32 +583,43 @@ Order Confirmation
       <input type="tel" name="phone" id="phone" class="form-control" value="{{ request.user.userprofile.alternative_phone_number }}"
         required>
     </div>
+    <div class="address-cards">
+      <label>Your Addresses:</label>
+      {% for address in addresses %}
+      <div class="card mb-3 address-card" data-street="{{ address.street }}" data-city="{{ address.city }}" data-state="{{ address.state }}" data-pincode="{{ address.pincode }}" data-landmark="{{ address.landmark }}">
+        <div class="card-body">
+          <h6 class="card-title">Address {{ forloop.counter }}</h6>
+          <p class="card-text">{{ address.street }},{{ address.city }}, {{ address.state }}, {{ address.pincode }}, {{ address.landmark }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
 
     <div class="form-group">
       <label for="street">Street:</label>
-      <input type="text" name="street" id="street" class="form-control" value="{{ request.user.userprofile.permanent_street }}" required>
+      <input type="text" name="street" id="street" class="form-control" value="{{ addresses.first.street }}" required>
     </div>
     <div style="display: flex;justify-content: space-between;">
       <div class="form-group" style="width: 48%;">
         <label for="city">City:</label>
-        <input type="text" name="city" id="city" class="form-control" value="{{ request.user.userprofile.permanent_city }}" required>
+        <input type="text" name="city" id="city" class="form-control" value="{{ addresses.first.city }}" required>
       </div>
 
       <div class="form-group" style="width: 48%;">
         <label for="state">State:</label>
-        <input type="text" name="state" id="state" class="form-control" value="{{ request.user.userprofile.permanent_state }}" required>
+        <input type="text" name="state" id="state" class="form-control" value="{{ addresses.first.state }}" required>
       </div>
     </div>
 
     <div style="display: flex;justify-content: space-between;">
       <div class="form-group" style="width: 48%;">
         <label for="pincode">Pincode:</label>
-        <input type="text" name="pincode" id="pincode" class="form-control" value="{{ request.user.userprofile.permanent_pincode }}" required>
+        <input type="text" name="pincode" id="pincode" class="form-control" value="{{ addresses.first.pincode }}" required>
       </div>
 
       <div class="form-group" style="width: 48%;">
         <label for="landmark">Landmark:</label>
-        <input type="text" name="landmark" id="landmark" class="form-control" value="{{ request.user.userprofile.permanent_landmark }}" required>
+        <input type="text" name="landmark" id="landmark" class="form-control" value="{{ addresses.first.landmark }}" required>
       </div>
     </div>
 
@@ -682,4 +717,50 @@ Order Confirmation
   });
 
 </script>
+<script>
+  // Function to populate form fields with address details
+  function populateFormFields(addressDetails) {
+    document.getElementById('street').value = addressDetails.street;
+    document.getElementById('city').value = addressDetails.city;
+    document.getElementById('state').value = addressDetails.state;
+    document.getElementById('pincode').value = addressDetails.pincode;
+    document.getElementById('landmark').value = addressDetails.landmark;
+  }
+
+  // Add click event listener to each address card
+  document.querySelectorAll('.address-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+      // Remove 'active' class from all address cards
+      document.querySelectorAll('.address-card').forEach(function(card) {
+        card.classList.remove('active');
+      });
+
+      // Add 'active' class to the clicked address card
+      this.classList.add('active');
+
+      // Extract address details from the clicked card
+      var addressDetails = {
+        street: this.dataset.street,
+        city: this.dataset.city,
+        state: this.dataset.state,
+        pincode: this.dataset.pincode,
+        landmark: this.dataset.landmark
+      };
+
+      // Populate form fields with address details
+      populateFormFields(addressDetails);
+
+      // Apply clicked animation to the card
+      this.classList.add('clicked');
+
+      // Remove the clicked class after the animation ends
+      setTimeout(() => {
+        this.classList.remove('clicked');
+      }, 300);
+    });
+  });
+</script>
+
+
+
 {% endblock javascript %}
