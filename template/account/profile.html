@@ -180,7 +180,7 @@ User Profile
                 <div class="duo-container">
                     <!-- Primary Phone Number -->
                     <div class="custom-input-group duo-input">
-                        <label for="{{ user_form.primary_phone_number.id_for_label }}">Primary Phone Number</label>
+                        <label for="{{ user_form.primary_phone_number.id_for_label }}">Primary Number</label>
                         <input type="tel" id="{{ user_form.primary_phone_number.id_for_label }}"
                             name="{{ user_form.primary_phone_number.name }}"
                             value="{{ user_form.primary_phone_number.value }}" required>
@@ -188,7 +188,7 @@ User Profile
 
                     <!-- Alternative Phone Number -->
                     <div class="custom-input-group duo-input">
-                        <label for="{{ user_form.alternative_phone_number.id_for_label }}">Alternative Phone
+                        <label for="{{ user_form.alternative_phone_number.id_for_label }}">Alternative
                             Number</label>
                         <input type="tel" id="{{ user_form.alternative_phone_number.id_for_label }}"
                             name="{{ user_form.alternative_phone_number.name }}"
@@ -1268,7 +1268,35 @@ User Profile
             event.preventDefault();
             submitAddressForm(event.target);
         });
+        // Event listener for form submission
+        profileForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            submitProfileForm(event.target);
+        });
 
+        // Function to submit the address form asynchronously
+        function submitProfileForm(form) {
+            var formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Saved')
+                    } else {
+                        console.error('Error submitting form:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting form:', error);
+                });
+        }
         // Function to submit the address form asynchronously
         function submitAddressForm(form) {
             var formData = new FormData(form);

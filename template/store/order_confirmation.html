@@ -586,10 +586,10 @@ Order Confirmation
     <div class="address-cards">
       <label>Your Addresses:</label>
       {% for address in addresses %}
-      <div class="card mb-3 address-card" data-street="{{ address.street }}" data-city="{{ address.city }}" data-state="{{ address.state }}" data-pincode="{{ address.pincode }}" data-landmark="{{ address.landmark }}">
+      <div class="card mb-3 address-card {% if forloop.first %} active {% endif %}" data-street="{{ address.street }}" data-city="{{ address.city }}" data-state="{{ address.state }}" data-pincode="{{ address.pincode }}" data-landmark="{{ address.landmark }}">
         <div class="card-body">
           <h6 class="card-title">Address {{ forloop.counter }}</h6>
-          <p class="card-text">{{ address.street }},{{ address.city }}, {{ address.state }}, {{ address.pincode }}, {{ address.landmark }}</p>
+          <p class="card-text">{{ address.street }}, {{ address.city }}, {{ address.state }}, {{ address.pincode }}, {{ address.landmark }}</p>
         </div>
       </div>
       {% endfor %}
@@ -628,24 +628,26 @@ Order Confirmation
     <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id" value="">
     <input type="hidden" name="razorpay_key" id="razorpay_key" value="{{ razorpay_key }}">
 
-    <button type="button" class="order" id="payment-button">
-      <span class="default">Place Order</span>
-      <span class="success">Complete Payment
-        <svg viewBox="0 0 12 10">
-          <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-        </svg>
-      </span>
-      <div class="box"></div>
-      <div class="truck">
-        <div class="back"></div>
-        <div class="front">
-          <div class="window"></div>
+    <div style="width: 100%;text-align: right;">
+      <button type="button" class="order" id="payment-button">
+        <span class="default">Place Order</span>
+        <span class="success">Complete Payment
+          <svg viewBox="0 0 12 10">
+            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+          </svg>
+        </span>
+        <div class="box"></div>
+        <div class="truck">
+          <div class="back"></div>
+          <div class="front">
+            <div class="window"></div>
+          </div>
+          <div class="light top"></div>
+          <div class="light bottom"></div>
         </div>
-        <div class="light top"></div>
-        <div class="light bottom"></div>
-      </div>
-      <div class="lines"></div>
-    </button>
+        <div class="lines"></div>
+      </button>
+    </div>
 
   </form>
 </div>
@@ -727,13 +729,26 @@ Order Confirmation
     document.getElementById('landmark').value = addressDetails.landmark;
   }
 
+  // Function to remove 'active' class from all address cards
+  function removeActiveClassFromCards() {
+    document.querySelectorAll('.address-card').forEach(function(card) {
+      card.classList.remove('active');
+    });
+  }
+
+  // Add click event listener to each input field
+  document.querySelectorAll('input').forEach(function(input) {
+    input.addEventListener('click', function() {
+      // Remove 'active' class from all address cards
+      removeActiveClassFromCards();
+    });
+  });
+
   // Add click event listener to each address card
   document.querySelectorAll('.address-card').forEach(function(card) {
     card.addEventListener('click', function() {
       // Remove 'active' class from all address cards
-      document.querySelectorAll('.address-card').forEach(function(card) {
-        card.classList.remove('active');
-      });
+      removeActiveClassFromCards();
 
       // Add 'active' class to the clicked address card
       this.classList.add('active');

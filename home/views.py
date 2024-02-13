@@ -25,7 +25,10 @@ def home(request):
     product_chunks = [padded_products[i:i + chunk_size] for i in range(0, len(padded_products), chunk_size)]
 
     reviews = Review.objects.all()  # Fetch the latest 3 reviews
-    homepage_popup = HomePagePopup.objects.get(display_on_homepage=True)
+    try:
+        homepage_popup = HomePagePopup.objects.get(display_on_homepage=True)
+    except HomePagePopup.DoesNotExist:
+        homepage_popup = None
 
     return render(request, 'index.html', {
         'special_offers_products': special_offers_products,

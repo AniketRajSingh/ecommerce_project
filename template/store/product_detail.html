@@ -196,8 +196,14 @@
                     <span class="text-success discount mx-1 extra small">XX% OFF</span>
                     <p id="final_price" class="product-price">Price: ₹<span id="finalPriceValue">{{ product.productquantity_set.first.final_price }}</span></p>
                     <form method="post" id="addToCartForm{{ product.id }}" action="{% url 'add_to_cart' product.id product.productquantity_set.first.quantity.id %}" onclick="addToCart('{{ product.id }}')">
-                        {% csrf_token %}
-                    <button type="submit" id="addToCartBtn" class="btn btn-success add-to-cart-button mt-2"><i class="fa-solid fa-cart-plus"></i> Add to Cart</button>
+                    {% csrf_token %}
+                    <button type="submit" id="addToCart{{ product.id }}"
+                        class="btn add-to-cart-button cart-button" onclick="addToCart('{{ product.id }}')">
+                        <span class="add-to-cart">Add to cart</span>
+                        <span class="added">Added</span>
+                        <i class="fas fa-shopping-cart"></i>
+                        <i class="fas fa-box"></i>
+                    </button>
                     </form>
                 </div>
             </div>

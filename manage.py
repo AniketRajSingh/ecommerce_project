@@ -20,5 +20,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-from django.contrib.auth.hashers import check_password

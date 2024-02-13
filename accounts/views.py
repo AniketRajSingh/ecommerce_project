@@ -56,7 +56,7 @@ class UserProfileForm(forms.ModelForm):
 
     email = forms.EmailField(label='Email Address')
     primary_phone_number = forms.CharField(label='Primary Phone Number', max_length=15)
-    alternative_phone_number = forms.CharField(label='Alternative Phone Number', max_length=15)
+    alternative_phone_number = forms.CharField(label='Alternative Phone Number', max_length=15,required=False)
     first_name = forms.CharField(label='First Name', max_length=30)
     last_name = forms.CharField(label='Last Name', max_length=30)
 
@@ -88,7 +88,7 @@ def edit_profile(request):
     address_forms = [AddressForm(instance=address) for address in user_address]
 
     if request.method == 'POST':
-        if 'user_form_submit' in request.POST:
+        if 'first_name' in request.POST:
             user_form = UserProfileForm(request.POST, instance=user_profile)
             if user_form.is_valid():
                 user_form.save()

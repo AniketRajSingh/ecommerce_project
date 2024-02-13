@@ -49,12 +49,26 @@ Products
         border: #38a509 solid 1px;
         color: white;
     }
+    .category-box{
+            display: flex;
+            flex-direction: column;
+        }
 
     @media (max-width: 767px) {
         .card {
             flex-direction: column;
         }
+        .category-btn {
+            width: 40%;
+            font-size: smaller;
 
+        }
+        .category-box{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            flex-direction: row;
+        }
         .card-img-top {
             height: 200px;
             width: 100%;
@@ -77,12 +91,14 @@ Products
         <div class="col-12 col-md-3 pb-4">
             <div class="card h-100 text-center">
                 <h3 class="mt-5">Categories</h3>
-                <a class="btn category-btn{% if not selected_category %} selected{% endif %}"
-                    href="{% url 'product_list' %}">All</a></li>
-                    {% for category in categories|dictsort:"name" %}
+                <div class="category-box">
+                    <a class="btn category-btn{% if not selected_category %} selected{% endif %}"
+                        href="{% url 'product_list' %}">All</a></li>
+                        {% for category in categories|dictsort:"name" %}
                     <a class="btn category-btn{% if category.name == selected_category %} selected{% endif %}"
                         href="?category={{ category.name }}">{{ category.name }}</a>
-                {% endfor %}
+                        {% endfor %}
+                    </div>
                 
             </div>
         </div>

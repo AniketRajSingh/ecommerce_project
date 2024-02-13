@@ -51,6 +51,7 @@ def product_detail(request, product_id):
 
 @require_POST
 def add_to_cart(request, product_id, quantity_id):
+    print(product_id, quantity_id)
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
     quantity_id_str = str(quantity_id)

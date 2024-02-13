@@ -73,6 +73,9 @@ My Orders
         .popup-btn-grp button {
             font-size: x-small !important;
         }
+        .product-img{
+            max-height:fit-content;
+        }
     }
 
     @media (min-width: 768px) {
@@ -92,10 +95,13 @@ My Orders
     {% for order in orders %}
     <div class="card order-card">
         <div class="card-body">
-            <h5 class="card-title">Order ID: {{ order.order_id }}</h5>
-            <p class="card-text">Total Price: ₹{{ order.total_price }}</p>
-            <p class="card-text">Order Date: {{ order.created_at }}</p>
-            <p class="card-text">Payment Status: {{ order.payment_status }}</p>
+            <h5 class="card-title" style="font-weight: bold;">Order ID: {{ order.order_id }}</h5>
+            <p class="card-text"><span style="color: #28a745;">Total Price:</span> ₹{{ order.total_price }}</p>
+            <p class="card-text"><span style="color: #28a745;">Order Date:</span> {{ order.created_at }}</p>
+            <p class="card-text"><span style="color: #28a745;">Ordered By:</span> {{ order.name }}</p>
+            <div class="card p-3">
+                <p class="card-text">Shipping Address: {{ order.street }}, {{ order.city }}, {{ order.state }}, {{ order.landmark }}, {{ order.pincode }}</p>
+            </div>
         </div>
         <div class="order-details">
             <h6 class="card-subtitle mb-2 ms-3 text-muted">Order Details:</h6>
@@ -108,8 +114,7 @@ My Orders
                         <img src="{{ item.product.media_set.first.media_url }}" alt="{{ item.product.name }}"
                             class="card-img-top product-img">
                         <div class="card-body product-info">
-                            <p class="card-text product-name small">{{ item.product.name }}({{ item.quantity }}) X {{
-                                item.item_quantity|floatformat:0 }}</p>
+                            <p class="card-text product-name small">{{ item.product.name }}({{ item.quantity }}) X {{ item.item_quantity|floatformat:0 }}</p>
                             <p class="card-text product-price">₹{{ item.price }}</p>
                         </div>
                     </div>

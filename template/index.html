@@ -210,6 +210,9 @@
         .card-img-top {
             height: 150px !important;
         }
+        .getintouchpopup{
+            width: 90%!important;
+        }
     }
 </style>
 
@@ -289,6 +292,7 @@
       padding: 50px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 999;
     }
     
     /* Styling for the overlay */
@@ -524,7 +528,7 @@
                                         {% for quantity_instance in product.productquantity_set.all %}
                                         {% with quantity_id=quantity_instance.quantity.id %}
                                         <button type="button"
-                                            class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
+                                            class="btn mb-2 btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
                                             data-product-id="{{ product.id }}"
                                             data-quantity-id="{{ quantity_instance.quantity.id }}"
                                             data-quantity="{{ quantity_instance.quantity.name }}"
@@ -794,8 +798,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         {% for product_chunk in product_chunk_list %}
         {% for product in product_chunk %}
-        var productId = {{ product.id }
-    };
+        var productId = {{ product.id }};
     var priceElement = document.getElementById("price" + productId);
     var finalPriceElement = document.getElementById("finalPrice" + productId);
     displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
