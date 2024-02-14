@@ -580,7 +580,7 @@ Order Confirmation
     </div>
     <div class="form-group">
       <label for="phone">Alternate Phone Number:</label>
-      <input type="tel" name="phone" id="phone" class="form-control" value="{{ request.user.userprofile.alternative_phone_number }}"
+      <input type="tel" name="phone" id="alternative_phone_number" class="form-control" value="{{ request.user.userprofile.alternative_phone_number }}"
         required>
     </div>
     <div class="address-cards">
@@ -666,8 +666,23 @@ Order Confirmation
     var orderEmail = document.getElementById('email').value;
     var orderPhone = document.getElementById('phone').value;
     var razorpayKey = document.getElementById('razorpay_key').value;
-
-    console.log("Razorpay Key:", razorpayKey);
+    var street = document.getElementById('street').value;
+    var city = document.getElementById('city').value;
+    var state = document.getElementById('state').value;
+    var pincode = document.getElementById('pincode').value;
+    var landmark = document.getElementById('landmark').value;
+    if (!orderName || !orderEmail || !orderPhone || !street || !city || !state || !pincode || !landmark) {
+      alert('Please fill in all the necessary details.');
+      document.getElementById('payment-button').classList.remove('animate');
+      return;
+    }
+    let button = $('.order');
+    if (!button.hasClass('animate')) {
+      button.addClass('animate');
+      setTimeout(() => {
+        button.removeClass('animate');
+      }, 10000);
+    }
 
     var options = {
       "key": razorpayKey,
@@ -703,21 +718,6 @@ Order Confirmation
       rzp1.open();
     }, 10000);
   }
-</script>
-<script>
-  $('.order').click(function (e) {
-
-    let button = $(this);
-
-    if (!button.hasClass('animate')) {
-      button.addClass('animate');
-      setTimeout(() => {
-        button.removeClass('animate');
-      }, 10000);
-    }
-
-  });
-
 </script>
 <script>
   // Function to populate form fields with address details
