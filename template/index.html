@@ -48,7 +48,8 @@
 
     button:disabled {
         color: #999 !important;
-        border: none !important;
+        border: #dc3545 solid 1px;
+        padding: 3px;
     }
 
     .wholesale-bar {
@@ -337,7 +338,7 @@
 </div>
 {% endif %}
 <!-- Hero Section with Carousel -->
-<div id="carouselExample" class="carousel slide" data-ride="carousel">
+<div id="carouselHero" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         {% for image in carousel_url %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -352,11 +353,11 @@
         </div>
         {% endfor %}
     </div>
-    <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#carouselHero" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+    <a class="carousel-control-next" href="#carouselHero" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
@@ -385,7 +386,7 @@
         {% for product in recommended_products %}
         <div class="col-6 col-md-4 col-lg-3 my-2">
             <div class="card product-card text-center">
-                <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselBestSellers{{ product.id }}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         {% for media in product.media_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -403,16 +404,6 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
@@ -442,7 +433,7 @@
         <div class="col-6 col-md-4 col-lg-3 my-2">
             <div class="card product-card text-center">
                 <!-- Image Carousel -->
-                <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                <div id="carouselSpecialOffers{{ product.id }}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         {% for media in product.media_set.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -460,16 +451,6 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
@@ -484,7 +465,7 @@
 <!-- Product Carousel Section -->
 <section class="container mt-4">
     <h2 class="text-center">Products</h2>
-    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="productCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             {% for product_chunk in product_chunk_list %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -492,35 +473,18 @@
                     {% for product in product_chunk %}
                     <div class="col-6 col-md-4 col-lg-3 my-2">
                         <div class="card product-card text-center">
-                            <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    {% for media in product.media_set.all %}
-                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                        <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
-                                            {% if media.media_type == 'image' %}
-                                            <img src="{{ media.media_url }}"
-                                                class="d-block w-100 img-fluid card-img-top" alt="Product Image">
-                                            {% elif media.media_type == 'video' %}
-                                            <video class="d-block w-100 card-img-top" controls>
-                                                <source src="{{ media.media_url }}" type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                            {% endif %}
-                                        </a>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                                <button class="carousel-control-prev" type="button"
-                                    data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div>
+                            {% for media in product.media_set.all %}
+                                <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                    {% if media.media_type == 'image' and forloop.first %}
+                                        <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top" alt="Product Image">
+                                    {% elif media.media_type == 'video' and forloop.first %}
+                                        <video class="d-block w-100 card-img-top" controls>
+                                            <source src="{{ media.media_url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
                             <div style="text-align: left!important;" class="card-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <span>Quantity:
@@ -574,7 +538,7 @@
                                         <i class="fas fa-box"></i>
                                     </button>
                                     <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
-                                        disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                        disabled class="btn disabled-btn cart-button" onclick="removeFromCart('{{ product.id }}')">
                                         <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                     </button>
                                     {% else %}
@@ -586,7 +550,7 @@
                                         <i class="fas fa-box"></i>
                                     </button>
                                     <button type="submit" id="removeFromCart{{ product.id }}" disabled
-                                        class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                        class="btn disabled-btn cart-button" onclick="removeFromCart('{{ product.id }}')">
                                         <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                     </button>
                                     {% endif %}

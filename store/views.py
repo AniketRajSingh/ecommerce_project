@@ -9,6 +9,7 @@ from .razorpay_utils import create_order, verify_payment
 from django.db.models import Sum
 from accounts.models import Address
 from django.db.models import F
+from django.contrib.auth.models import AnonymousUser
 
 def product_list(request):
     categories = Category.objects.all()
@@ -163,6 +164,10 @@ def customer_support(request):
     return render(request, 'store/customer_support.html')
 
 def order_confirmation(request):
+
+    if isinstance(request.user, AnonymousUser):
+        return redirect('login')
+        
     cart = request.session.get('cart', {})
     addresses = Address.objects.filter(user_profile=request.user.userprofile)
 

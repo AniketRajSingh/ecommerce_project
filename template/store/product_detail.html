@@ -7,7 +7,7 @@
 <style>
     .product-details-container {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         align-items: flex-start;
         margin-top: 50px;
         flex-direction: row;
@@ -110,9 +110,6 @@
             font-size: medium;
             margin-left: 0;
         }
-        .row{
-            flex-direction: column-reverse;
-        }
         .discription{
             font-size: 1rem;
         }
@@ -123,25 +120,7 @@
 {% block body %}
 <!-- Product Detail -->
 <div class="mt-5 product-details-container">  
-    <div class="row" style="width: 100%;">
-        <div class="col-12 col-md-8">
-            <div class="product-info h-100 me-md-5 p-5">
-                <h1 class="p-name">{{ product.name }}</h1>
-                <h2>Product Details:</h2>
-                <div id="product-description" class="lead">
-                    <span id="less-content" class="discription">
-                        {{ product.description|linebreaksbr|truncatewords_html:150 }}
-                    </span>
-                    {% if product.description|length > 150 %}
-                    <span id="more-btn" class="text-btn text-success">More</span>
-                    {% endif %}
-                    <span id="more-content" class="hide-content discription">
-                        {{ product.description|linebreaksbr|safe }}
-                    </span>
-                    <span id="less-btn" class="hide-content text-btn text-danger">Less</span>
-                </div>
-            </div>
-        </div>
+    <div class="row" style="width: 100%; justify-content: space-around;">
 
         <div class="col-12 col-md-4">
             <div class="product-image card h-100">
@@ -166,7 +145,7 @@
                 <div class="carousel-indicators" style="margin-bottom: -20px;">
                     {% for media in product.media_set.all %}
                         <button type="button" data-bs-target="#mini-carousel{{ product.id }}" data-bs-slide-to="{{ forloop.index }}" {% if forloop.first %}class="active"{% endif %} aria-label="Slide {{ forloop.index }}" style="width: 100px;">
-                            <img style="max-height: 5rem;" class="d-block w-100" src="{{ media.media_url }}" alt="Thumbnail">
+                            <img style="max-height: 5rem;" class="d-block w-100 card" src="{{ media.media_url }}" alt="Thumbnail">
                         </button>
                     {% endfor %}
                 </div>
@@ -205,6 +184,25 @@
                         <i class="fas fa-box"></i>
                     </button>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-7">
+            <div class="product-info h-100 p-5">
+                <h1 class="p-name">{{ product.name }}</h1>
+                <h2>Product Details:</h2>
+                <div id="product-description" class="lead">
+                    <span id="less-content" class="discription">
+                        {{ product.description|linebreaksbr|truncatewords_html:150 }}
+                    </span>
+                    {% if product.description|length > 150 %}
+                    <span id="more-btn" class="text-btn text-success">More</span>
+                    {% endif %}
+                    <span id="more-content" class="hide-content discription">
+                        {{ product.description|linebreaksbr|safe }}
+                    </span>
+                    <span id="less-btn" class="hide-content text-btn text-danger">Less</span>
                 </div>
             </div>
         </div>

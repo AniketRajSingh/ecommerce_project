@@ -13,7 +13,8 @@ Products
 
     button:disabled {
         color: #999 !important;
-        border: transparent solid 1px !important;
+        border: #dc3545 solid 1px;
+        padding: 3px;
     }
 
     .discount {
@@ -107,7 +108,7 @@ Products
                 {% for product in products %}
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
-                        <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
+                        <div id="carousel{{ product.id }}" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 {% for media in product.media_set.all %}
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -116,7 +117,7 @@ Products
                                         <img src="{{ media.media_url }}" class="d-block w-100 card-img-top"
                                             alt="Product Image">
                                         {% elif media.media_type == 'video' %}
-                                        <video class="d-block w-100" controls>
+                                        <video poster autoplay loop playsinline muted class="d-block w-100 card-img-top">
                                             <source src="{{ media.media_url }}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
@@ -126,12 +127,12 @@ Products
                                 {% endfor %}
                             </div>
                             <button class="carousel-control-prev" type="button"
-                                data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
+                                data-target="#carousel{{ product.id }}" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
                             <button class="carousel-control-next" type="button"
-                                data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
+                                data-target="#carousel{{ product.id }}" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
@@ -190,7 +191,7 @@ Products
                                     <i class="fas fa-box"></i>
                                 </button>
                                 <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
-                                    disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                    disabled class="btn cart-button disabled-btn" onclick="removeFromCart('{{ product.id }}')">
                                     <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                 </button>
                                 {% else %}
@@ -202,7 +203,7 @@ Products
                                     <i class="fas fa-box"></i>
                                 </button>
                                 <button type="submit" id="removeFromCart{{ product.id }}" disabled
-                                    class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                    class="btn cart-button disabled-btn" onclick="removeFromCart('{{ product.id }}')">
                                     <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                 </button>
                                 {% endif %}
