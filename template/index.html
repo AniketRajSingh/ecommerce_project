@@ -384,6 +384,42 @@
     <h2 class="text-center">Best Sellers</h2>
     <div class="row product-cards-mobile">
         {% for product in recommended_products %}
+        <div class="col-6 col-md-4 col-lg-2 my-2 card">
+            <div class="product-card text-center">
+                <div id="carouselBestSellers{{ product.id }}" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for media in product.media_set.all %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                {% if media.media_type == 'image' %}
+                                <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
+                                    alt="Product Image">
+                                {% elif media.media_type == 'video' %}
+                                <video class="d-block w-100 card-img-top" controls>
+                                    <source src="{{ media.media_url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                {% endif %}
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank" class="btn btn-ss">Shop
+                        Now</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Product Recommendations -->
+<div class="container mt-4">
+    <h2 class="text-center">Best Sellers</h2>
+    <div class="row product-cards-mobile">
+        {% for product in recommended_products %}
         <div class="col-6 col-md-4 col-lg-3 my-2">
             <div class="card product-card text-center">
                 <div id="carouselBestSellers{{ product.id }}" class="carousel slide" data-ride="carousel">

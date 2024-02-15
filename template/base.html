@@ -180,6 +180,18 @@
             ;
             background-color: #eb676d !important;
         }
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure the overlay appears on top of other content */
+        }
 
         .popup-close-btn {
             position: absolute;
@@ -534,6 +546,12 @@
 </head>
 
 <body>
+        <!-- Loading overlay content -->
+        <div class="loading-overlay">
+            <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
+
+    <dotlottie-player src="https://lottie.host/bdce51f3-bb55-4998-bd79-f836d30d91bb/onWLiWEFOQ.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+        </div>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 display-mobile">
         <div class="container-fluid">
@@ -812,6 +830,14 @@
             <p style="text-align: center !important;width: 100%;">© 2023 SNEH-SATTVA, Inc. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            // Hide the loading overlay when all resources are loaded
+            window.addEventListener('load', function() {
+                document.querySelector('.loading-overlay').style.display = 'none';
+            });
+        });
+    </script>
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
