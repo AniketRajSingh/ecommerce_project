@@ -6,9 +6,13 @@ from datetime import date
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    priority = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['priority', 'name']
 
 class Quantity(models.Model):
     name = models.CharField(max_length=100)
@@ -35,6 +39,7 @@ class Product(models.Model):
     quantities = models.ManyToManyField(Quantity, through='ProductQuantity')
     description = models.TextField(blank=True, null=True)
     short_description = models.TextField(blank=True, null=True)
+    bestsellers_img_url = models.URLField(max_length=200)
 
     def __str__(self):
         return self.name

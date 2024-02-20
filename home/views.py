@@ -8,7 +8,7 @@ from django.shortcuts import render
 def home(request):
     # Fetch recommended products, special offers, and reviews
     products = Product.objects.all()
-    recommended_products = list(Product.objects.all().order_by('?')[:4])
+    recommended_products = list(Product.objects.all().order_by('?')[:6])
     carousel_url = HomePageCarousel.objects.all()
     
     special_offers_category = Category.objects.get(name='Special Offers')

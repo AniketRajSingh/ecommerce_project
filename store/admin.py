@@ -37,6 +37,30 @@ class CancellationInline(admin.StackedInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline, CancellationInline]
     list_display = ('id', 'user', 'delivery_status', 'total_price', 'created_at')
+    list_filter = ('delivery_status',)
+
+    def export_orders_to_excel(self, request, queryset):
+        # Create a DataFrame containing the order data
+        data = queryset.values('id', 'user__username', 'delivery_status', 'total_price', 'created_at')
+        df = pd.DataFrame(data)
+
+        # Convert the 'created_at' column to datetime format
+        df['created_at'] = pd.to_datetime(df['created_at'])
+
+        # Create a BytesIO buffer to store the Excel file
+        output = BytesIO()
+
+        # Write the DataFrame to an Excel file
+        with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+            df.to_excel(writer, index=False, sheet_name='Orders')
+
+        # Set the appropriate HTTP response headers for an Excel file download
+        response = HttpResponse(output.getvalue(), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=orders.xlsx'
+
+        return response
+
+    export_orders_to_excel.short_description = 'Export selected orders to Excel'
 
     def cancellation_reason(self, obj):
         cancellation = Cancellation.objects.filter(order=obj).first()
