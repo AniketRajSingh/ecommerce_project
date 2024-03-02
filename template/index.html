@@ -74,9 +74,10 @@
         min-width: 250px;
         max-width: 100%;
         width: fit-content;
-        color: #333;
-        text-align: left;
+        background-color: #1A6F67;
+        text-align: center;
         box-shadow: none !important;
+        border-radius: 13px;
     }
 
     figure.snip1157 * {
@@ -93,6 +94,7 @@
         width: 90px;
         border-radius: 50%;
         margin: 40px 0 0 10px;
+        border: white solid 2px;
     }
 
     figure.snip1157 blockquote {
@@ -145,12 +147,10 @@
     }
 
     figure.snip1157 .author {
-        position: absolute;
-        bottom: 45px;
-        padding: 0 10px 0 120px;
-        margin: 0;
+        top: 45px;
+        margin-bottom: 30px;
         text-transform: uppercase;
-        color: #198754;
+        color: #ffffff;
         -webkit-transform: translateY(50%);
         transform: translateY(50%);
     }
@@ -384,7 +384,7 @@
     <h2 class="text-center">Best Sellers</h2>
     <div class="row product-cards-mobile">
         {% for product in recommended_products %}
-        <div class="col-6 col-md-4 col-lg-2 my-2">
+        <div class="col-6 col-md-4 col-lg-2 my-2 {% if forloop.counter > 4 %} mobile-hidden {% endif %}">
             <div class="product-card text-center card">
                 <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
                     <img src="{{product.bestsellers_img_url }}" class="d-block w-100 img-fluid card-img-top" alt="Product Image">
@@ -468,7 +468,7 @@
                                     {% endif %}
                                 </a>
                             {% endfor %}
-                            <div style="text-align: left!important;" class="card-body">
+                            <div style="text-align: left!important;" class="card-body product-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
                                 <span>Quantity:
                                     <div class=" mt-2 mb-2" role="group" aria-label="Quantity">
@@ -563,15 +563,16 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <div class="col-md-4">
                     <figure class="snip1157">
-                        <blockquote>{{ review.review_text }}
-                            <div class="arrow"></div>
-                        </blockquote>
                         {% if review.photo_url %}
                         <img src="{{ review.photo_url }}" alt="Customer Photo">
                         {% endif %}
                         <div class="author">
-                            <h5>{{ review.customer_name }}<span>{{ review.location }}</span></h5>
+                            <h5>{{ review.customer_name }}</h5>
+                            <p>{{ review.location }}</p>
                         </div>
+                        <blockquote>{{ review.review_text }}
+                            <div class="arrow"></div>
+                        </blockquote>
                     </figure>
                 </div>
             </div>
@@ -587,17 +588,18 @@
 
                 <div class="col-md-4">
                     <figure class="snip1157">
-                        <blockquote>{{ review.review_text }}
-                            <div class="arrow"></div>
-                        </blockquote>
                         {% if review.photo_url %}
                         <img src="{{ review.photo_url }}" alt="Customer Photo">
                         {% else %}
                         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Customer Photo">
                         {% endif %}
                         <div class="author">
-                            <h5>{{ review.customer_name }}<span>{{ review.location }}</span></h5>
+                            <h5>{{ review.customer_name }}</h5>
+                            <p>{{ review.location }}</p>
                         </div>
+                        <blockquote>{{ review.review_text }}
+                            <div class="arrow"></div>
+                        </blockquote>
                     </figure>
                 </div>
 
@@ -607,8 +609,6 @@
             {% endif %}
         </div>
     </div>
-
-
 </section>
 <section style="background-color: #38a509;color: white; margin-bottom: -3rem p-0 m-0">
     <div class="wholesale-bar row me-0">

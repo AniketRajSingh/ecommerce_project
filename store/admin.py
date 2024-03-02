@@ -240,3 +240,4 @@ class SalesDataAdmin(admin.ModelAdmin):
 
 
 admin.site.register(SalesData, SalesDataAdmin)
+
