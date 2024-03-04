@@ -114,11 +114,11 @@ Products
                                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                     <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
                                         {% if media.media_type == 'image' %}
-                                        <img src="{{ media.media_url }}" class="d-block w-100 card-img-top"
+                                        <img src="/{{ media.media_url }}" class="d-block w-100 card-img-top"
                                             alt="Product Image">
                                         {% elif media.media_type == 'video' %}
                                         <video poster autoplay loop playsinline muted class="d-block w-100 card-img-top">
-                                            <source src="{{ media.media_url }}" type="video/mp4">
+                                            <source src="/{{ media.media_url }}" type="video/mp4">
                                             Your browser does not support the video tag.
                                         </video>
                                         {% endif %}

@@ -211,8 +211,9 @@
         .card-img-top {
             height: 150px !important;
         }
-        .getintouchpopup{
-            width: 90%!important;
+
+        .getintouchpopup {
+            width: 90% !important;
         }
     }
 </style>
@@ -277,49 +278,51 @@
     }
 </style>
 <style>
-    input:focus,textarea:focus{
-        border-color: #38a509!important;
-        box-shadow: 0 0 0 0.2rem rgba(0, 255, 34, 0.25)!important;
+    input:focus,
+    textarea:focus {
+        border-color: #38a509 !important;
+        box-shadow: 0 0 0 0.2rem rgba(0, 255, 34, 0.25) !important;
     }
+
     /* Styling for the getintouchpopup card */
     .getintouchpopup {
-      display: none;
-      position: fixed;
-      width: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #ffffff;
-      padding: 50px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      z-index: 999;
+        display: none;
+        position: fixed;
+        width: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        padding: 50px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 999;
     }
-    
+
     /* Styling for the overlay */
     .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
     }
-    
+
     /* Styling for the form */
     .form {
-      text-align: center;
+        text-align: center;
     }
-    
+
     /* Styling for the close button */
     .close {
-      position: absolute;
-      top: 10px;
-      right: 20px!important;
-      cursor: pointer;
+        position: absolute;
+        top: 10px;
+        right: 20px !important;
+        cursor: pointer;
     }
-    </style>
+</style>
 
 {% endblock styles %}
 {% block body %}
@@ -329,7 +332,7 @@
     <div class="popup-card">
         <span class="popup-close-btn me-2" onclick="closePopup()">&times;</span>
         <a href="{{ popup_content.redirection_link }}" target="_blank">
-            <img src="{{ popup_content.image_url }}" alt="Popup Image">
+            <img src="/{{ popup_content.image_url }}" alt="Popup Image">
         </a>
         <p>{{ popup_content.description }}</p>
         <a href="{{ popup_content.redirection_link }}" target="_blank" style="width: 90%;" class="btn btn-ss">
@@ -343,10 +346,10 @@
         {% for image in carousel_url %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
             {% if image.media_type == 'image' %}
-            <img src="{{ image.media_url }}" class="d-block w-100" alt="Hero Image {{ forloop.counter }}">
+            <img src="/{{ image.media_url }}" class="d-block w-100" alt="Hero Image {{ forloop.counter }}">
             {% elif image.media_type == 'video' %}
             <video poster autoplay loop playsinline muted class="d-block w-100" alt="Hero Video {{ forloop.counter }}">
-                <source src="{{ image.media_url }}" type="video/mp4">
+                <source src="/{{ image.media_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
             {% endif %}
@@ -387,11 +390,13 @@
         <div class="col-6 col-md-4 col-lg-2 my-2 {% if forloop.counter > 4 %} mobile-hidden {% endif %}">
             <div class="product-card text-center card">
                 <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
-                    <img src="{{product.bestsellers_img_url }}" class="d-block w-100 img-fluid card-img-top" alt="Product Image">
+                    <img src="/{{product.bestsellers_img_url }}" class="d-block w-100 img-fluid card-img-top"
+                        alt="Product Image">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">{{ product.name }}</h5>
-                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank" class="btn btn-ss">Shop Now</a>
+                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank" class="btn btn-ss">Shop
+                        Now</a>
                 </div>
             </div>
         </div>
@@ -422,11 +427,11 @@
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
                             <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
                                 {% if media.media_type == 'image' %}
-                                <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
+                                <img src="/{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
                                     alt="Product Image">
                                 {% elif media.media_type == 'video' %}
                                 <video class="d-block w-100 card-img-top" controls>
-                                    <source src="{{ media.media_url }}" type="video/mp4">
+                                    <source src="/{{ media.media_url }}" type="video/mp4">
                                     Your browser does not support the video tag.
                                 </video>
                                 {% endif %}
@@ -457,16 +462,17 @@
                     <div class="col-6 col-md-4 col-lg-3 my-2">
                         <div class="card product-card text-center">
                             {% for media in product.media_set.all %}
-                                <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
-                                    {% if media.media_type == 'image' and forloop.first %}
-                                        <img src="{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top" alt="Product Image">
-                                    {% elif media.media_type == 'video' and forloop.first %}
-                                        <video class="d-block w-100 card-img-top" controls>
-                                            <source src="{{ media.media_url }}" type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    {% endif %}
-                                </a>
+                            <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                {% if media.media_type == 'image' and forloop.first %}
+                                <img src="/{{ media.media_url }}" class="d-block w-100 img-fluid card-img-top"
+                                    alt="Product Image">
+                                {% elif media.media_type == 'video' and forloop.first %}
+                                <video class="d-block w-100 card-img-top" controls>
+                                    <source src="/{{ media.media_url }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                {% endif %}
+                            </a>
                             {% endfor %}
                             <div style="text-align: left!important;" class="card-body product-body">
                                 <h5 class="card-title">{{ product.name }}</h5>
@@ -513,7 +519,8 @@
                                 <form method="post" id="addToCartForm{{ product.id }}">
                                     {% csrf_token %}
                                     {% if product.productquantity_set.first.available %}
-                                    <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button cart-button"
+                                    <button type="submit" id="addToCart{{ product.id }}"
+                                        class="btn add-to-cart-button cart-button"
                                         onclick="addToCart('{{ product.id }}')">
                                         <span class="add-to-cart">Add to cart</span>
                                         <span class="added">Added</span>
@@ -521,19 +528,22 @@
                                         <i class="fas fa-box"></i>
                                     </button>
                                     <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
-                                        disabled class="btn disabled-btn cart-button" onclick="removeFromCart('{{ product.id }}')">
+                                        disabled class="btn disabled-btn cart-button"
+                                        onclick="removeFromCart('{{ product.id }}')">
                                         <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                     </button>
                                     {% else %}
                                     <button type="submit" id="addToCart{{ product.id }}" style="display: none;"
-                                        class="btn add-to-cart-button cart-button" onclick="addToCart('{{ product.id }}')">
+                                        class="btn add-to-cart-button cart-button"
+                                        onclick="addToCart('{{ product.id }}')">
                                         <span class="add-to-cart">Add to cart</span>
                                         <span class="added">Added</span>
                                         <i class="fas fa-shopping-cart"></i>
                                         <i class="fas fa-box"></i>
                                     </button>
                                     <button type="submit" id="removeFromCart{{ product.id }}" disabled
-                                        class="btn disabled-btn cart-button" onclick="removeFromCart('{{ product.id }}')">
+                                        class="btn disabled-btn cart-button"
+                                        onclick="removeFromCart('{{ product.id }}')">
                                         <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                     </button>
                                     {% endif %}
@@ -553,7 +563,7 @@
 
 
 <!-- Reviews Section -->
-<section class="container mt-4">
+<section style="display: flex;justify-content: space-evenly;width: 100%;flex-direction: column;" class="container mt-4">
     <b>
         <h2 class="text-center">What People Say About Us</h2>
     </b>
@@ -561,10 +571,10 @@
         <div class="carousel-inner">
             {% for review in reviews %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <div class="col-md-4">
-                    <figure class="snip1157">
+                <div style="display: flex;justify-content: center;margin-bottom: 20px;" class="col-md-4">
+                    <!-- <figure class="snip1157">
                         {% if review.photo_url %}
-                        <img src="{{ review.photo_url }}" alt="Customer Photo">
+                        <img src="/{{ review.photo_url }}" alt="Customer Photo">
                         {% endif %}
                         <div class="author">
                             <h5>{{ review.customer_name }}</h5>
@@ -573,7 +583,39 @@
                         <blockquote>{{ review.review_text }}
                             <div class="arrow"></div>
                         </blockquote>
-                    </figure>
+                    </figure> -->
+                    <div
+                    style="height: 300px;width: 380px;background: linear-gradient(-24deg, black 0%, rgb(6,0,0) 47%, #1A6F67 47%);border-radius: 10px;border-bottom-left-radius: 10px;">
+                    <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                        style="height: 129px;background: var(--bs-white);width: 102px;margin-top: 157px;position: absolute;margin-right: 0px;margin-left: 180px;transform: perspective(2120px) translate(11px) rotate(0deg) scale(0.84);margin-bottom: 0px;border-bottom-left-radius: 468px;border-bottom-right-radius: 0px;border-top-right-radius: -34px;border-top-left-radius: 151px;padding-right: 0px;">
+                    </div>
+                    <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                        style="height: 129px;background: var(--bs-white);width: 102.5px;margin-top: 19px;position: absolute;margin-right: 16px;margin-left: 230px;transform: perspective(2120px) translate(11px) rotate(0deg) scale(0.84);margin-bottom: 0px;border-bottom-left-radius: 30px;border-bottom-right-radius: 0px;border-top-right-radius: 59px;border-top-left-radius: 412px;padding-right: 0px;">
+                    </div>
+                    <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                        style="height: 201px;background: var(--bs-white);width: 322px;margin-top: 41px;position: absolute;margin-right: 0px;margin-left: 22px;transform: perspective(2120px) translate(11px) rotate(168deg) scale(0.84);border-top-width: 0px;border-top-style: solid;border-radius: 44px 0px 0px;border-top-left-radius: 55px;border-top-right-radius: 36px;border-bottom-right-radius: 74px;">
+                        <div style="width: 316px;"></div>
+                    </div>
+                    <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                        style="height: 185px;background: var(--bs-white);width: 333px;margin-top: 84px;position: absolute;margin-right: -27px;margin-left: 18px;transform: perspective(2120px) translate(11px) rotate(0deg) scale(0.84);margin-bottom: 15px;border-bottom-left-radius: 30px;border-bottom-right-radius: 25px;border-top-right-radius: 2px;border-top-left-radius: 17px;">
+                        <p
+                            style="width: 228px;height: 35px;margin-top: -33px;margin-bottom: 47px;margin-left: 91px;text-align: center;font-size: 20px;font-weight: bold;color: #1A6F67;text-align: end;">
+                            {{ review.customer_name }}</p>
+                        <p
+                            style="width: 228px;height: 35px;margin-top: -55px;margin-bottom: 35px;margin-left: 91px;text-align: center;font-size: 18px;font-weight: bold;color: #38a509;text-align: end;">
+                            {{ review.location }}</p>
+                        <p
+                            style="height: 140px;overflow: hidden;padding-left: 0px;width: 309px;margin-top: -35px;margin-right: 0px;margin-left: 12px;border-radius: 10px;border-bottom-left-radius: 16px;text-align: center;font-size: 15px;">
+                            {{ review.review_text }}</p>
+                    </div>
+                    {% if review.photo_url %}
+                    <img style="margin: 24px;width: 95px;margin-right: 0px;margin-left: 30px;margin-top: 21px;height: 95px;margin-bottom: 33px;position: absolute;border-radius: 10px;"
+                        src="/{{ review.photo_url }}" width="95" height="95">
+                    {% else %}
+                    <img style="margin: 24px;width: 95px;margin-right: 0px;margin-left: 30px;margin-top: 21px;height: 95px;margin-bottom: 33px;position: absolute;border-radius: 10px;"
+                        src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="95" height="95">
+                    {% endif %}
+                </div>
                 </div>
             </div>
             {% endfor %}
@@ -586,10 +628,10 @@
             <div style="display: flex!important;" class="carousel-item {% if forloop.first %}active{% endif %} row">
                 {% endif %}
 
-                <div class="col-md-4">
-                    <figure class="snip1157">
+                <div style="display: flex;justify-content: center;margin-bottom: 20px;" class="col-md-4">
+                    <!-- <figure class="snip1157">
                         {% if review.photo_url %}
-                        <img src="{{ review.photo_url }}" alt="Customer Photo">
+                        <img src="/{{ review.photo_url }}" alt="Customer Photo">
                         {% else %}
                         <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Customer Photo">
                         {% endif %}
@@ -600,7 +642,39 @@
                         <blockquote>{{ review.review_text }}
                             <div class="arrow"></div>
                         </blockquote>
-                    </figure>
+                    </figure> -->
+                    <div
+                        style="height: 300px;width: 380px;background: linear-gradient(-24deg, black 0%, rgb(6,0,0) 47%, #1A6F67 47%);border-radius: 10px;border-bottom-left-radius: 10px;">
+                        <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                            style="height: 129px;background: var(--bs-white);width: 102px;margin-top: 157px;position: absolute;margin-right: 0px;margin-left: 180px;transform: perspective(2120px) translate(11px) rotate(0deg) scale(0.84);margin-bottom: 0px;border-bottom-left-radius: 468px;border-bottom-right-radius: 0px;border-top-right-radius: -34px;border-top-left-radius: 151px;padding-right: 0px;">
+                        </div>
+                        <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                            style="height: 129px;background: var(--bs-white);width: 102.5px;margin-top: 19px;position: absolute;margin-right: 16px;margin-left: 230px;transform: perspective(2120px) translate(11px) rotate(0deg) scale(0.84);margin-bottom: 0px;border-bottom-left-radius: 30px;border-bottom-right-radius: 0px;border-top-right-radius: 59px;border-top-left-radius: 412px;padding-right: 0px;">
+                        </div>
+                        <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                            style="height: 201px;background: var(--bs-white);width: 322px;margin-top: 41px;position: absolute;margin-right: 0px;margin-left: 22px;transform: perspective(2120px) translate(11px) rotate(168deg) scale(0.84);border-top-width: 0px;border-top-style: solid;border-radius: 44px 0px 0px;border-top-left-radius: 55px;border-top-right-radius: 36px;border-bottom-right-radius: 74px;">
+                            <div style="width: 316px;"></div>
+                        </div>
+                        <div class="flex-nowrap flex-sm-wrap-reverse flex-lg-nowrap"
+                            style="height: 185px;background: var(--bs-white);width: 333px;margin-top: 84px;position: absolute;margin-right: -27px;margin-left: 18px;transform: perspective(2120px) translate(11px) rotate(0deg) scale(0.84);margin-bottom: 15px;border-bottom-left-radius: 30px;border-bottom-right-radius: 25px;border-top-right-radius: 2px;border-top-left-radius: 17px;">
+                            <p
+                                style="width: 228px;height: 35px;margin-top: -33px;margin-bottom: 47px;margin-left: 91px;text-align: center;font-size: 20px;font-weight: bold;color: #1A6F67;text-align: end;">
+                                {{ review.customer_name }}</p>
+                            <p
+                                style="width: 228px;height: 35px;margin-top: -55px;margin-bottom: 35px;margin-left: 91px;text-align: center;font-size: 18px;font-weight: bold;color: #38a509;text-align: end;">
+                                {{ review.location }}</p>
+                            <p
+                                style="height: 140px;overflow: hidden;padding-left: 0px;width: 309px;margin-top: -35px;margin-right: 0px;margin-left: 12px;border-radius: 10px;border-bottom-left-radius: 16px;text-align: center;font-size: 15px;">
+                                {{ review.review_text }}</p>
+                        </div>
+                        {% if review.photo_url %}
+                        <img style="margin: 24px;width: 95px;margin-right: 0px;margin-left: 30px;margin-top: 21px;height: 95px;margin-bottom: 33px;position: absolute;border-radius: 10px;"
+                            src="/{{ review.photo_url }}" width="95" height="95">
+                        {% else %}
+                        <img style="margin: 24px;width: 95px;margin-right: 0px;margin-left: 30px;margin-top: 21px;height: 95px;margin-bottom: 33px;position: absolute;border-radius: 10px;"
+                            src="https://cdn-icons-png.flaticon.com/512/149/149071.png" width="95" height="95">
+                        {% endif %}
+                    </div>
                 </div>
 
                 {% endfor %}
@@ -622,28 +696,28 @@
         <div class="overlay" id="overlay"></div>
 
         <div class="getintouchpopup" id="getintouchpopup">
-          <span class="close popup-close-btn" onclick="closeGetInTouchPopup()">&times;</span>
-          <div class="form">
-            <h2 class="mb-4">Get in Touch</h2>
-            <form>
-              <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Name" required>
-              </div>
-              <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Email" required>
-              </div>
-              <div class="mb-3">
-                <input type="tel" class="form-control" placeholder="Phone Number" required>
-              </div>
-              <div class="mb-3">
-                <input type="tel" class="form-control" placeholder="WhatsApp Number" required>
-              </div>
-              <div class="mb-3">
-                <textarea class="form-control" placeholder="Message" rows="4"></textarea>
-              </div>
-              <button type="submit" style="width: 100%;" class="btn btn-ss">Submit</button>
-            </form>
-          </div>
+            <span class="close popup-close-btn" onclick="closeGetInTouchPopup()">&times;</span>
+            <div class="form">
+                <h2 class="mb-4">Get in Touch</h2>
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="tel" class="form-control" placeholder="Phone Number" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="tel" class="form-control" placeholder="WhatsApp Number" required>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" placeholder="Message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" style="width: 100%;" class="btn btn-ss">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
     <div class="row me-0" style="background-color: #FFFFFF!important; justify-content: center;align-items: center;">
@@ -745,7 +819,8 @@
     document.addEventListener("DOMContentLoaded", function () {
         {% for product_chunk in product_chunk_list %}
         {% for product in product_chunk %}
-        var productId = {{ product.id }};
+        var productId = {{ product.id }
+    };
     var priceElement = document.getElementById("price" + productId);
     var finalPriceElement = document.getElementById("finalPrice" + productId);
     displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
@@ -818,14 +893,14 @@
 <script>
     // Function to open the getintouchpopup
     function openGetInTouchPopup() {
-      document.getElementById('overlay').style.display = 'block';
-      document.getElementById('getintouchpopup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('getintouchpopup').style.display = 'block';
     }
-    
+
     // Function to close the getintouchpopup
     function closeGetInTouchPopup() {
-      document.getElementById('overlay').style.display = 'none';
-      document.getElementById('getintouchpopup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('getintouchpopup').style.display = 'none';
     }
-    </script>
+</script>
 {% endblock javascript %}

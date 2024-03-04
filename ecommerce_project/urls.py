@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
 
 admin.site.site_header = "SNEH-SATTVA Admin"
 admin.site.site_title = "SNEH-SATTVA Admin Portal"
@@ -29,4 +31,4 @@ urlpatterns = [
     path('admin-interface/logo/22222.jpg', RedirectView.as_view(url='/static/admin-interface/logo/22222.jpg')),
     path('admin-interface/favicon/22222.jpg', RedirectView.as_view(url='/static/admin-interface/favicon/22222.jpg')),
     
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

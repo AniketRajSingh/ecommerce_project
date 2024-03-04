@@ -28,7 +28,7 @@ class Media(models.Model):
 
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     media_type = models.CharField(max_length=10, choices=MEDIA_TYPE_CHOICES)
-    media_url = models.URLField(max_length=200)
+    media_url = models.FileField(upload_to='products/')
 
     def __str__(self):
         return f"{self.product.name} - {self.get_media_type_display()}"
@@ -39,7 +39,7 @@ class Product(models.Model):
     quantities = models.ManyToManyField(Quantity, through='ProductQuantity')
     description = models.TextField(blank=True, null=True)
     short_description = models.TextField(blank=True, null=True)
-    bestsellers_img_url = models.URLField(max_length=200)
+    bestsellers_img = models.ImageField(upload_to='bestsellers/', null=True, blank=True)
 
     def __str__(self):
         return self.name

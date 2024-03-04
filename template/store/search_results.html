@@ -84,114 +84,116 @@ Products
             </div>
         </div>
         <div class="col-12 col-md-9">
-            <h2>Search Results:</h2>
             <div class="row">
-            {% if products %}
                 {% for product in products %}
-                    <div class="col-12 col-md-4 mb-4">
-                        <div class="card h-100">
-                            <div id="carousel{{ product.id }}" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    {% for media in product.media_set.all %}
-                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                            <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
-                                            {% if media.media_type == 'image' %}
-                                                <img src="{{ media.media_url }}" class="d-block w-100 card-img-top" alt="Product Image">
-                                            {% elif media.media_type == 'video' %}
-                                                <video class="d-block w-100" controls>
-                                                    <source src="{{ media.media_url }}" type="video/mp4">
-                                                    Your browser does not support the video tag.
-                                                </video>
-                                            {% endif %}
-                                        </a>
-                                        </div>
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div id="carousel{{ product.id }}" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for media in product.media_set.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                        {% if media.media_type == 'image' %}
+                                        <img src="/{{ media.media_url }}" class="d-block w-100 card-img-top"
+                                            alt="Product Image">
+                                        {% elif media.media_type == 'video' %}
+                                        <video poster autoplay loop playsinline muted class="d-block w-100 card-img-top">
+                                            <source src="/{{ media.media_url }}" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        {% endif %}
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button"
+                                data-target="#carousel{{ product.id }}" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-target="#carousel{{ product.id }}" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="card-body product-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text mobile-hidden">{{ product.short_description }}</p>
+                            <span>Quantity:
+                                <div class=" mt-2 mb-2" role="group" aria-label="Quantity">
+                                    {% for quantity_instance in product.productquantity_set.all %}
+                                    {% with quantity_id=quantity_instance.quantity.id %}
+                                    <button type="button"
+                                        class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
+                                        data-product-id="{{ product.id }}"
+                                        data-quantity-id="{{ quantity_instance.quantity.id }}"
+                                        data-quantity="{{ quantity_instance.quantity.name }}"
+                                        data-price="{{ quantity_instance.price }}"
+                                        data-final-price="{{ quantity_instance.final_price }}"
+                                        data-available="{{ quantity_instance.available|lower }}"
+                                        onclick="updatePrice('{{ product.id }}', '{{ quantity_instance.quantity.name }}', '{{ quantity_instance.price }}', '{{ quantity_instance.final_price }}', '{{ quantity_instance.available|lower }}', '{{ quantity_instance.quantity.id }}')">
+                                        {{ quantity_instance.quantity.name }}
+                                    </button>
+                                    {% endwith %}
                                     {% endfor %}
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
+                            </span>
+
+                            <p class="availability">Availability:
+                                {% if product.productquantity_set.first.available %}
+                                <span id="inStock{{ product.id }}" class="text-success">In Stock</span>
+                                <span id="outOfStock{{ product.id }}" style="display: none;" class="text-danger">Out of
+                                    Stock</span>
+                                {% else %}
+                                <span id="inStock{{ product.id }}" style="display: none;" class="text-success">In
+                                    Stock</span>
+                                <span id="outOfStock{{ product.id }}" class="text-danger">Out of Stock</span>
+                                {% endif %}
+                            </p>
+
+                            <span id="price{{ product.id }}"
+                                class="card-text small text-decoration-line-through text-danger">
+                                MRP: ₹{{ product.productquantity_set.first.price }}
+                            </span>
+                            <span id="discount{{ product.id }}" class="discount mx-1 extra small"></span>
+                            <p id="finalPrice{{ product.id }}" class="card-text text-primary">
+                                Price: ₹{{ product.productquantity_set.first.final_price }}
+                            </p>
+                            <form method="post" id="addToCartForm{{ product.id }}">
+                                {% csrf_token %}
+                                {% if product.productquantity_set.first.available %}
+                                <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button cart-button"
+                                    onclick="addToCart('{{ product.id }}')">
+                                    <span class="add-to-cart">Add to cart</span>
+                                    <span class="added">Added</span>
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-box"></i>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.id }}" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
+                                <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
+                                    disabled class="btn cart-button disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                    <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
                                 </button>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ product.name }}</h5>
-                                <p class="card-text mobile-hidden">{{ product.short_description }}</p>
-                                <span>Quantity:
-                                    <div class="btn-group mt-2 mb-2" role="group" aria-label="Quantity">
-                                        {% for quantity_instance in product.productquantity_set.all %}
-                                            {% with quantity_id=quantity_instance.quantity.id %}
-                                                <button type="button" class="btn btn-outline-success {% if forloop.first %}active-quantity{% endif %}"
-                                                        data-product-id="{{ product.id }}"
-                                                        data-quantity-id="{{ quantity_instance.quantity.id }}"
-                                                        data-quantity="{{ quantity_instance.quantity.name }}"
-                                                        data-price="{{ quantity_instance.price }}"
-                                                        data-final-price="{{ quantity_instance.final_price }}"
-                                                        data-available="{{ quantity_instance.available|lower }}"
-                                                        onclick="updatePrice('{{ product.id }}', '{{ quantity_instance.quantity.name }}', '{{ quantity_instance.price }}', '{{ quantity_instance.final_price }}', '{{ quantity_instance.available|lower }}', '{{ quantity_instance.quantity.id }}')">
-                                                    {{ quantity_instance.quantity.name }}
-                                                </button>
-                                            {% endwith %}
-                                        {% endfor %}
-                                    </div>
-                                </span>
-                                
-                                <p class="availability">Availability: 
-                                    {% if product.productquantity_set.first.available %}
-                                        <span id="inStock{{ product.id }}" class="text-success">In Stock</span>
-                                        <span id="outOfStock{{ product.id }}" style="display: none;" class="text-danger">Out of Stock</span>
-                                    {% else %}
-                                        <span id="inStock{{ product.id }}" style="display: none;" class="text-success">In Stock</span>
-                                        <span id="outOfStock{{ product.id }}" class="text-danger">Out of Stock</span>
-                                    {% endif %}
-                                </p>
-                                
-                                <span id="price{{ product.id }}" class="card-text small text-decoration-line-through text-danger">
-                                    MRP: ₹{{ product.productquantity_set.first.price }}
-                                </span>
-                                <span id="discount{{ product.id }}" class="discount mx-1 extra small"></span>
-                                <p id="finalPrice{{ product.id }}" class="card-text text-primary">
-                                    Price: ₹{{ product.productquantity_set.first.final_price }}
-                                </p>
-                                <form method="post" id="addToCartForm{{ product.id }}">
-                                    {% csrf_token %}
-                                    {% if product.productquantity_set.first.available %}
-                                    <button type="submit" id="addToCart{{ product.id }}" class="btn add-to-cart-button cart-button"
-                                        onclick="addToCart('{{ product.id }}')">
-                                        <span class="add-to-cart">Add to cart</span>
-                                        <span class="added">Added</span>
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <i class="fas fa-box"></i>
-                                    </button>
-                                    <button type="submit" id="removeFromCart{{ product.id }}" style="display: none;"
-                                        disabled class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
-                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
-                                    </button>
-                                    {% else %}
-                                    <button type="submit" id="addToCart{{ product.id }}" style="display: none;"
-                                        class="btn add-to-cart-button cart-button" onclick="addToCart('{{ product.id }}')">
-                                        <span class="add-to-cart">Add to cart</span>
-                                        <span class="added">Added</span>
-                                        <i class="fas fa-shopping-cart"></i>
-                                        <i class="fas fa-box"></i>
-                                    </button>
-                                    <button type="submit" id="removeFromCart{{ product.id }}" disabled
-                                        class="btn disabled-btn" onclick="removeFromCart('{{ product.id }}')">
-                                        <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
-                                    </button>
-                                    {% endif %}
-                                </form>
-                            </div>
+                                {% else %}
+                                <button type="submit" id="addToCart{{ product.id }}" style="display: none;"
+                                    class="btn add-to-cart-button cart-button" onclick="addToCart('{{ product.id }}')">
+                                    <span class="add-to-cart">Add to cart</span>
+                                    <span class="added">Added</span>
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-box"></i>
+                                </button>
+                                <button type="submit" id="removeFromCart{{ product.id }}" disabled
+                                    class="btn cart-button disabled-btn" onclick="removeFromCart('{{ product.id }}')">
+                                    <i style="font-size: 2rem;" class="fa-solid fa-cart-plus"></i>
+                                </button>
+                                {% endif %}
+                            </form>
                         </div>
                     </div>
+                </div>
                 {% endfor %}
-            {% else %}
-                    <span>No results found</span>
-            {% endif %}
             </div>
-        </div>       
+        </div>      
     </div>
 </div>
 {% endblock body %}
