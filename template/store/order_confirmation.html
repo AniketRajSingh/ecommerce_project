@@ -511,10 +511,74 @@ Order Confirmation
   background-color: #39A609;
   color: white;
 }
+.popup {
+  width: 80%;
+  height: 80vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup button {
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup #online-payment-button {
+  background-color: #275efe;
+  color: #fff;
+  border: none;
+}
+
+.popup #cod-button {
+  background-color: #39a609;
+  color: #fff;
+  border: none;
+}
+
+.popup p {
+  margin: 10px 0;
+  font-weight: bold;
+}
+.popup-back{
+  background-color: #1c212ec9;
+  width: 100%;
+  height: 140vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+}
+.close {
+        position: absolute;
+        top: 10px;
+        right: 20px !important;
+        cursor: pointer;
+    }
+.payment-options{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
   @media (max-width: 767px) {
     table {
       font-size: small;
+    }
+    .payment-options{
+      flex-direction: column;
     }
   }
 </style>
@@ -542,7 +606,7 @@ Order Confirmation
         {% for product in product_data %}
         {% for quantity_id, quantity_data in product.quantities.items %}
         <tr>
-          <td><img src="{{ product.image_urls.0 }}" class="img-fluid" alt="{{ product.name }}"></td>
+          <td><img src="/{{ product.image_urls.0 }}" class="img-fluid" alt="{{ product.name }}"></td>
           <td>{{ product.name }} ({{ quantity_data.quantity_instance }})</td>
           <td>₹{{ quantity_data.final_price }}</td>
           <td>{{ quantity_data.quantity }}</td>
@@ -648,8 +712,23 @@ Order Confirmation
         <div class="lines"></div>
       </button>
     </div>
-
   </form>
+  <div class="popup-back" style="display:none;">
+    <div class="popup text-center d-flex justify-content-center">
+      <span class="close popup-close-btn" onclick="closeGetInTouchPopup()">&times;</span>
+      <p>How would you like to pay?</p>
+      <div class="payment-options">
+        <button type="button" style="width: 215px; margin-inline: 10px;" class="online-payment-btn" id="online-payment-button">
+          <img style="width: 32px; background: white; border-radius: 5px;" src="https://snehsattva.in/Uploaded_Media/online.png" alt="Online Payment"> Pay Online
+        </button>
+        <p>OR</p>
+        <button type="button" style="width: 215px; margin-inline: 10px;" class="cod-btn" id="cod-button">
+          <img style="width: 32px; background: white; border-radius: 5px;" src="https://snehsattva.in/Uploaded_Media/cod.png" alt="Cash on Delivery"> Cash on Delivery
+        </button>
+      </div>
+      <p>Pay Online or via Cash on Delivery</p>
+    </div>
+  </div>  
 </div>
 {% endblock body %}
 
@@ -658,32 +737,36 @@ Order Confirmation
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <script>
-  document.getElementById('payment-button').onclick = function () {
-    // Extract values from hidden input fields
-    var orderAmount = document.getElementById('razorpay_amount').value;
-    var orderId = document.getElementById('razorpay_order_id').value;
-    var orderName = document.getElementById('name').value;
-    var orderEmail = document.getElementById('email').value;
-    var orderPhone = document.getElementById('phone').value;
-    var razorpayKey = document.getElementById('razorpay_key').value;
-    var street = document.getElementById('street').value;
-    var city = document.getElementById('city').value;
-    var state = document.getElementById('state').value;
-    var pincode = document.getElementById('pincode').value;
-    var landmark = document.getElementById('landmark').value;
-    if (!orderName || !orderEmail || !orderPhone || !street || !city || !state || !pincode || !landmark) {
-      alert('Please fill in all the necessary details.');
-      document.getElementById('payment-button').classList.remove('animate');
-      return;
-    }
-    let button = $('.order');
-    if (!button.hasClass('animate')) {
-      button.addClass('animate');
-      setTimeout(() => {
-        button.removeClass('animate');
-      }, 10000);
-    }
+  document.getElementById('payment-button').onclick = function() {
+  // Extract values from hidden input fields
+  var orderAmount = document.getElementById('razorpay_amount').value;
+  var orderId = document.getElementById('razorpay_order_id').value;
+  var orderName = document.getElementById('name').value;
+  var orderEmail = document.getElementById('email').value;
+  var orderPhone = document.getElementById('phone').value;
+  var razorpayKey = document.getElementById('razorpay_key').value;
+  var street = document.getElementById('street').value;
+  var city = document.getElementById('city').value;
+  var state = document.getElementById('state').value;
+  var pincode = document.getElementById('pincode').value;
+  var landmark = document.getElementById('landmark').value;
 
+  if (!orderName || !orderEmail || !orderPhone || !street || !city || !state || !pincode || !landmark) {
+    alert('Please fill in all the necessary details.');
+    document.getElementById('payment-button').classList.remove('animate');
+    return;
+  }
+
+  let button = $('.order');
+  if (!button.hasClass('animate')) {
+    button.addClass('animate');
+    setTimeout(() => {
+      button.removeClass('animate');
+      document.querySelector('.popup-back').style.display = 'flex';
+    }, 10000);
+  }
+
+  document.getElementById('online-payment-button').onclick = function() {
     var options = {
       "key": razorpayKey,
       "amount": orderAmount * 100,
@@ -692,12 +775,10 @@ Order Confirmation
       "description": "Order Payment",
       "payment_capture": 1,
       "order_id": orderId,
-      "handler": function (response) {
+      "handler": function(response) {
         // Handle the successful payment response
         console.log(response);
-        // You can redirect to a success page or perform additional actions here
         document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
-        // Submit the order form after successful payment
         document.getElementById('order-form').submit();
       },
       "prefill": {
@@ -710,13 +791,25 @@ Order Confirmation
       }
     };
 
-    var rzp1 = new Razorpay(options);
-
-    // Open Razorpay checkout form on button click
-    setTimeout(function () {
+    setTimeout(function() {
       var rzp1 = new Razorpay(options);
       rzp1.open();
     }, 10000);
+    document.querySelector('.popup').style.display = 'none';
+  }
+  document.getElementById('cod-button').onclick = function() {
+    var options = {
+        "key": razorpayKey,
+        "amount": orderAmount * 100,
+        "currency": "INR",
+        "name": "Sneh Sattava",
+        "description": "Order Payment",
+        "payment_capture": 1,
+        "order_id": 'OIDCOD'
+      };
+      document.getElementById('razorpay_payment_id').value = 'PAYCOD';
+      document.getElementById('order-form').submit();
+    }
   }
 </script>
 <script>

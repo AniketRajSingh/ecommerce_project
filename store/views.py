@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from .models import Product, Order, Category, Quantity, Cancellation
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .razorpay_utils import create_order, verify_payment
+from .razorpay_utils import create_order, verify_payment, cod_payment
 from django.db.models import Sum
 from accounts.models import Address
 from django.db.models import F
@@ -279,14 +279,24 @@ def place_order(request):
         razorpay_order_id = create_order(order.total_price, order.id)
         payment_id = razorpay_payment_id
         r_order_id = razorpay_order_id['id']
+        
+        if payment_id != 'PAYCOD':
+            if verify_payment(payment_id, order.total_price, order.id, r_order_id):
 
-        if verify_payment(payment_id, order.total_price, order.id, r_order_id):
+                # Clear the cart
+                request.session['cart'] = {}
 
-            # Clear the cart
-            request.session['cart'] = {}
+                # Pass Razorpay order ID to the template
+                return render(request, 'store/order_placed.html', {'order': order, 'razorpay_order_id': razorpay_order_id})
+        elif payment_id == 'PAYCOD':
+                
+                cod_payment(payment_id, order.total_price, order.id, r_order_id)
+                
+                # Clear the cart
+                request.session['cart'] = {}
 
-            # Pass Razorpay order ID to the template
-            return render(request, 'store/order_placed.html', {'order': order, 'razorpay_order_id': razorpay_order_id})
+                # Pass Razorpay order ID to the template
+                return render(request, 'store/order_placed.html', {'order': order, 'razorpay_order_id': razorpay_order_id})
 
         # If payment verification fails, delete the order, display an error message, and redirect to order confirmation
         order.delete()

@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+# from backupapp.views import restore_backup, backup_now
 
 admin.site.site_header = "SNEH-SATTVA Admin"
 admin.site.site_title = "SNEH-SATTVA Admin Portal"
@@ -30,5 +31,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin-interface/logo/22222.jpg', RedirectView.as_view(url='/static/admin-interface/logo/22222.jpg')),
     path('admin-interface/favicon/22222.jpg', RedirectView.as_view(url='/static/admin-interface/favicon/22222.jpg')),
+    path('api/', include('api.urls')),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

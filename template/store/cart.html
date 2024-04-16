@@ -131,7 +131,7 @@
         {% for product in cart_data.products %}
         {% for quantity_id, quantity_data in product.quantities.items %}
         <div class="card">
-            <img src="{{ product.image_urls.0 }}" class="img-fluid" alt="{{ product.name }}">
+            <img src="/{{ product.image_urls.0 }}" class="img-fluid" alt="{{ product.name }}">
             <div class="card-details">
                 <p class="small text-success">{{ product.name }} ({{ quantity_data.quantity_instance }})</p>
                 <div style="display: flex;justify-content: space-between;">

@@ -836,12 +836,27 @@
     </footer>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
+            // Set a flag to check if the page has already loaded
+            var pageLoaded = false;
+    
+            // Function to remove the loading overlay
+            function removeLoader() {
+                if (!pageLoaded) {
+                    document.querySelector('.loading-overlay').style.display = 'none';
+                    pageLoaded = true;
+                }
+            }
+    
             // Hide the loading overlay when all resources are loaded
             window.addEventListener('load', function() {
-                document.querySelector('.loading-overlay').style.display = 'none';
+                removeLoader();
             });
+    
+            // Set a timer to remove the loader after 5 seconds
+            setTimeout(removeLoader, 5000); // 5000 milliseconds = 5 seconds
         });
     </script>
+    
 
     <!-- Bootstrap JS and jQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

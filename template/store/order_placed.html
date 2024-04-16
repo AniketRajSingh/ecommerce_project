@@ -41,15 +41,21 @@ Thank You for Your Order
         {% endif %}
     </div>
 
-    {% if razorpay_order_id %}
+    {% if razorpay_order_id and order.payment_status != 'Pending COD' %}
     <div class="mb-4">
         <h2>Razorpay Order Details:</h2>
         <p><strong>Order ID:</strong> {{ razorpay_order_id.id }}</p>
 
     </div>
-    {% endif %}
-
     <p>We've received your payment. Your order is confirmed, and we'll process it shortly.</p>
+    {% elif razorpay_order_id and order.payment_status == 'Pending COD' %}
+    <div class="mb-4">
+        <h2>Order Details:</h2>
+        <p><strong>Order ID:</strong> {{ razorpay_order_id.id }}</p>
+
+    </div>
+    <p>We've received your cash on delivery request. Your order is confirmed, and we'll process it shortly.</p>
+    {% endif %}
 
     <p>Thank you for shopping with us!</p>
 </div>

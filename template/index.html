@@ -390,7 +390,7 @@
         <div class="col-6 col-md-4 col-lg-2 my-2 {% if forloop.counter > 4 %} mobile-hidden {% endif %}">
             <div class="product-card text-center card">
                 <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
-                    <img src="/{{product.bestsellers_img_url }}" class="d-block w-100 img-fluid card-img-top"
+                    <img src="/{{product.bestsellers_img }}" class="d-block w-100 img-fluid card-img-top"
                         alt="Product Image">
                 </a>
                 <div class="card-body">
@@ -459,7 +459,8 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <div class="row product-cards-mobile">
                     {% for product in product_chunk %}
-                    <div class="col-6 col-md-4 col-lg-3 my-2">
+                        {% if product.id %}
+                        <div class="col-6 col-md-4 col-lg-3 my-2">
                         <div class="card product-card text-center">
                             {% for media in product.media_set.all %}
                             <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
@@ -550,7 +551,11 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
+                        </div>
+                        {% else %}
+                        <div class="col-6 col-md-4 col-lg-3 my-2">
+                        </div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -725,17 +730,17 @@
             <h2 class="text-center pt-2">We are also available on...</h2>
         </b>
         <img id="image-Amazon" alt="Available on Amazon"
-            src="https://1000logos.net/wp-content/uploads/2016/10/Amazon-Logo.png" class="ct-image">
+            src="Uploaded_Media/Bigbasket.png" class="ct-image">
         <img id="image-JioStore" alt="Available on Jio Store"
-            src="https://5.imimg.com/data5/SELLER/Default/2023/6/318053740/EN/UN/ZB/123005145/jiomart--500x500.png"
+            src="Uploaded_Media/JioMart.png"
             class="ct-image">
         <img id="image-Flipkart" alt="Available on Flipkart"
-            src="https://1000logos.net/wp-content/uploads/2021/02/Flipkart-logo.png" class="ct-image">
+            src="Uploaded_Media/Flipkart.png" class="ct-image">
         <img id="image-Bigbasket" alt="Available on Bigbasket"
-            src="https://indicwisdom.com/wp-content/uploads/2022/12/pinpng.com-paytm-logo-png-3345054.jpg"
+            src="Uploaded_Media/Bigbasket.png"
             class="ct-image">
         <img id="image-Blinkit" alt="Available on Blinkit"
-            src="https://cdn.grofers.com/cdn-cgi/image/f=auto,fit=scale-down,q=70,metadata=none,w=900/assets/ui/print/bl_logo_web.png"
+            src="Uploaded_Media/Blinkit.png"
             class="ct-image">
     </div>
 </section>
@@ -744,6 +749,15 @@
 {% endblock body %}
 {% block javascript %}
 <script>
+    function updateFormAction(productId, selectedQuantity) {
+        var formElement = document.getElementById("addToCartForm" + productId);
+        if (formElement) {
+            formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';
+        } else {
+            console.error('Could not find form for product ID:', productId);
+        }
+    }
+
     function updatePrice(productId, selectedQuantity, price, finalPrice, available, selectedQuantityId) {
         var priceElement = document.getElementById("price" + productId);
         var finalPriceElement = document.getElementById("finalPrice" + productId);
@@ -781,15 +795,6 @@
         }
     }
 
-    function updateFormAction(productId, selectedQuantity) {
-        var formElement = document.getElementById("addToCartForm" + productId);
-        if (formElement) {
-            formElement.action = '/store/add_to_cart/' + productId + '/' + selectedQuantity + '/';
-        } else {
-            console.error('Could not find form for product ID:', productId);
-        }
-    }
-
     function updateActiveQuantityButton(productId, selectedQuantity) {
         var allButtons = document.querySelectorAll(`button[data-product-id="${productId}"]`);
         var selectedButton = document.querySelector(`button[data-product-id="${productId}"][data-quantity="${selectedQuantity}"]`);
@@ -818,16 +823,17 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         {% for product_chunk in product_chunk_list %}
-        {% for product in product_chunk %}
-        var productId = {{ product.id }
-    };
-    var priceElement = document.getElementById("price" + productId);
-    var finalPriceElement = document.getElementById("finalPrice" + productId);
-    displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
-    var selectedQuantity = '{{ product.productquantity_set.first.quantity.id }}';
-    updateFormAction(productId, selectedQuantity);
-    {% endfor %}
-    {% endfor %}
+            {% for product in product_chunk %}
+                {% if product.id %}
+                var productId = {{ product.id }};
+                var priceElement = document.getElementById("price" + productId);
+                var finalPriceElement = document.getElementById("finalPrice" + productId);
+                displayDiscountPercentage(priceElement.textContent, finalPriceElement.textContent, productId);
+                var selectedQuantity = '{{ product.productquantity_set.first.quantity.id }}';
+                updateFormAction(productId, selectedQuantity);
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
     });
 </script>
 <script>

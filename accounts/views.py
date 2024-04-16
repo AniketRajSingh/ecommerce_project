@@ -3,29 +3,37 @@ from django import forms
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordResetForm, SetPasswordForm
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from accounts.models import UserProfile, Address
-from django.template.loader import render_to_string
 from django.contrib.auth.models import User
-from django.forms.models import modelformset_factory
-
-
+from django.views.decorators.csrf import csrf_protect
+import random
+from django.core.mail import send_mail
+from django.core.cache import cache
+from django.conf import settings
+from django.contrib.auth import authenticate
+from django.views.decorators.csrf import csrf_exempt
 
 def signup(request):
     if request.method == 'POST':
+        print(request)
         username = request.POST.get('username')
+        print(username)
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+
         if password1 != password2:
-            messages.error(request, 'Passwords do not match.')
-            return redirect('signup')
+            return JsonResponse({'success': False, 'error': 'Passwords do not match.'})
+
+        if User.objects.filter(username=username).exists():
+            return JsonResponse({'success': False, 'error': 'This username is already taken.'})
+
         user = User.objects.create_user(username=username, password=password1)
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
 
-        messages.success(request, 'Account created successfully!')
-        return redirect('home')
+        return JsonResponse({'success': True})
     else:
         return render(request, 'account/login_signup_template.html')
 
@@ -43,6 +51,70 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('home')
+
+@csrf_protect
+def password_reset_view(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.filter(email=email).first()
+            if user:
+                otp = random.randint(100000, 999999)
+                user.otp = otp
+                user.save()
+                send_otp_email(request, user, otp)
+                return JsonResponse({'success': True, 'otp_sent': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'User with this email does not exist.'})
+        else:
+            return JsonResponse({'success': False, 'error': form.errors})
+    else:
+        form = PasswordResetForm()
+    return render(request, 'account/password_reset.html', {'form': form})
+
+def send_otp_email(request, user, otp):
+    subject = 'Password Reset OTP'
+    message = f'Your OTP for password reset is: {otp}'
+    from_email = 'your-email@example.com'
+    recipient_list = [user.email]
+    send_mail(subject, message, from_email, recipient_list)
+    cache.set(f'otp_{user.email}', otp, settings.OTP_CACHE_TIMEOUT)
+
+@csrf_protect
+def verify_otp(request):
+    if request.method == 'POST':
+        otp = request.POST.get('otp')
+        print(otp)
+        email = request.POST.get('email')
+        user = User.objects.filter(email=email).first()
+        if user:
+            cached_otp = cache.get(f'otp_{user.email}')
+            if cached_otp and cached_otp == int(otp):
+                return JsonResponse({'success': True, 'otp_verified': True})
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid OTP.'})
+        else:
+            return JsonResponse({'success': False, 'error': 'User with this email does not exist.'})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
+
+@csrf_protect
+def set_new_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email_newp')
+        print(email)
+        new_password = request.POST.get('new_password')
+        user = User.objects.filter(email=email).first()
+
+        if user:
+            user.set_password(new_password)
+            user.save()
+            return JsonResponse({'success': True, 'password_changed': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'User with this email does not exist.'})
+    else:
+        return JsonResponse({'success': False, 'error': 'Invalid request method.'})
 
 class AddressForm(forms.ModelForm):
     class Meta:
@@ -95,6 +167,12 @@ def edit_profile(request):
                 return JsonResponse({'success': True}) 
             else:
                 return JsonResponse({'success': False, 'user_errors': user_form.errors})
+        elif 'email' in request.POST:
+            email = request.POST.get('email')
+            if User.objects.filter(email=email).exclude(pk=request.user.pk).exists():
+                return JsonResponse({'success': False, 'error': 'This email address is already in use.'})
+            else:
+                return JsonResponse({'success': True})
         elif 'street' in request.POST:
             address_form = AddressForm(request.POST)
             if address_form.is_valid() and 'address_id' not in request.POST :
@@ -132,36 +210,14 @@ def edit_address(request, address_id):
 def login_signup_view(request):
     return render(request, 'login_signup_template.html')
 
-def password_reset_view(request):
+@csrf_exempt
+def verify_password(request):
     if request.method == 'POST':
-        form = PasswordResetForm(request.POST)
-        if form.is_valid():
-            # Process the form data and send the password reset email
-            form.save(request=request)
-            messages.success(request, 'Password reset email sent.')
-            return JsonResponse({'email_sent': True})
+        password = request.POST.get('password')
+        user = authenticate(request, username=request.user.username, password=password)
+        if user is not None:
+            return JsonResponse({'status': 'success'})
         else:
-            return JsonResponse({'errors': form.errors}, status=400)
+            return JsonResponse({'status': 'error', 'message': 'Invalid password'})
     else:
-        form = PasswordResetForm()
-    return render(request, 'account/password_reset.html', {'form': form})
-
-def password_reset_confirm_view(request, uidb64, token):
-    if request.method == 'POST':
-        form = SetPasswordForm(request.user, request.POST)
-        if form.is_valid():
-            # Process the form data and set the new password
-            form.save()
-            messages.success(request, 'Password reset successfully completed.')
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'errors': form.errors}, status=400)
-    else:
-        form = SetPasswordForm()
-    return JsonResponse({'html_content': render_to_string('account/password_reset.html', {'form': form})})
-
-def password_reset_done_view(request):
-    return render(request, 'account/password_reset.html')
-
-def password_reset_complete_view(request):
-    return render(request, 'account/password_reset.html')
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

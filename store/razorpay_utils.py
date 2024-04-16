@@ -41,3 +41,13 @@ def verify_payment(payment_id, amount, order_id,razorpay_order_id):
     else:
         print('returned false')
         return False
+
+def cod_payment(payment_id, amount, order_id,razorpay_order_id):
+    order = Order.objects.get(id=order_id)
+    order.total_price = amount
+    order.payment_id = payment_id
+    order.order_id = razorpay_order_id
+    order.payment_status = 'Pending COD'
+    order.payment_amount = amount / 100 
+    order.save()
+

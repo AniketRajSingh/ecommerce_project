@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-p_#$mq1x91=%$n5r0%4$os7i*8t714vk*v3+7la+$zih4q3^ui'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 handler404 = 'home.views.handler404'
 
 ALLOWED_HOSTS = ['*']
@@ -50,6 +50,13 @@ INSTALLED_APPS = [
     'store',
     'home',
     'accounts',
+    'upload_data',
+    'rest_framework',
+    'api',
+    'dbbackup',
+    'django_cron',
+    'django_crontab',
+    'backupapp',
 ]
 
 MIDDLEWARE = [
@@ -88,25 +95,25 @@ WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 load_dotenv()
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.getenv('DB_NAME', BASE_DIR / "db.sqlite3"),
-        'USER': os.getenv('DB_USER', ''),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', ''),
-        'PORT': os.getenv('DB_PORT', ''),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.sqlite3'),
+#         'NAME': os.getenv('DB_NAME', BASE_DIR / "db.sqlite3"),
+#         'USER': os.getenv('DB_USER', ''),
+#         'PASSWORD': os.getenv('DB_PASSWORD', ''),
+#         'HOST': os.getenv('DB_HOST', ''),
+#         'PORT': os.getenv('DB_PORT', ''),
+#     }
+# }
 
 # Email setup
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -118,7 +125,6 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 # RazorPay Integration
 RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID')
-RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET')
 
 # Password validation
@@ -201,3 +207,32 @@ ADMIN_INTERFACE_APPS = [
 ADMIN_INTERFACE_ORDER = (
     {'app': 'chartit', 'models': ['salesdata']},
 )
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'ietcommunity2@gmail.com'
+# EMAIL_HOST_PASSWORD = 'xlovbezkmhtdtbct'
+OTP_CACHE_TIMEOUT = 300 #5 minute otp timeout as per the frontend's timer (in seconds)
+
+# Mail for Developement 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Directory where backups will be stored
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+DBBACKUP_STORAGE_OPTIONS = {'location': 'db_backup/'}
+
+DBBACKUP_COMPRESS = True
+DBBACKUP_ENCRYPTION = False
+
+CRON_CLASSES = [
+    'backupapp.cron.BackupTask',
+]
+
+CRONJOBS = [
+    ('0 0 * * *', 'backupapp.crons.BackupTask'),
+    ('*/10 * * * *', 'backupapp.crons.BackupRemovalTask'),
+]
+
+# Optional: If you want to check the cron jobs status and logs
+CONTAB_COMMAND_UI = True

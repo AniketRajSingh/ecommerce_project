@@ -1,0 +1,177 @@
+{% extends "admin/delete_confirmation.html" %}
+{% load i18n %}
+
+{% block content %}
+    {{ block.super }}
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div style="display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 30vh;">
+            <h1 style="color: #b70b0b; font-weight: bolder; font-size: larger">**WARNING**</h1>
+            <h4>Enter your password to confirm the <span style="color: #b70b0b; font-weight: 800;">deletion</span>:</h4>
+            <div>
+                <input type="password" id="password-input" class="form-control mb-3">
+                <button type="button" id="verify-password-btn" class="btn btn-primary">{% trans "Verify" %}</button>
+                <p id="password-error" class="text-danger mt-2" style="display: none;"></p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modal = document.getElementById("password-modal");
+            const verifyPasswordBtn = document.getElementById("verify-password-btn");
+            const passwordInput = document.getElementById("password-input");
+            const passwordError = document.getElementById("password-error");
+            const closeModal = document.querySelector(".close");
+            const deleteForm = document.querySelector("form:not(#logout-form)");
+
+
+            // Add an event listener to the form submission
+            deleteForm.addEventListener("submit", function (event) {
+                // Prevent the default form submission behavior
+                event.preventDefault();
+
+                // Display the password verification modal
+                modal.style.display = "flex";
+            });
+
+            // Event listener for the "Verify" button in the password verification modal
+            verifyPasswordBtn.addEventListener("click", function () {
+                const password = passwordInput.value;
+                const csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
+                // Make a POST request to verify the password
+                fetch("{% url 'verify_password' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": csrfToken,
+                    },
+                    body: `password=${encodeURIComponent(password)}`,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check the response status
+                        if (data.status === "success") {
+                            // If password verification is successful, submit the delete form
+                            deleteForm.submit();
+                        } else {
+                            // If password verification fails, display an error message
+                            passwordError.textContent = data.message;
+                            passwordError.style.display = "block";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+            });
+
+            // Event listener to close the modal
+            closeModal.onclick = function () {
+                modal.style.display = "none";
+            };
+
+            // Close the modal if the user clicks outside of it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        });
+    </script>
+{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <style>
+        .btn{
+            --bs-btn-padding-x: 0.75rem;
+            --bs-btn-padding-y: 0.375rem;
+            --bs-btn-font-family: ;
+            --bs-btn-font-size: 1rem;
+            --bs-btn-font-weight: 400;
+            --bs-btn-line-height: 1.5;
+            --bs-border-radius:5px;
+            --bs-btn-color: var(--bs-body-color);
+            --bs-btn-bg: transparent;
+            --bs-btn-border-width: var(--bs-border-width);
+            --bs-btn-border-color: transparent;
+            --bs-btn-border-radius: var(--bs-border-radius);
+            --bs-btn-hover-border-color: transparent;
+            --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),0 1px 1px rgba(0, 0, 0, 0.075);
+            --bs-btn-disabled-opacity: 0.65;
+            --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+            display: inline-block;
+            padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+            font-family: var(--bs-btn-font-family);
+            font-size: var(--bs-btn-font-size);
+            font-weight: var(--bs-btn-font-weight);
+            line-height: var(--bs-btn-line-height);
+            color: var(--bs-btn-color);
+            text-align: center;
+            text-decoration: none;
+            vertical-align: middle;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+            border-radius: var(--bs-btn-border-radius);
+            background-color: var(--bs-btn-bg);
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;;
+            color: white;
+        }
+        input[type=password]{
+            padding: 0.575rem!important;
+            margin: 0!important;
+        }
+        .btn-primary:hover{
+            background-color: #0a58ca;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.745);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            text-align: Center;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+            border-radius: 5px;
+        }
+
+        .close {
+            color: #b70b0b;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}

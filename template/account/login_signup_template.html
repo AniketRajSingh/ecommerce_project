@@ -316,6 +316,11 @@ section .container.active .signinBx .imgBx {
               Don't have an account ?
               <a class="text-success" href="#" onclick="toggleForm();">Sign Up.</a>
             </p>
+            <p class="text-center" >OR</p>
+            <p class="signup">
+              Forgot Password ?
+              <a class="text-success" href="{% url 'password_reset_view' %}" onclick="toggleForm();">Reset Password</a>
+            </p>
           </form>
         </div>
       </div>
@@ -325,7 +330,7 @@ section .container.active .signinBx .imgBx {
             {% csrf_token %}
             <h2 class="text-success">Create an account</h2>
         
-            <input type="text" name="username" maxlength="150" required id="id_username" class="form-control" placeholder="Username">
+            <input type="text" name="username1" maxlength="150" required id="id_username" class="form-control" placeholder="Username">
             {{ form.username.errors }}
         
             <input type="password" name="password1" required id="id_password1" class="form-control" placeholder="Create Password">
@@ -341,6 +346,11 @@ section .container.active .signinBx .imgBx {
                 Already have an account ?
                 <a class="text-success" href="#" onclick="toggleForm();">Sign in.</a>
             </p>
+            <p class="text-center" >OR</p>
+            <p class="signup">
+              Forgot Password ?
+              <a class="text-success" href="{% url 'password_reset_view' %}" onclick="toggleForm();">Reset Password</a>
+            </p>
         </form>
         
         </div>
@@ -353,49 +363,86 @@ section .container.active .signinBx .imgBx {
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>
       const toggleForm = () => {
-  const container = document.querySelector('.container');
-  container.classList.toggle('active');
-};
+        const container = document.querySelector('.container');
+        container.classList.toggle('active');
+      };
     </script>
     <script>
       $(document).ready(function () {
-    // Function to show error messages dynamically
-    function showError(input, message) {
-        var errorDiv = input.next(".error-message");
-        if (!errorDiv.length) {
-            errorDiv = $('<div class="error-message"></div>');
-            input.after(errorDiv);
+        // Function to show error messages dynamically
+        function showError(input, message) {
+            var errorDiv = input.next(".error-message");
+            if (!errorDiv.length) {
+                errorDiv = $('<div class="error-message"></div>');
+                input.after(errorDiv);
+            }
+            errorDiv.text(message);
         }
-        errorDiv.text(message);
-    }
-
-    // Function to hide error messages
-    function hideError(input) {
-        input.next(".error-message").remove();
-    }
-
-    // Show/hide error messages based on input
-    $("input[name='username']").on("input", function () {
-        if ($(this).val().length > 150) {
-            showError($(this), "Username must be 150 characters or fewer.");
-        } else {
-            hideError($(this));
+      
+        // Function to hide error messages
+        function hideError(input) {
+            input.next(".error-message").remove();
         }
+      
+        // Show/hide error messages based on input
+        $("input[name='username']").on("input", function () {
+            if ($(this).val().length > 150) {
+                showError($(this), "Username must be 150 characters or fewer.");
+            } else {
+                hideError($(this));
+            }
+        });
+      
+        // Repeat similar logic for other password validations
+      
+        $("input[name='password2']").on("input", function () {
+            var password1 = $("input[name='password1']").val();
+            var password2 = $(this).val();
+        
+            if (password1 !== password2) {
+                showError($(this), "Passwords do not match.");
+            } else {
+                hideError($(this));
+            }
+        });
+        // Function to handle signup form submission
+        function handleSignupSubmit(event) {
+            event.preventDefault();
+
+            const usernameInput = document.querySelector('input[name="username1"]');
+            const password1Input = document.querySelector('input[name="password1"]');
+            const password2Input = document.querySelector('input[name="password2"]');
+
+            const formData = new FormData();
+            formData.append('username', usernameInput.value);
+            formData.append('password1', password1Input.value);
+            formData.append('password2', password2Input.value);
+
+            fetch("{% url 'signup' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to the edit_profile page
+                    window.location.href = "{% url 'edit_profile' %}";
+                } else {
+                    // Display the error message
+                    alert(data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting form:', error);
+            });
+        }
+
+        // Add event listener to the signup form
+        const signupForm = document.querySelector('form[action="{% url 'signup' %}"]');
+        signupForm.addEventListener('submit', handleSignupSubmit);
     });
-
-    // Repeat similar logic for other password validations
-
-    $("input[name='password2']").on("input", function () {
-        var password1 = $("input[name='password1']").val();
-        var password2 = $(this).val();
-
-        if (password1 !== password2) {
-            showError($(this), "Passwords do not match.");
-        } else {
-            hideError($(this));
-        }
-    });
-});
-
-    </script>
-{% endblock %}
+</script>
+{% endblock javascript %}
