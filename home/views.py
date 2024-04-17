@@ -48,6 +48,9 @@ def product_search(request):
 def about(request):  
     return render(request, 'about.html')
 
+def coldpress(request):  
+    return render(request, 'coldpress.html')
+
 def contact(request):  
     return render(request, 'contact.html')
 

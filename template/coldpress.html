@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}
+Oil Comparison
+{% endblock title %}
+
+{% block styles %}
+<style>
+.btn.rounded-pill {
+  border-radius: 18px;
+  text-align: center;
+}
+h5{
+    font-weight: bolder;
+}
+@media (max-width: 768px) {
+    h5 {
+        font-size: 1rem; /* Adjust the font size for h5 on mobile */
+    }
+    p {
+        font-size: 14px; /* Adjust the font size for paragraphs on mobile */
+    }
+    h1{
+        font-size: larger;
+    }
+}
+</style>
+{% endblock styles %}
+
+{% block body %}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-6 col-md-6 pt-4 pb-4 text-center">
+            <h1>REFINED OIL</h1>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4 text-center">
+            <h1>COLD PRESSED OIL</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Extraction Process</button></div>
+        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+            <h5>Manufactured by Chemical Process:</h5>
+            <p>Manufactured by chemical process: Very harsh chemicals like Hexane, N-Heptane, Neutralizers, Bleach, Anti-foaming agents are being used during extraction.</p>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4">
+            <h5>No Chemicals / Preservatives added during process:</h5>
+            <p>No Chemicals / Preservatives added during process: Manufactured by natural process by applying only mechanical pressure.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Processing Temperature</button></div>
+        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+            <h5>Higher up to 350°C:</h5>
+            <p>Higher up to 350°C: Subjected to higher temperatures during extraction and refining, which leads to the loss of heat-sensitive nutrients.</p>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4">
+            <h5>Lower than 60°C:</h5>
+            <p>Processed at lower temperatures, preserving the oil's natural properties and preventing the degradation of heat-sensitive compounds like antioxidants and vitamins.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Nutritional Value</button></div>
+        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+            <h5>Nutritional value lost:</h5>
+            <p>Nutritional value lost: Lighter color and no aroma, refining process results in the loss of nutritional components present in the raw material.</p>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4">
+            <h5>High in Nutritional Value:</h5>
+            <p>High in Nutritional Value: Retains more natural antioxidants, vitamins, and minerals due to the gentle extraction process. It often has a richer flavor and a deeper color.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Chemical Additives</button></div>
+        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+            <h5>Chemical Additives present:</h5>
+            <p>Chemical Additives present: Contain additives, preservatives, and antioxidants added during the refining process to improve shelf life and stability.</p>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4">
+            <h5>No chemical Additives:</h5>
+            <p>No chemical Additives: Typically free from chemical additives and preservatives since it undergoes minimal processing.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Seed Quality</button></div>
+        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+            <h5>Bad and Rejected seeds:</h5>
+            <p>Bad and Rejected seeds: As refining process is employed, bad quality seeds are used for extraction and refined later through chemical process.</p>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4">
+            <h5>By Process Good seeds:</h5>
+            <p>By Process Good seeds: As no chemicals involved using good quality seeds is mandate and gives us maximum health benefits.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Cost and Quality</button></div>
+        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+            <h5>Cheap in cost and Quality:</h5>
+            <p>Cheap in cost and Quality: As refining process allows for mass production and usage of rejected / lower quality seeds.</p>
+        </div>
+        <div class="col-6 col-md-6 pt-4 pb-4">
+            <h5>Value for money with best quality:</h5>
+            <p>Value for money with best quality: Tends to be more expensive due to the labor-intensive, time-consuming extraction process and best quality product.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}
+
+{% block javascript %}
+{% endblock javascript %}
