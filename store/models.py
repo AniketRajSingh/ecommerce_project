@@ -44,6 +44,12 @@ class Product(models.Model):
     description = models.TextField(blank=True, null=True)
     short_description = models.TextField(blank=True, null=True)
     bestsellers_img = models.ImageField(upload_to='bestsellers/', null=True, blank=True)
+    TAG_CHOICES = [
+        ('personal', 'Personal Care'),
+        ('grocery', 'Grocery'),
+        ('household', 'Household Essentials'),
+    ]
+    tag = models.CharField(max_length=20, choices=TAG_CHOICES, default='grocery')
 
     def __str__(self):
         return self.name
