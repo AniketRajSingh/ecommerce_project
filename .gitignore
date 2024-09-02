@@ -6,3 +6,10 @@
 
 # Ignore settings files
 settings.json
+
+# Ignore Virtual Environment
+/.venv/*
+
+# Ignore All Python Cache
+
+*.pyc

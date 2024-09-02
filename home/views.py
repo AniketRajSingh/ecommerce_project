@@ -51,6 +51,13 @@ def about(request):
 def coldpress(request):  
     return render(request, 'coldpress.html')
 
+def knowouroils(request):  
+    products = Product.objects.all()
+    return render(request, 'knowouroils.html', {'products': products})
+
+def ouroperation(request):  
+    return render(request, 'ouroperation.html')
+
 def contact(request):  
     return render(request, 'contact.html')
 

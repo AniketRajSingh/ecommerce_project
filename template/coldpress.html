@@ -13,6 +13,19 @@ Oil Comparison
 h5{
     font-weight: bolder;
 }
+
+.header-ss{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #38a509;
+    background-image: url("static/image-pages/greyzz.png");
+}
 @media (max-width: 768px) {
     h5 {
         font-size: 1rem; /* Adjust the font size for h5 on mobile */
@@ -29,6 +42,10 @@ h5{
 
 {% block body %}
 
+<div class="row mb-2 header-ss">
+    <h1 style="width: max-content; color: white;">WHY COLDPRESS?</h1>
+    <span style="width: max-content;"><a style="text-decoration: none;color: white;" href="/">Home</a> / Why Coldpressed ?</span>
+</div>
 <div class="container my-5">
     <div class="row">
         <div class="col-6 col-md-6 pt-4 pb-4 text-center">
@@ -102,6 +119,16 @@ h5{
         <div class="col-6 col-md-6 pt-4 pb-4">
             <h5>Value for money with best quality:</h5>
             <p>Value for money with best quality: Tends to be more expensive due to the labor-intensive, time-consuming extraction process and best quality product.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div style="text-align:center;"><button class="btn btn-success rounded-pill">Results</button></div>
+        <div class="col-5 col-md-5 mt-5" style="border: #333 solid 1px; border-radius: 13px; height:max-content; padding: 30px; padding-bottom:15px">
+            <p>After undergoing harsh chemical method of extraction we get only visually impressive product.</p>
+        </div>
+        <div class="col-2 col-md-2"></div>
+        <div class="col-5 col-md-5 mt-5" style="border: #333 solid 1px; border-radius: 13px; height:max-content; padding: 30px; padding-bottom:15px">
+            <p>Wood extraction method extracts health friendly oils which is rich in vitamins & minerals</p>
         </div>
     </div>
 </div>

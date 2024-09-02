@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+
+{% block title %}
+Oil Comparison
+{% endblock title %}
+
+{% block styles %}
+<style>
+    .btn.rounded-pill {
+        border-radius: 18px;
+        text-align: center;
+    }
+
+    h5 {
+        font-weight: bolder;
+    }
+
+    .header-ss {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        padding-right: 20px;
+        padding-left: 20px;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #38a509;
+        background-image: url("static/image-pages/greyzz.png");
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .leaf-icon {
+        height: 2rem;
+        margin-inline: 8px;
+    }
+
+    #section-flowchart {
+        background-image: url('/static/image-pages/SNEHSATTVA-FLOWCHART.png');
+        background-size: auto 160vh;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 165vh;
+        font-size: small;
+        width: 1000px;
+        display: flex;
+        justify-content: center;
+    }
+
+    #section-flowchart-mobile {
+        display: none;
+    }
+
+    #section-flowchart h1 {
+        font-size: larger;
+    }
+
+    .ct-section-inner-wrap {
+        width: 800px;
+    }
+
+    .col-alignment {
+        display: flex;
+        justify-content: center;
+    }
+
+    #new_columns-12-570 {
+        display: flex;
+        align-items: center;
+        padding-top: 150px;
+
+    }
+
+    #new_columns-20-570 {
+        display: flex;
+        align-items: center;
+        padding-top: 55px;
+
+    }
+
+    #new_columns-28-570 {
+        display: flex;
+        align-items: center;
+        padding-top: 55px;
+
+    }
+
+    #new_columns-36-570 {
+        display: flex;
+        align-items: center;
+        padding-top: 55px;
+
+    }
+
+    #new_columns-44-570 {
+        display: flex;
+        align-items: center;
+        padding-top: 55px;
+
+    }
+
+    .new-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .new-section #block-video {
+        width: 100%;
+    }
+
+    .new-section #block-video iframe {
+        width: 100%;
+        height: 60vh;
+    }
+
+    .new-section h3 {
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        h5 {
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: larger;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #section-flowchart {
+            display: none;
+        }
+
+        #section-flowchart-mobile {
+            display: block;
+            width: 100%;
+        }
+
+        .ct-section-inner-wrap {
+            width: 100%;
+        }
+        .row{
+            padding-top: 10px!important;
+        }
+
+        .circle{
+            background-color: #38a509;
+            border-radius: 50%;
+            width: 25px;
+            aspect-ratio: 1;
+            margin-inline: auto;
+        }
+        .connector{
+            background-color: #38a509;
+            width: 0;
+            border: #38a509 solid 2px;
+            margin-inline: auto ;
+            height: 50px;
+        }
+        .triangle{
+            width: 0px;
+            border-top-color: #38a509;
+            border-top-width: 20px;
+            border-top-style: solid;
+            border-right-width: 12px;
+            border-right-style: solid;
+            border-left-width: 12px;
+            border-left-style: solid;
+            border-right-color: #69221b00;
+            border-left-color: #69221b00;
+            margin-inline: auto;
+        }
+        .ct-text-block{
+            margin-bottom: 10px;
+            text-align: center;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block body %}
+
+<div class="row mb-2 header-ss">
+    <h1 style="width: max-content; color: white;">OUR OPERATIONS</h1>
+    <span style="width: max-content;"><a style="text-decoration: none;color: white;" href="/">Home</a> / Our Operations
+        ?</span>
+</div>
+<div class="container my-5">
+    <div class="row">
+        <div class="pt-4 pb-4 text-center">
+            <div class="d-flex justify-content-center">
+                <img class="leaf-icon" src="static/image-pages/leaf.png" alt="leaf">
+                <h4>Sourcing to Selling Wood Pressed Oils</h4>
+                <img class="leaf-icon" src="static/image-pages/leaf.png" alt="leaf">
+            </div>
+        </div>
+    </div>
+    <section id="section-flowchart" class="ct-section">
+        <div class="ct-section-inner-wrap">
+            <div id="new_columns-12-570" class="row">
+                <div id="div_block-13-570" class="col-4 ">
+                    <h1 id="headline-14-570" class="ct-headline">Sourcing</h1>
+                    <div id="text_block-15-570" class="ct-text-block">Our seeds are sourced directly from farmers
+                        through various markets like Disa, Amreli, Tiptur, Rajkot, Latur, Vijapur etc.</div>
+                </div>
+                <div id="div_block-16-570" class="col-4 col-alignment"><img id="image-17-570"
+                        alt="Seeds sourced through various markets like Disa, Amreli, Tiptur, Rajkot, Latur, Vijapur etc."
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img1.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img1.png 133w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img1-100x100.png 100w"
+                        sizes="(max-width: 133px) 100vw, 133px"></div>
+                <div id="div_block-18-570" class="col-4 col-alignment"><img id="image-19-570"
+                        alt="Seeds sourced from farmers"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons1.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons1.png 117w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons1-100x100.png 100w"
+                        sizes="(max-width: 117px) 100vw, 117px"></div>
+            </div>
+            <div id="new_columns-20-570" class="row">
+                <div id="div_block-21-570" class="col-4 col-alignment"><img id="image-22-570"
+                        alt="Process done in GMP certified environment"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons2.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons2.png 116w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons2-100x100.png 100w"
+                        sizes="(max-width: 116px) 100vw, 116px"></div>
+                <div id="div_block-23-570" class="col-4 col-alignment"><img id="image-24-570"
+                        alt="Seed cleaning to remove impurities"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img2.png" class="ct-image"
+                        srcset="" sizes="(max-width: 133px) 100vw, 133px"></div>
+                <div id="div_block-25-570" class="col-4 ">
+                    <h1 id="headline-26-570" class="ct-headline">Seed Cleaning</h1>
+                    <div id="text_block-27-570" class="ct-text-block">Seeds go through destoner and gravity separator to
+                        remove any dust particles, stones, heavy met.al, straw or other impurities</div>
+                </div>
+            </div>
+            <div id="new_columns-28-570" class="row">
+                <div id="div_block-29-570" class="col-4 ">
+                    <h1 id="headline-30-570" class="ct-headline">Extraction</h1>
+                    <div id="text_block-31-570" class="ct-text-block">Oil is extracted in GMP certified hygienic
+                        environment with utmost condition to avoid contamination. After extraction, oil is settled for 2
+                        days and filtered through 10 micron cotton filter.</div>
+                </div>
+                <div id="div_block-32-570" class="col-4 col-alignment"><img id="image-33-570"
+                        alt="Oil is settled for 2 days and filtered through 10 micron cotton filter"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/Groundnut-Oil-1-Liter-Noon-N.I-SIDE-150-×-150-px.png"
+                        class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/Groundnut-Oil-1-Liter-Noon-N.I-SIDE-150-×-150-px.png 133w, https://indicwisdom.com/wp-content/uploads/2022/12/Groundnut-Oil-1-Liter-Noon-N.I-SIDE-150-×-150-px-100x100.png 100w"
+                        sizes="(max-width: 133px) 100vw, 133px"></div>
+                <div id="div_block-34-570" class="col-4 col-alignment"><img id="image-35-570"
+                        alt="Traditional wood pressing method"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons3.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons3.png 116w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons3-100x100.png 100w"
+                        sizes="(max-width: 116px) 100vw, 116px"></div>
+            </div>
+            <div id="new_columns-36-570" class="row">
+                <div id="div_block-37-570" class="col-4 col-alignment"><img id="image-38-570"
+                        alt="Oil extraction in GMP certified hygienic environment"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons4.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons4.png 115w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons4-100x100.png 100w"
+                        sizes="(max-width: 115px) 100vw, 115px"></div>
+                <div id="div_block-39-570" class="col-4 col-alignment"><img id="image-40-570"
+                        alt="Tested by expert food technologists"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img4.png" class="ct-image"
+                        srcset="" sizes="(max-width: 133px) 100vw, 133px"></div>
+                <div id="div_block-41-570" class="col-4 ">
+                    <h1 id="headline-42-570" class="ct-headline">Testing</h1>
+                    <div id="text_block-43-570" class="ct-text-block">Every bottle going out is tested by expert food
+                        technologists in our inhouse state of the art laboratory.</div>
+                </div>
+            </div>
+            <div id="new_columns-44-570" class="row">
+                <div id="div_block-45-570" class="col-4">
+                    <h1 id="headline-46-570" class="ct-headline">Dispatch</h1>
+                    <div id="text_block-47-570" class="ct-text-block">To minimize handling and storages in multiple
+                        places, we pack and ship the boxes directly from our own dispatch center. This ensures the
+                        minimum handling of the bottles.</div>
+                </div>
+                <div id="div_block-48-570" class="col-4 col-alignment"><img id="image-49-570"
+                        alt="We pack and ship the boxes from our own dispatch center"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img5-1.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img5-1.png 133w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img5-1-100x100.png 100w"
+                        sizes="(max-width: 133px) 100vw, 133px"></div>
+                <div id="div_block-50-570" class="col-4 col-alignment"><img id="image-51-570" alt="Packing and Shipping"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons5.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons5.png 116w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_icons5-100x100.png 100w"
+                        sizes="(max-width: 116px) 100vw, 116px"></div>
+            </div>
+        </div>
+    </section>
+    <section id="section-flowchart-mobile" class="ct-section">
+        <div class="ct-section-inner-wrap">
+            <div class="circle"></div>
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            <div id="new_columns-12-570" class="row">
+                <div id="div_block-16-570" class="col-12 col-alignment"><img id="image-17-570"
+                        alt="Seeds sourced through various markets like Disa, Amreli, Tiptur, Rajkot, Latur, Vijapur etc."
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img1.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img1.png 133w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img1-100x100.png 100w"
+                        sizes="(max-width: 133px) 100vw, 133px">
+                </div>
+                <div id="div_block-13-570" class="col-12 ">
+                    <h1 id="headline-14-570" class="ct-headline">Sourcing</h1>
+                    <div id="text_block-15-570" class="ct-text-block">Our seeds are sourced directly from farmers
+                        through various markets like Disa, Amreli, Tiptur, Rajkot, Latur, Vijapur etc.</div>
+                </div>
+            </div>
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            <div class="triangle"></div>
+            <div id="new_columns-20-570" class="row">
+
+                <div id="div_block-23-570" class="col-12 col-alignment"><img id="image-24-570"
+                        alt="Seed cleaning to remove impurities"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img2.png" class="ct-image"
+                        srcset="" sizes="(max-width: 133px) 100vw, 133px"></div>
+                <div id="div_block-25-570" class="col-12 ">
+                    <h1 id="headline-26-570" class="ct-headline">Seed Cleaning</h1>
+                    <div id="text_block-27-570" class="ct-text-block">Seeds go through destoner and gravity separator to
+                        remove any dust particles, stones, heavy met.al, straw or other impurities</div>
+                </div>
+            </div>
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            <div class="triangle"></div>
+            <div id="new_columns-28-570" class="row">
+                <div id="div_block-32-570" class="col-12 col-alignment">
+                    <img id="image-33-570" alt="Oil is settled for 2 days and filtered through 10 micron cotton filter"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/Groundnut-Oil-1-Liter-Noon-N.I-SIDE-150-×-150-px.png"
+                        class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/Groundnut-Oil-1-Liter-Noon-N.I-SIDE-150-×-150-px.png 133w, https://indicwisdom.com/wp-content/uploads/2022/12/Groundnut-Oil-1-Liter-Noon-N.I-SIDE-150-×-150-px-100x100.png 100w"
+                        sizes="(max-width: 133px) 100vw, 133px">
+                </div>
+                <div id="div_block-29-570" class="col-12 ">
+                    <h1 id="headline-30-570" class="ct-headline">Extraction</h1>
+                    <div id="text_block-31-570" class="ct-text-block">Oil is extracted in GMP certified hygienic
+                        environment with utmost condition to avoid contamination. After extraction, oil is settled for 2
+                        days and filtered through 10 micron cotton filter.
+                    </div>
+                </div>
+            </div>
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            <div class="triangle"></div>
+            <div id="new_columns-36-570" class="row">
+
+                <div id="div_block-39-570" class="col-12 col-alignment"><img id="image-40-570"
+                        alt="Tested by expert food technologists"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img4.png" class="ct-image"
+                        srcset="" sizes="(max-width: 133px) 100vw, 133px">
+                </div>
+                <div id="div_block-41-570" class="col-12 ">
+                    <h1 id="headline-42-570" class="ct-headline">Testing</h1>
+                    <div id="text_block-43-570" class="ct-text-block">Every bottle going out is tested by expert food
+                        technologists in our inhouse state of the art laboratory.</div>
+                </div>
+
+            </div>
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            <div class="triangle"></div>
+            <div id="new_columns-44-570" class="row">
+                <div id="div_block-48-570" class="col-12 col-alignment"><img id="image-49-570"
+                        alt="We pack and ship the boxes from our own dispatch center"
+                        src="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img5-1.png" class="ct-image"
+                        srcset="https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img5-1.png 133w, https://indicwisdom.com/wp-content/uploads/2022/12/our_pro_img5-1-100x100.png 100w"
+                        sizes="(max-width: 133px) 100vw, 133px">
+                </div>
+
+                <div id="div_block-45-570" class="col-12">
+                    <h1 id="headline-46-570" class="ct-headline">Dispatch</h1>
+                    <div id="text_block-47-570" class="ct-text-block">To minimize handling and storages in multiple
+                        places, we pack and ship the boxes directly from our own dispatch center. This ensures the
+                        minimum handling of the bottles.
+                    </div>
+                </div>
+            </div>
+            <div class="connector">
+                <div class="connector-line"></div>
+            </div>
+            <div class="circle mb-4"></div>
+        </div>
+    </section>
+    <section>
+        <div class="new-section">
+            <div id="block-video" class="ct-div-block">
+                <div id="video" class="ct-video">
+                    <div class="oxygen-vsb-responsive-video-wrapper"><iframe
+                            src="https://www.youtube.com/embed/E5g32wz2zAQ?rel=0" frameborder="0"
+                            webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+                </div>
+            </div>
+            <h3 class="ct-headline">Our Process from Farm to Fork</h3><br>
+            <p>We source seeds directly from farms, preprocess them and
+                then extract the oil.</p><br>
+            <p>The oil is filtered with 2 micron cotton bags and then
+                last check is performed again before labeling.</p><br>
+            <p>Check our entire wood pressed oil manufacturing process in
+                this video.</p>
+        </div>
+    </section>
+</div>
+
+{% endblock body %}
+
+{% block javascript %}
+{% endblock javascript %}
