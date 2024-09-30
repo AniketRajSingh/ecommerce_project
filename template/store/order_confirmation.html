@@ -790,11 +790,8 @@ Order Confirmation
         "color": "#528FF0"
       }
     };
-
-    setTimeout(function() {
-      var rzp1 = new Razorpay(options);
-      rzp1.open();
-    }, 10000);
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
     document.querySelector('.popup').style.display = 'none';
   }
   document.getElementById('cod-button').onclick = function() {

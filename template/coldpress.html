@@ -5,6 +5,7 @@ Oil Comparison
 {% endblock title %}
 
 {% block styles %}
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <style>
 .btn.rounded-pill {
   border-radius: 18px;
@@ -12,6 +13,14 @@ Oil Comparison
 }
 h5{
     font-weight: bolder;
+}
+.body-container{
+    overflow: hidden;
+}
+.side-vector-img{
+    width: 80%;
+    margin-inline: 10%;
+    margin-bottom: 10px;
 }
 
 .header-ss{
@@ -26,6 +35,14 @@ h5{
     background-color: #38a509;
     background-image: url("static/image-pages/greyzz.png");
 }
+.iframe-yt{
+    width: 97%;
+    height: 40vh;
+    margin-inline: 1.5%;
+}
+.d-flex-cp{
+        display: flex;
+    }
 @media (max-width: 768px) {
     h5 {
         font-size: 1rem; /* Adjust the font size for h5 on mobile */
@@ -35,6 +52,9 @@ h5{
     }
     h1{
         font-size: larger;
+    }
+    .d-flex-cp{
+        display: block;
     }
 }
 </style>
@@ -46,6 +66,7 @@ h5{
     <h1 style="width: max-content; color: white;">WHY COLDPRESS?</h1>
     <span style="width: max-content;"><a style="text-decoration: none;color: white;" href="/">Home</a> / Why Coldpressed ?</span>
 </div>
+<iframe class="iframe-yt" src="https://www.youtube.com/embed/Mv0BoCDOL3c?si=ahK7K41XXcB-3uGf&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <div class="container my-5">
     <div class="row">
         <div class="col-6 col-md-6 pt-4 pb-4 text-center">
@@ -57,78 +78,138 @@ h5{
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Extraction Process</button></div>
-        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-right" style="border-right: #333 solid 1px;">
+            <div class="side-img">
+                <img src="/static/coldpress/1.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Manufactured by Chemical Process:</h5>
             <p>Manufactured by chemical process: Very harsh chemicals like Hexane, N-Heptane, Neutralizers, Bleach, Anti-foaming agents are being used during extraction.</p>
+            </div>
         </div>
-        <div class="col-6 col-md-6 pt-4 pb-4">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-left">
+            <div class="side-img">
+                <img src="/static/coldpress/2.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>No Chemicals / Preservatives added during process:</h5>
             <p>No Chemicals / Preservatives added during process: Manufactured by natural process by applying only mechanical pressure.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Processing Temperature</button></div>
-        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-right" style="border-right: #333 solid 1px;">
+            <div class="side-img">
+                <img src="/static/coldpress/3.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Higher up to 350°C:</h5>
             <p>Higher up to 350°C: Subjected to higher temperatures during extraction and refining, which leads to the loss of heat-sensitive nutrients.</p>
+            </div>
         </div>
-        <div class="col-6 col-md-6 pt-4 pb-4">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-left">
+            <div class="side-img">
+                <img src="/static/coldpress/4.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Lower than 60°C:</h5>
             <p>Processed at lower temperatures, preserving the oil's natural properties and preventing the degradation of heat-sensitive compounds like antioxidants and vitamins.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Nutritional Value</button></div>
-        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-right" style="border-right: #333 solid 1px;">
+            <div class="side-img">
+                <img src="/static/coldpress/5.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Nutritional value lost:</h5>
             <p>Nutritional value lost: Lighter color and no aroma, refining process results in the loss of nutritional components present in the raw material.</p>
+            </div>
         </div>
-        <div class="col-6 col-md-6 pt-4 pb-4">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-left">
+            <div class="side-img">
+                <img src="/static/coldpress/6.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>High in Nutritional Value:</h5>
             <p>High in Nutritional Value: Retains more natural antioxidants, vitamins, and minerals due to the gentle extraction process. It often has a richer flavor and a deeper color.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Chemical Additives</button></div>
-        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-right" style="border-right: #333 solid 1px;">
+            <div class="side-img">
+                <img src="/static/coldpress/7.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Chemical Additives present:</h5>
             <p>Chemical Additives present: Contain additives, preservatives, and antioxidants added during the refining process to improve shelf life and stability.</p>
+            </div>
         </div>
-        <div class="col-6 col-md-6 pt-4 pb-4">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-left">
+            <div class="side-img">
+                <img src="/static/coldpress/8.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>No chemical Additives:</h5>
             <p>No chemical Additives: Typically free from chemical additives and preservatives since it undergoes minimal processing.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Seed Quality</button></div>
-        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-right" style="border-right: #333 solid 1px;">
+            <div class="side-img">
+                <img src="/static/coldpress/9.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Bad and Rejected seeds:</h5>
             <p>Bad and Rejected seeds: As refining process is employed, bad quality seeds are used for extraction and refined later through chemical process.</p>
+            </div>
         </div>
-        <div class="col-6 col-md-6 pt-4 pb-4">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-left">
+            <div class="side-img">
+                <img src="/static/coldpress/10.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>By Process Good seeds:</h5>
             <p>By Process Good seeds: As no chemicals involved using good quality seeds is mandate and gives us maximum health benefits.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Cost and Quality</button></div>
-        <div class="col-6 col-md-6 pt-4 pb-4" style="border-right: #333 solid 1px;">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-right" style="border-right: #333 solid 1px;">
+            <div class="side-img">
+                <img src="/static/coldpress/11.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Cheap in cost and Quality:</h5>
             <p>Cheap in cost and Quality: As refining process allows for mass production and usage of rejected / lower quality seeds.</p>
+            </div>
         </div>
-        <div class="col-6 col-md-6 pt-4 pb-4">
+        <div class="col-6 col-md-6 pt-4 pb-4 d-flex-cp" data-aos="fade-left">
+            <div class="side-img">
+                <img src="/static/coldpress/12.png" alt="side-vector-image" class="side-vector-img">
+            </div>
+            <div class="side-text">
             <h5>Value for money with best quality:</h5>
             <p>Value for money with best quality: Tends to be more expensive due to the labor-intensive, time-consuming extraction process and best quality product.</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div style="text-align:center;"><button class="btn btn-success rounded-pill">Results</button></div>
-        <div class="col-5 col-md-5 mt-5" style="border: #333 solid 1px; border-radius: 13px; height:max-content; padding: 30px; padding-bottom:15px">
-            <p>After undergoing harsh chemical method of extraction we get only visually impressive product.</p>
+        <div class="col-5 col-md-5 mt-5" style="border: #333 solid 1px; border-radius: 13px; height:max-content; padding: 30px; padding-bottom:15px; margin-right: -10px; margin-left: 10px;">
+            <p>After undergoing harsh chemical method of extraction we get only visually impressive product.</p>      
         </div>
         <div class="col-2 col-md-2"></div>
-        <div class="col-5 col-md-5 mt-5" style="border: #333 solid 1px; border-radius: 13px; height:max-content; padding: 30px; padding-bottom:15px">
-            <p>Wood extraction method extracts health friendly oils which is rich in vitamins & minerals</p>
+        <div class="col-5 col-md-5 mt-5" style="border: #333 solid 1px; border-radius: 13px; height:max-content; padding: 30px; padding-bottom:15px;  margin-right: 10px; margin-left: -10px;">
+            <p>Wood extraction method extracts health friendly oils which have abundance of vitamins & minerals.</p>
         </div>
     </div>
 </div>
@@ -136,4 +217,8 @@ h5{
 {% endblock body %}
 
 {% block javascript %}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
 {% endblock javascript %}
