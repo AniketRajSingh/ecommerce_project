@@ -53,7 +53,14 @@ def coldpress(request):
 
 def knowouroils(request):  
     products = Product.objects.all()
-    return render(request, 'knowouroils.html', {'products': products})
+    selected_product = request.GET.get('product', None)
+    
+    context = {
+        'products': products,
+        'selected_product': selected_product,
+    }
+
+    return render(request, 'knowouroils.html', context)
 
 def ouroperation(request):  
     return render(request, 'ouroperation.html')

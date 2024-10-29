@@ -6,6 +6,84 @@ Oil Comparison
 
 {% block styles %}
 <style>
+    .card-img-top {
+        height: 200px;
+        object-fit: contain;
+        width: 100%;
+        border-bottom: 1px solid #a4a4a4;
+    }
+
+    button:disabled {
+        color: #999 !important;
+        border: #dc3545 solid 1px;
+        padding: 3px;
+    }
+
+    .discount {
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .drop-quantity {
+        border: #38a509 solid 1px;
+        color: #38a509;
+        border-radius: 5px;
+        padding: 3px;
+    }
+
+    .category-btn {
+        background-color: #38a509;
+        color: white;
+        margin: 10px;
+        border: #38a509 solid 1px;
+    }
+
+    .category-btn:hover {
+        border: #38a509 solid 1px;
+        color: #38a509;
+    }
+
+    .category-section {
+        position: fixed;
+    }
+
+    .selected {
+        background-color: #1A6F67;
+        border: #38a509 solid 1px;
+        color: white;
+    }
+    .category-box{
+            display: flex;
+            flex-direction: column;
+        }
+
+    @media (max-width: 767px) {
+        .card {
+            flex-direction: column;
+        }
+        .category-btn {
+            width: 40%;
+            font-size: smaller;
+
+        }
+        .category-box{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+        .card-img-top {
+            height: 200px;
+            border-bottom: none;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    }
+</style>
+<style>
 .btn.rounded-pill {
   border-radius: 18px;
   text-align: center;
@@ -14,12 +92,14 @@ h5{
     font-weight: bolder;
 }
 
-
 .card-img-top {
-        height: 200px !important;
-        object-fit: contain !important;
-        border-bottom: 1px solid #ddd;
-    }
+    width: 98% !important;
+    margin: 1%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain !important;
+    border-bottom: 1px solid #ddd;
+}
 
 .header-ss{
     padding-top: 50px;
@@ -59,6 +139,7 @@ h5{
     <h1 style="width: max-content; color: white;">KNOW OUR OILS</h1>
     <span style="width: max-content;"><a style="text-decoration: none;color: white;" href="/">Home</a> / Know our oils </span>
 </div>
+
 <div class="container my-5">
     <div class="row">
         <div class="pt-4 pb-4 text-center">
@@ -70,40 +151,74 @@ h5{
             <p style="width: 35%;" class="m-auto">All our Cold pressed oils are extracted without heating or any chemical process on low RPM wooden churners. These oils are in most natural forms as they are present in plant seeds.</p>
         </div>
     </div>
-    <div class="row">
-        {% for product in products %}
-        <div class="col-12 col-md-4 mb-4">
-            <div class="card h-100">
-                <div id="carousel{{ product.id }}" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for media in product.media_set.all %}
-                            {% if forloop.first %}
-                                <div class="carousel-item active">
-                                    <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
-                                        {% if media.media_type == 'image' %}
-                                            <img src="/{{ media.media_url }}" class="d-block w-100 card-img-top" alt="Product Image">
-                                        {% elif media.media_type == 'video' %}
-                                            <video poster autoplay loop playsinline muted class="d-block w-100 card-img-top">
-                                                <source src="/{{ media.media_url }}" type="video/mp4">
-                                                Your browser does not support the video tag.
-                                            </video>
-                                        {% endif %}
-                                    </a>
-                                </div>
-                            {% endif %}
-                        {% endfor %}
 
-                    </div>
-                </div>
-                <div class="card-body product-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text mobile-hidden">{{ product.short_description }}</p>
+    <div class="row">
+        <div class="col-12 col-md-3 pb-4">
+            <div class="card h-100 text-center">
+                <h3 class="mt-5">Products</h3>
+                <div class="category-box">
+                    <a class="btn category-btn{% if not selected_product %} selected{% endif %}"
+                        href="/knowouroils">All</a></li>
+                    {% for product in products %}
+                        <a class="btn category-btn{% if product.name == selected_product %} selected{% endif %}"
+                            href="?product={{ product.name }}">{{ product.name }}</a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-        {% endfor %}
-    </div>
-</div>
+
+        <div class="col-md-9">
+            {% if selected_product %}
+                {% for product in products %}
+                    {% if product.name == selected_product %}
+                        <div class="col-12 mb-4">
+                            <div class="card h-100">
+                                <div style="width: 99%; margin-inline: 0.5%;margin-top: 5px;" class="d-flex">
+                                    {% for media in product.media_set.all|slice:":3" %}
+                                            <div class="col-4">
+                                                <a href="{% url 'product_detail' product_id=product.id %}" target="_blank">
+                                                    {% if media.media_type == 'image' %}
+                                                        <img src="/{{ media.media_url }}" class="d-block card-img-top card" alt="Product Image">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="card-body product-body">
+                                    <h5 class="card-title text-center m-3">{{ product.name }}</h5>
+                                    <p class="card-text mobile-hidden" style="white-space: pre-line;">{{ product.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                <div style="display: flex;flex-direction: row; flex-wrap: wrap;">
+                {% for product in products %}
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div style="width: 95%; margin-inline:2.5%;" class="card h-100">
+                                <div class="d-flex">
+                                    {% for media in product.media_set.all|slice:":1" %}
+                                            <div class="col-12">
+                                                <a href="?product={{ product.name }}">
+                                                    {% if media.media_type == 'image' %}
+                                                        <img src="/{{ media.media_url }}" class="d-block card-img-top" alt="Product Image">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="card-body product-body">
+                                    <h5 class="card-title text-center">{{ product.name }}</h5>
+                                    <p class="card-text mobile-hidden">{{ product.short_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
 
 {% endblock body %}
 

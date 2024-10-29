@@ -43,7 +43,47 @@ About Us - SNEH-SATTVA COLD PRESSED OIL
         height: auto;
         border-radius: 8px;
     }
+    .left-holder {
+            width: 80%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            border-bottom-right-radius: 0%;
+            padding: 5%;
+            rotate: -45deg;
+        }
 
+        .inner-circle {
+            width: 100%;
+            padding: 5%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            rotate: 45deg;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .vision{
+            background-color: gainsboro;
+            text-align: center;
+            border:rgb(22, 22, 115) solid 3px;
+            border-radius: 30px;
+        }
+        .vision h1{
+            color: black;
+            font-size: 2rem;
+        }
+        .mission{
+            background-color: lightgoldenrodyellow;
+            text-align: center;
+            border:rgb(22, 22, 115) solid 3px;
+            border-radius: 30px;
+        }
+        .mission h1{
+            color: black;
+            font-size: 2rem;
+        }
+        
     /* Responsive styles */
     @media (max-width: 767px) {
         .hero-section {
@@ -84,19 +124,71 @@ About Us - SNEH-SATTVA COLD PRESSED OIL
 <!-- About Us Section -->
 <section class="about-content">
     <div class="container">
-        <div class="row">
-            <h2 class="text-center mb-5">About Us</h2>
-            <div class="col-lg-6">
-                <p>The team at Snehsattva Oils is immensely focused on bringing food that our ancestors consumed for thousands
-                    of years and making it available to everyone at affordable prices.</p>
-                <p>Our journey has humble beginnings. Our mission is to help customers live a healthy life with affordable
-                    prices, innovative manufacturing processes, and quality management. We want to push people towards
-                    healthy food choices.</p>
-                <p>Our oils are made from the finest quality food grade seeds sourced from farms in Allover India. We take utmost care to preserve their true nutrition, flavor, and aroma.</p>
+        <div class="card m-5 p-3">
+            <div class="row">
+                <div class="col-3">
+                    <div class="left-holder" style="background-color: orange;">
+                        <div class="inner-circle" style="background-color: rgb(255, 245, 225);">
+                            <p>Sourcing directly form Farmers</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex-direction: column;" class="col-9 d-flex align-items-center">
+                    <p style="font-family: 'Open Sans';font-weight: 900;">Elevating the Village Value Chain: Embracing the Essence of Direct Farm Sourcing.</p><br>
+                    <p style="font-family: 'Open Sans';font-weight: 900;">Unlocking the Essence of Quality: Harnessing the Power of Pure Seeds for Healthy, Nutrient-rich Fruits.</p>
+                    <p>At Sneh-Sattva, we uphold a steadfast commitment to excellence, sourcing directly from farmers to ensure the finest raw materials. Our mantra, "Pure Seed ➡️ Healthy Fruits," guides every step of our process, from meticulous seed selection to delivering unparalleled quality oils. We carefully select partners who share our dedication to excellence, guaranteeing premium quality at competitive prices. Join us in experiencing the true essence of cold-pressed perfection.</p>
+                </div>
             </div>
-            <div class="col-lg-6">
-                <img src="/static/about/bottle-image-slider-1440x792.jpg" alt="Team Image" class="about-image">
+        </div>
+        <div class="card m-5 p-3">
+            <div class="row">
+                <div class="col-3">
+                    <div class="left-holder" style="background-color: rgb(191, 212, 50);">
+                        <div class="inner-circle" style="background-color: rgb(240, 255, 225);">
+                            <p>Hulling and sorting</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 d-flex align-items-center justify-content-center">
+                    <p>Each seed undergoes a meticulous process of dehulling and sorting to isolate only the finest specimens. This rigorous selection method guarantees that only the highest-quality seeds are chosen, setting the stage for the exceptional oils we produce. By prioritizing precision and quality at every stage, we ensure that our customers receive nothing but the best, from seed to bottle.</p>
+                </div>
             </div>
+        </div>
+        <div class="card m-5 p-3">
+            <div class="row">
+                <div class="col-3">
+                    <div class="left-holder" style="background-color: rgb(59, 207, 0);">
+                        <div class="inner-circle" style="background-color: rgb(235, 255, 225);">
+                            <p>Innovation & Manufacturing</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 d-flex align-items-center justify-content-center">
+                    <p>Innovation is the cornerstone of success in any endeavor, and here at Sneh-Sattva, we wholeheartedly embrace this philosophy. Within our oil mill, we leverage cutting-edge cold-pressed technology, a testament to our commitment to delivering the highest quality oil to our valued customers. This innovative approach ensures that we not only meet but exceed industry standards, resulting in oils of unparalleled purity and flavor. With our dedication to innovation, we strive to continually raise the bar for excellence in cold-pressed oil production, offering you nothing but the very best.</p>
+                </div>
+            </div>
+        </div>
+        <div class="card m-5 p-3">
+            <div class="row">
+                <div class="col-3">
+                    <div class="left-holder" style="background-color: rgb(2, 131, 2);">
+                        <div class="inner-circle" style="background-color: rgb(225, 255, 226);">
+                            <p>Pure & Natural Oil</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 d-flex align-items-center justify-content-center">
+                    <p>With unwavering dedication to quality and innovation, we pride ourselves on delivering the finest selection of pure and natural cold-pressed oil varieties right to your doorstep. Our meticulous processes guarantee that each drop of oil embodies the essence of freshness and purity. Whether you're seeking the rich flavor of groundnut oil or the nutty aroma of cold-pressed almond oil, our commitment to excellence ensures that every bottle exceeds expectations. Experience the difference that true quality makes with our handcrafted cold-pressed oils, brought directly to you with care and convenience</p>
+                </div>
+            </div>
+        </div>
+        <div class="card m-5 p-4 vision">
+            <h1>VISION</h1>
+            <p>Vision Statement: By 2025, we envision a transformative impact as we lead 50,000 families from the consumption of refined oils to embracing the health benefits of cold-pressed alternatives. Through education, accessibility, and unwavering commitment to quality, we aim to revolutionize lifestyles, fostering a community of individuals empowered to prioritize their health and well-being."</p>
+        </div>
+        <div class="card m-5 p-4 mission">
+            <h1>MISSION</h1>
+            <p>"Empowering Affordable Health: Through innovative manufacturing processes and rigorous quality management, we are dedicated to enabling customers to live healthy lives affordably. Our mission is to continually strive for excellence, ensuring accessibility to high-quality products that promote well-being and vitality for all."</p>
         </div>
     </div>
 </section>
@@ -105,8 +197,7 @@ About Us - SNEH-SATTVA COLD PRESSED OIL
 <section class="about-content">
     <div class="container">
         <div class="row">
-            <h2 class="text-center mb-5">Our Mission</h2>
-            <div class="col-lg-6">
+            <div class="col-lg-6 p-3">
                 <p>That is the way of life our ancestors suggested us and we are here to help you follow a healthy and happy
                     life with all-natural, chemical-free, and affordable prices.</p>
                 <p>This is our effort to make, promote & deliver amazing things discovered by our ancestors to ensure the
